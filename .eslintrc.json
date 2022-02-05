@@ -19,15 +19,17 @@
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/function-component-definition": "off",
+    "react/button-has-type": "off",
     "indent": "off",
     "semi": ["error", "always"],
     "quotes": ["error", "double"],
     "no-trailing-spaces": "off",
     "no-var": "error",
     "no-unused-vars": "warn",
-    "no-console": "error",
+    "no-console": "warn",
     "comma-dangle": "off",
     "no-shadow": "off",
-    "no-use-before-define": "warn"
+    "no-use-before-define": "warn",
+    "no-param-reassign": "off"
   }
 }

@@ -10,7 +10,7 @@
 ## 카드에서 구현 혹은 해결하려는 내용
 
 - 구글 Firebase를 이용한 로그인페이지 구현
-- ​user database에 저장여부에 따른 라우팅(main page, sign-up page)
+- ​user database에 저장여부에 따른 라우팅(main page & sign-up page)
 - 로그아웃 하지 않은 채 다시 접속했을 때 user의 email을 알기 위해 localstorage에 저장
 
 ## 테스트 방법

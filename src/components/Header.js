@@ -17,7 +17,7 @@ const Header = () => {
   const userEmail = localStorage.getItem("userEmail");
 
   const checkUserLogin = () => {
-    return axios.post("http://localhost:8080/auth/login", {
+    return axios.post("http://localhost:8000/auth/login", {
       email: userEmail,
     });
   };
@@ -25,7 +25,9 @@ const Header = () => {
   const onSuccess = ({ data }) => {
     const { user } = data;
 
-    dispatch(userActions.updateUser(user));
+    if (user) {
+      dispatch(userActions.updateUser(user));
+    }
   };
 
   const { isLoading } = useQuery("user", checkUserLogin, {
@@ -44,7 +46,7 @@ const Header = () => {
 
   const handleLogoutClick = async () => {
     try {
-      const { status } = await axios.post("http://localhost:8080/auth/logout", {
+      const { status } = await axios.post("http://localhost:8000/auth/logout", {
         email: userEmail,
       });
 

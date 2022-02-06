@@ -7,7 +7,7 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import GoogleButton from "react-google-button";
 
-import { signupActions } from "../features/signupSlice";
+import { signUpActions } from "../features/signUpSlice";
 import { authentication } from "../utils/firebase";
 
 const Login = () => {
@@ -25,21 +25,22 @@ const Login = () => {
   };
 
   const loginData = () => {
-    return axios.post("http://localhost:8000/auth/login", {
+    return axios.post("/auth/login", {
       email: userEmail,
     });
   };
 
   const onSuccess = ({ data }) => {
+    console.log(data);
     if (data.user) {
-      localStorage.setItem("userEmail", JSON.stringify(data.user.email));
+      localStorage.setItem("userEmail", data.user.email);
 
       navigate("/");
     }
 
     if (data.result === "해당 유저가 존재하지 않습니다") {
       dispatch(
-        signupActions.saveSignupInfo({
+        signUpActions.saveSignUpInfo({
           email: userEmail,
           profileUrl: photoURL,
         })
@@ -53,7 +54,7 @@ const Login = () => {
     }
   };
 
-  const { data } = useQuery("loginData", loginData, {
+  useQuery("loginData", loginData, {
     enabled: !!userEmail,
     onSuccess,
   });
@@ -80,11 +81,10 @@ export default Login;
 
 const MainContainer = styled.div`
   position: relative;
-  height: 90vh;
+  height: 86vh;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #fafafa;
   background: url("/login2.png") no-repeat;
   background-position: center top;
 `;

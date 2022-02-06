@@ -1,9 +1,9 @@
 import React from "react";
-import axios from "axios";
 import { useQuery } from "react-query";
-import styled, { ThemeProvider } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import styled, { ThemeProvider } from "styled-components";
+import axios from "axios";
 
 import { userActions } from "../features/userSlice";
 import theme from "../styles/theme";
@@ -22,8 +22,8 @@ const Header = () => {
     });
   };
 
-  const onSuccess = data => {
-    const { user } = data.data;
+  const onSuccess = ({ data }) => {
+    const { user } = data;
 
     dispatch(userActions.updateUser(user));
   };
@@ -66,7 +66,6 @@ const Header = () => {
     <ThemeProvider theme={theme}>
       <HeaderContainer>
         <Logo to="/">OCN</Logo>
-
         <Container>
           <NavContainer>
             <StyledLink to="/board">Board</StyledLink>

@@ -2,9 +2,9 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Route, Routes } from "react-router-dom";
 
-import GlobalStyle from "../styles/GlobalStyle";
 import Header from "../components/Header";
 import MainPage from "../components/MainPage";
+import GlobalStyle from "../styles/GlobalStyle";
 
 const queryClient = new QueryClient();
 

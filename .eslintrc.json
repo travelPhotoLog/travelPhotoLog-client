@@ -30,6 +30,22 @@
     "comma-dangle": "off",
     "no-shadow": "off",
     "no-use-before-define": "warn",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "consistent-return": "off",
+    "no-underscore-dangle": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", ["parent", "sibling"], "index"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "newlines-between": "always"
+      }
+    ]
   }
 }

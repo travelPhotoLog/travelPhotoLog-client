@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 
 import Header from "../components/Header";
 import MainPage from "../components/MainPage";
+import Login from "../components/Login";
 import GlobalStyle from "../styles/GlobalStyle";
 
 const queryClient = new QueryClient();
@@ -15,6 +16,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <Header />
         <Routes>
+          <Route path="/auth/login" element={<Login />} />
           <Route path="/" element={<MainPage />} />
         </Routes>
       </QueryClientProvider>

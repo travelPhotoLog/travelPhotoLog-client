@@ -1,81 +1,115 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import GoogleButton from "react-google-button";
 
+import { signupActions } from "../features/signupSlice";
 import { authentication } from "../utils/firebase";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [userEmail, setUserEmail] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     const userInfo = await signInWithPopup(authentication, provider);
 
     setUserEmail(userInfo.user.email);
+    setPhotoURL(userInfo.user.photoURL);
   };
 
   const loginData = () => {
-    return axios.post("http://localhost:8000/auth/login", { email: userEmail });
+    return axios.post("http://localhost:8000/auth/login", {
+      email: userEmail,
+    });
   };
 
-  const onSuccess = data => {
-    if (data) {
-      localStorage.setItem("userEmail", JSON.stringify(userEmail));
+  const onSuccess = ({ data }) => {
+    if (data.user) {
+      localStorage.setItem("userEmail", JSON.stringify(data.user.email));
+
       navigate("/");
-    } else {
+    }
+
+    if (data.result === "해당 유저가 존재하지 않습니다") {
+      dispatch(
+        signupActions.saveSignupInfo({
+          email: userEmail,
+          profileUrl: photoURL,
+        })
+      );
+
       navigate("/auth/sign-up");
     }
+
+    if (data.result === "재로그인이 필요한 유저입니다") {
+      navigate("/auth/login");
+    }
   };
 
-  const { isLoading, data, isError, error, isFetching, refetch } = useQuery(
-    "loginData",
-    loginData,
-    {
-      enabled: !!userEmail,
-      onSuccess,
-    }
-  );
+  const { data } = useQuery("loginData", loginData, {
+    enabled: !!userEmail,
+    onSuccess,
+  });
 
   return (
-    <MainContainer>
-      <Container>
-        <LoginContainer>
-          <h3>Welcome to Travel PhotoLog</h3>
-          <GoogleButton onClick={signInWithGoogle}>Click me</GoogleButton>
-        </LoginContainer>
-      </Container>
-    </MainContainer>
+    <>
+      <MainContainer>
+        <Container>
+          <ImageContainer>
+            <p>Hello Travel world</p>
+          </ImageContainer>
+          <div>
+            <h3>Welcome to Travel PhotoLog</h3>
+            <GoogleButton onClick={signInWithGoogle} />
+          </div>
+        </Container>
+      </MainContainer>
+      <Footer>© OCN cooperation</Footer>
+    </>
   );
 };
 
 export default Login;
 
 const MainContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("/login.png");
+  position: relative;
+  height: 90vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+  background: url("/login2.png") no-repeat;
+  background-position: center top;
 `;
 
 const Container = styled.div`
-  width: 35rem;
-  height: 15rem;
-  margin: 9rem auto;
-  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 60%;
+  border: 1px double gray;
+  background: #f5f5f5;
   border-radius: 10px;
-  background-color: white;
-  color: #616161;
 `;
 
-const LoginContainer = styled.div`
-  padding: 20px;
-  margin-top: 1rem;
-  margin-left: 9rem;
+const ImageContainer = styled.div`
+  width: 30%;
+  border-right: 1px solid black;
+`;
+
+const Footer = styled.div`
+  padding-top: 10px;
+  color: #9e9e9e;
 `;

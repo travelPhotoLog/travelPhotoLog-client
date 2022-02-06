@@ -19,7 +19,6 @@
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/function-component-definition": "off",
-    "react/button-has-type": "off",
     "indent": "off",
     "semi": ["error", "always"],
     "quotes": ["error", "double"],
@@ -31,6 +30,7 @@
     "no-shadow": "off",
     "no-use-before-define": "warn",
     "no-param-reassign": "off",
+    "react/button-has-type": "off",
     "consistent-return": "off",
     "no-underscore-dangle": "off",
     "import/order": [

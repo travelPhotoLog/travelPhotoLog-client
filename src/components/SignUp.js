@@ -26,6 +26,26 @@ const SignUp = () => {
       return;
     }
 
+    if (contact.length) {
+      if (!contact.includes("-")) {
+        setMessage("전화번호는 '-'를 포함하여 입력해주세요.");
+
+        return;
+      }
+
+      const [frontNumber, middleNumber, backNumber] = contact.split("-");
+
+      if (
+        frontNumber.length !== 3 ||
+        middleNumber.length !== 4 ||
+        backNumber.length !== 4
+      ) {
+        setMessage("휴대폰 번호의 형식에 맞게 입력해주세요.");
+
+        return;
+      }
+    }
+
     const { data } = await axios.post("/auth/sign-up", {
       user: {
         email: signUpInfo.email,

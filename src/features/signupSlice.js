@@ -1,22 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  signupInfo: {
+  signUpInfo: {
     email: "",
     profileUrl: "",
   },
 };
 
-const signupSlice = createSlice({
-  name: "signup",
+const signUpSlice = createSlice({
+  name: "signUp",
   initialState,
   reducers: {
-    saveSignupInfo: (state, action) => {
+    saveSignUpInfo: (state, action) => {
       const savedInfo = action.payload;
-      state.signupInfo = savedInfo;
+      state.signUpInfo = savedInfo;
     },
   },
 });
 
-export const signupActions = signupSlice.actions;
-export default signupSlice.reducer;
+export const signUpActions = signUpSlice.actions;
+export default signUpSlice.reducer;

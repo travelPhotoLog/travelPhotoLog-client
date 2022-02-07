@@ -31,7 +31,6 @@ const Login = () => {
   };
 
   const onSuccess = ({ data }) => {
-    console.log(data);
     if (data.user) {
       localStorage.setItem("userEmail", data.user.email);
 

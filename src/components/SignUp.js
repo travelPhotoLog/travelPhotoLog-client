@@ -1,23 +1,24 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
+import axios from "axios";
 
 import StyledButton from "../styles/commonStyle";
 import theme from "../styles/theme";
 
 const SignUp = () => {
-  const [nickname, setNickname] = useState("");
-  const [birthday, setBirthday] = useState("");
-  const [contact, setContact] = useState("");
-  const [occupation, setOccupation] = useState("");
   const [message, setMessage] = useState("");
   const { signUpInfo } = useSelector(state => state.signUp);
   const navigate = useNavigate();
 
-  const handleSaveClick = async event => {
+  const handleSaveButtonClick = async event => {
     event.preventDefault();
+
+    const nickname = event.target.nickname.value;
+    const contact = event.target.contact.value;
+    const birthday = event.target.birthday.value;
+    const occupation = event.target.occupation.value;
 
     if (new Date(birthday) > new Date()) {
       setMessage("생일은 현재 날짜보다 이전 날짜여야 합니다.");
@@ -27,12 +28,12 @@ const SignUp = () => {
 
     const { data } = await axios.post("/auth/sign-up", {
       user: {
-        nickname,
-        contact,
-        occupation,
         email: signUpInfo.email,
         profileUrl: signUpInfo.profileUrl,
-        birthday: birthday ? new Date(birthday) : "",
+        nickname,
+        contact,
+        birthday,
+        occupation,
       },
     });
 
@@ -56,25 +57,15 @@ const SignUp = () => {
           <ImageContainer>
             <p>Hello Travel world</p>
           </ImageContainer>
-          <Form onSubmit={handleSaveClick}>
+          <Form onSubmit={handleSaveButtonClick}>
             <Title>[ Personal Information ]</Title>
             <Message>
               {message || "연락처, 생일, 직업은 필수 입력 사항이 아닙니다."}
             </Message>
-            <Input
-              placeholder="Nickname"
-              required
-              onChange={event => setNickname(event.target.value)}
-            />
-            <Input
-              placeholder="Contact includes '-'"
-              onChange={event => setContact(event.target.value)}
-            />
-            <Input
-              type="date"
-              onChange={event => setBirthday(event.target.value)}
-            />
-            <Select onChange={event => setOccupation(event.target.value)}>
+            <Input name="nickname" placeholder="Nickname" required />
+            <Input name="contact" placeholder="Contact includes '-'" />
+            <Input name="birthday" type="date" />
+            <Select name="occupation">
               <option value="">Please select an accupation</option>
               <option value="student">Student</option>
               <option value="officeWorker">Office Worker</option>

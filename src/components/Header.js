@@ -7,7 +7,7 @@ import axios from "axios";
 
 import { userActions } from "../features/userSlice";
 import theme from "../styles/theme";
-import Button from "./Button";
+import Button from "./common/Button";
 
 const Header = () => {
   const dispatch = useDispatch();

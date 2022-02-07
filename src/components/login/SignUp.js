@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import axios from "axios";
 
-import StyledButton from "../styles/commonStyle";
-import theme from "../styles/theme";
+import StyledButton from "../common/CommonStyle";
+import theme from "../../styles/theme";
 
 const SignUp = () => {
   const [message, setMessage] = useState("");

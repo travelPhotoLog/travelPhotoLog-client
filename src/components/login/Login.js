@@ -7,7 +7,7 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import GoogleButton from "react-google-button";
 
-import { signUpActions } from "../../features/signupSlice";
+import { signUpActions } from "../../features/signUpSlice";
 import { authentication } from "../../utils/firebase";
 
 const Login = () => {

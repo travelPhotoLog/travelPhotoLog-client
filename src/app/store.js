@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 
-import signUpReducer from "../features/signupSlice";
+import signUpReducer from "../features/signUpSlice";
 import userReducer from "../features/userSlice";
 
 const store = configureStore({

@@ -16,13 +16,12 @@ const Map = ({ map }) => {
 export default Map;
 
 const MapButton = styled(StyledButton)`
-  display: flex;
-  justify-content: center;
-  margin: 10px;
+  ${({ theme }) => theme.container.flexSpaceAround};
   width: 60vw;
+  margin: 10px;
+  border-radius: 50px;
   color: black;
   font-weight: normal;
-  border-radius: 50px;
   box-shadow: 1px 1px 1px 1px #c2c2c2;
   :hover {
     background-color: #dcedc8;

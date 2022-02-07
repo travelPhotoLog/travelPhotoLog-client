@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
+import { FaRegPlusSquare } from "react-icons/fa";
 
 import Map from "./Map";
 import ErrorPage from "../error/ErrorPage";
@@ -39,10 +40,14 @@ const MapList = () => {
     }
   };
 
-  useQuery("mapList", mapListData, {
+  const { isLoading } = useQuery("mapList", mapListData, {
     enabled: !!userId,
     onSuccess,
   });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return mapList.length ? (
     <ThemeProvider theme={theme}>
@@ -56,7 +61,7 @@ const MapList = () => {
             <Map key={item.id} map={item} />
           ))}
           <MapButton onClick={() => navigate("/my-travels/new-map")}>
-            +
+            <FaRegPlusSquare />
           </MapButton>
         </Container>
       </MainContainer>
@@ -80,13 +85,13 @@ const MainContainer = styled.div`
 `;
 
 const Container = styled.div`
-  position: absolute;
-  left: 10%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
+  position: absolute;
   width: 80%;
+  left: 10%;
+  align-items: center;
   border-radius: 10px;
 `;
 

@@ -22,19 +22,38 @@ const Login = () => {
     const provider = new GoogleAuthProvider();
     const userInfo = await signInWithPopup(authentication, provider);
 
-    setUserEmail(userInfo.user.email);
     setPhotoURL(userInfo.user.photoURL);
+    setUserEmail(userInfo.user.email);
   };
+
+  useEffect(() => {
+    const getLoginUser = async () => {
+      try {
+        const { data } = await axios.get("/auth/auto-login");
+
+        if (data.user) {
+          navigate("/");
+          return;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getLoginUser();
+  }, []);
 
   useEffect(async () => {
     if (!userEmail) {
       return;
     }
 
-    const { data } = await axios.post("/auth/login");
+    const { data } = await axios.post("/auth/login", { email: userEmail });
 
     if (data.user) {
       dispatch(userActions.updateUser(data.user));
+      navigate("/");
+
       return;
     }
 

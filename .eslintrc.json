@@ -33,6 +33,7 @@
     "react/button-has-type": "off",
     "consistent-return": "off",
     "no-underscore-dangle": "off",
+    "no-plusplus": "off",
     "import/order": [
       "error",
       {

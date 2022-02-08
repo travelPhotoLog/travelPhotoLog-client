@@ -1,64 +1,99 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "react-query";
-import styled from "styled-components";
 import GoogleButton from "react-google-button";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import styled from "styled-components";
+import axios from "axios";
 
 import { signUpActions } from "../../features/signUpSlice";
 import { authentication } from "../../utils/firebase";
+import { userActions } from "../../features/userSlice";
+import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
+import ErrorPage from "../error/ErrorPage";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [userEmail, setUserEmail] = useState("");
-  const [photoURL, setPhotoURL] = useState("");
+
+  const [user, setUser] = useState({
+    email: "",
+    photoURL: "",
+  });
+  const [errorMessage, setErrorMessage] = useState("");
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     const userInfo = await signInWithPopup(authentication, provider);
 
-    setUserEmail(userInfo.user.email);
-    setPhotoURL(userInfo.user.photoURL);
+    const { email, photoURL } = userInfo.user;
+
+    setUser({ email, photoURL });
   };
 
-  const loginData = () => {
-    return axios.post("/auth/login", {
-      email: userEmail,
-    });
-  };
+  useEffect(() => {
+    const getLoginUser = async () => {
+      try {
+        const { data } = await axios.get("/auth/auto-login");
 
-  const onSuccess = ({ data }) => {
-    if (data.user) {
-      localStorage.setItem("userEmail", data.user.email);
+        if (data.user) {
+          navigate("/");
+          return;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-      navigate("/");
+    getLoginUser();
+  }, []);
+
+  useEffect(async () => {
+    if (!user.email) {
+      return;
     }
 
-    if (data.result === "해당 유저가 존재하지 않습니다") {
+    const { data } = await axios.post("/auth/login", { email: user.email });
+
+    if (data.user) {
+      dispatch(userActions.updateUser(data.user));
+      navigate("/");
+
+      return;
+    }
+
+    if (data.result === RESPONSE_MESSAGE.USER_NOT_EXIST) {
       dispatch(
         signUpActions.saveSignUpInfo({
-          email: userEmail,
-          profileUrl: photoURL,
+          email: user.email,
+          profileUrl: user.photoURL,
         })
       );
 
       navigate("/auth/sign-up");
+      return;
     }
 
-    if (data.result === "재로그인이 필요한 유저입니다") {
+    if (data.result === RESPONSE_MESSAGE.RELOGIN_REQUIRED) {
       navigate("/auth/login");
+      return;
     }
-  };
 
-  useQuery("loginData", loginData, {
-    enabled: !!userEmail,
-    onSuccess,
-  });
+    if (data.error) {
+      if (data.error.code === 400) {
+        setErrorMessage(ERROR_MESSAGE.BAD_REQUEST);
+        return;
+      }
 
-  return (
+      if (data.error.code === 500) {
+        setErrorMessage(ERROR_MESSAGE.SERVER_UNSTABLE);
+      }
+    }
+  }, [user.email]);
+
+  return errorMessage ? (
+    <ErrorPage />
+  ) : (
     <>
       <MainContainer>
         <Container>
@@ -68,6 +103,7 @@ const Login = () => {
           <div>
             <h3>Welcome to Travel PhotoLog</h3>
             <GoogleButton onClick={signInWithGoogle} />
+            {errorMessage && <p>{errorMessage}</p>}
           </div>
         </Container>
       </MainContainer>

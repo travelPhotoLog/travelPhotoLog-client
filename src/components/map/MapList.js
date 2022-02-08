@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import Map from "./Map";
 import ErrorPage from "../error/ErrorPage";
 import theme from "../../styles/theme";
 import StyledButton from "../common/CommonStyle";
-import ERROR_MESSAGE from "../../constants";
+import { ERROR_MESSAGE } from "../../constants";
 
 const getMapList = id => {
   return axios.get(`/user/${id}/maps`);
@@ -27,9 +27,7 @@ const MapList = () => {
     () => getMapList(userId),
     {
       enabled: !!userId,
-      select: data => {
-        return data.data;
-      },
+      select: response => response.data,
     }
   );
 
@@ -44,11 +42,11 @@ const MapList = () => {
   }
 
   if (data?.error) {
-    if (data.error.status === 400) {
+    if (data.error.code === 400) {
       return <ErrorPage message={ERROR_MESSAGE.BAD_REQUEST} />;
     }
-    if (data.error.status === 500) {
-      return <ErrorPage message={ERROR_MESSAGE.SERVER_USTABLE} />;
+    if (data.error.code === 500) {
+      return <ErrorPage message={ERROR_MESSAGE.SERVER_UNSTABLE} />;
     }
   }
 

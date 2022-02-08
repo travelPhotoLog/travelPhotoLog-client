@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import axios from "axios";
 
-import StyledButton from "../styles/commonStyle";
-import theme from "../styles/theme";
+import StyledButton from "../common/CommonStyle";
+import theme from "../../styles/theme";
 
 const SignUp = () => {
   const [message, setMessage] = useState("");
@@ -140,28 +140,31 @@ const Title = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.xxxl};
   font-size: ${({ theme }) => theme.fontSizes.xxl};
   font-weight: 600;
+  text-align: center;
+  width: 100%;
+  height: 20%;
 `;
 
 const Message = styled.div`
   width: 100%;
   text-align: center;
+  margin-bottom: ${({ theme }) => theme.spacing.xxxl};
 `;
 
 const Input = styled.input`
   width: 100%;
   height: 25%;
-  margin: ${({ theme }) => theme.spacing.xxxl} 0;
+  margin: 0 0 ${({ theme }) => theme.spacing.xxxl} 0;
 `;
 
 const Select = styled.select`
   width: 100%;
   height: 25%;
-  margin: ${({ theme }) => theme.spacing.xxxl} 0;
+  margin: 0 0 ${({ theme }) => theme.spacing.xxxl} 0;
 `;
 
 const SaveButton = styled(StyledButton)`
   display: inline;
-  margin: ${({ theme }) => theme.spacing.xl};
   background-color: transparent;
   text-align: center;
 `;

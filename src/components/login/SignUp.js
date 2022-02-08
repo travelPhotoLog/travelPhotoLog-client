@@ -4,12 +4,18 @@ import { useNavigate } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import axios from "axios";
 
-import StyledButton from "../common/CommonStyle";
 import theme from "../../styles/theme";
+import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
+import {
+  validateContact,
+  validateBirthday,
+} from "../../utils/signUpValidation";
+import StyledButton from "../common/CommonStyle";
 import ErrorPage from "../error/ErrorPage";
-import ERROR_MESSAGE from "../../constants";
 
 const SignUp = () => {
+  const { signUpInfo } = useSelector(state => state.signUp);
+  const navigate = useNavigate();
   const [message, setMessage] = useState(
     "연락처, 생일, 직업은 선택 사항입니다."
   );
@@ -27,9 +33,7 @@ const SignUp = () => {
     birthday: "",
     occupation: "",
   });
-  const [hasError, sethasError] = useState(false);
-  const { signUpInfo } = useSelector(state => state.signUp);
-  const navigate = useNavigate();
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const getLoginUser = async () => {
@@ -38,6 +42,7 @@ const SignUp = () => {
 
         if (data.user) {
           navigate("/");
+          return;
         }
 
         if (!data.user && !signUpInfo.email) {
@@ -90,13 +95,17 @@ const SignUp = () => {
       setTimeout(() => {
         navigate("/auth/login");
       }, 500);
+
+      return;
     }
 
-    if (data.result === "해당 닉네임이 존재합니다") {
+    if (data.result === RESPONSE_MESSAGE.EXIST_NICKNAME) {
       setWarnMsgs({
         ...warnMsgs,
         nickname: "이미 존재하는 닉네임입니다.",
       });
+
+      return;
     }
 
     if (data.error) {
@@ -104,70 +113,19 @@ const SignUp = () => {
         ...warnMsgs,
         ...data.error,
       });
-    }
-
-    if (data.error.code === 500) {
-      sethasError(true);
-    }
-  };
-
-  const validateContact = event => {
-    const { name, value } = event.target;
-
-    if (value.length) {
-      if (!value.includes("-")) {
-        setWarnMsgs({
-          ...warnMsgs,
-          [name]: "전화번호는 '-'를 포함하여 입력해주세요.",
-        });
-
-        return;
-      }
-
-      const [frontNumber, middleNumber, backNumber] = value.split("-");
-
-      if (
-        frontNumber.length !== 3 ||
-        middleNumber.length !== 4 ||
-        backNumber.length !== 4
-      ) {
-        setWarnMsgs({
-          ...warnMsgs,
-          [name]: "휴대폰 번호의 형식에 맞게 입력해주세요.",
-        });
-
-        return;
-      }
-    }
-
-    setWarnMsgs({
-      ...warnMsgs,
-      [name]: "",
-    });
-  };
-
-  const validateBirthday = event => {
-    const { name, value } = event.target;
-
-    if (new Date(value) > new Date()) {
-      setWarnMsgs({
-        ...warnMsgs,
-        [name]: "생일은 현재 날짜보다 이전 날짜여야 합니다.",
-      });
 
       return;
     }
 
-    setWarnMsgs({
-      ...warnMsgs,
-      [name]: "",
-    });
+    if (data.error.code === 500) {
+      setHasError(true);
+    }
   };
 
   return (
     <ThemeProvider theme={theme}>
       {hasError ? (
-        <ErrorPage message={ERROR_MESSAGE.SERVER_USTABLE} />
+        <ErrorPage message={ERROR_MESSAGE.SERVER_UNSTABLE} />
       ) : (
         <>
           <MainContainer>
@@ -192,14 +150,18 @@ const SignUp = () => {
                 <Input
                   name="contact"
                   placeholder="Contact includes '-'"
-                  onBlur={event => validateContact(event)}
+                  onBlur={event =>
+                    validateContact(event, warnMsgs, setWarnMsgs)
+                  }
                   onChange={event => handleInputChange(event)}
                 />
                 <WarningMessage>{warnMsgs.birthday}</WarningMessage>
                 <Input
                   name="birthday"
                   type="date"
-                  onBlur={event => validateBirthday(event)}
+                  onBlur={event =>
+                    validateBirthday(event, warnMsgs, setWarnMsgs)
+                  }
                   onChange={event => handleInputChange(event)}
                 />
                 <WarningMessage>{warnMsgs.occupation}</WarningMessage>

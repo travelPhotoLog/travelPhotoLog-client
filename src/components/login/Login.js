@@ -10,20 +10,25 @@ import { signUpActions } from "../../features/signUpSlice";
 import { authentication } from "../../utils/firebase";
 import { userActions } from "../../features/userSlice";
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
+import ErrorPage from "../error/ErrorPage";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [userEmail, setUserEmail] = useState("");
-  const [photoURL, setPhotoURL] = useState("");
+
+  const [user, setUser] = useState({
+    email: "",
+    photoURL: "",
+  });
   const [errorMessage, setErrorMessage] = useState("");
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     const userInfo = await signInWithPopup(authentication, provider);
 
-    setPhotoURL(userInfo.user.photoURL);
-    setUserEmail(userInfo.user.email);
+    const { email, photoURL } = userInfo.user;
+
+    setUser({ email, photoURL });
   };
 
   useEffect(() => {
@@ -44,11 +49,11 @@ const Login = () => {
   }, []);
 
   useEffect(async () => {
-    if (!userEmail) {
+    if (!user.email) {
       return;
     }
 
-    const { data } = await axios.post("/auth/login", { email: userEmail });
+    const { data } = await axios.post("/auth/login", { email: user.email });
 
     if (data.user) {
       dispatch(userActions.updateUser(data.user));
@@ -60,8 +65,8 @@ const Login = () => {
     if (data.result === RESPONSE_MESSAGE.USER_NOT_EXIST) {
       dispatch(
         signUpActions.saveSignUpInfo({
-          email: userEmail,
-          profileUrl: photoURL,
+          email: user.email,
+          profileUrl: user.photoURL,
         })
       );
 
@@ -84,9 +89,11 @@ const Login = () => {
         setErrorMessage(ERROR_MESSAGE.SERVER_UNSTABLE);
       }
     }
-  }, [userEmail]);
+  }, [user.email]);
 
-  return (
+  return errorMessage ? (
+    <ErrorPage />
+  ) : (
     <>
       <MainContainer>
         <Container>

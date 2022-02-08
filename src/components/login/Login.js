@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "react-query";
-import styled from "styled-components";
 import GoogleButton from "react-google-button";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import styled from "styled-components";
+import axios from "axios";
 
 import { signUpActions } from "../../features/signUpSlice";
 import { authentication } from "../../utils/firebase";
@@ -24,18 +23,12 @@ const Login = () => {
     setPhotoURL(userInfo.user.photoURL);
   };
 
-  const loginData = () => {
-    return axios.post("/auth/login", {
-      email: userEmail,
-    });
-  };
-
-  const onSuccess = ({ data }) => {
-    if (data.user) {
-      localStorage.setItem("userEmail", data.user.email);
-
-      navigate("/");
+  useEffect(async () => {
+    if (!userEmail) {
+      return;
     }
+
+    const { data } = await axios.post("/auth/login");
 
     if (data.result === "해당 유저가 존재하지 않습니다") {
       dispatch(
@@ -46,17 +39,13 @@ const Login = () => {
       );
 
       navigate("/auth/sign-up");
+      return;
     }
 
     if (data.result === "재로그인이 필요한 유저입니다") {
       navigate("/auth/login");
     }
-  };
-
-  useQuery("loginData", loginData, {
-    enabled: !!userEmail,
-    onSuccess,
-  });
+  }, [userEmail]);
 
   return (
     <>

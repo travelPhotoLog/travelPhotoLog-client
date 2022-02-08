@@ -43,9 +43,9 @@ const Header = () => {
 
   const handleLogoutClick = async () => {
     try {
-      const response = await axios.post("/auth/logout");
+      const { status } = await axios.post("/auth/logout");
 
-      if (response.status === 200) {
+      if (status === 200) {
         dispatch(userActions.deleteUser());
         navigate("/");
       }

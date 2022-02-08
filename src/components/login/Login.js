@@ -8,6 +8,7 @@ import axios from "axios";
 
 import { signUpActions } from "../../features/signUpSlice";
 import { authentication } from "../../utils/firebase";
+import { userActions } from "../../features/userSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -29,6 +30,11 @@ const Login = () => {
     }
 
     const { data } = await axios.post("/auth/login");
+
+    if (data.user) {
+      dispatch(userActions.updateUser(data.user));
+      return;
+    }
 
     if (data.result === "해당 유저가 존재하지 않습니다") {
       dispatch(

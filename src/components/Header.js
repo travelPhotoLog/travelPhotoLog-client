@@ -43,14 +43,16 @@ const Header = () => {
 
   const handleLogoutClick = async () => {
     try {
-      const { status } = await axios.post("/auth/logout");
+      const { data } = await axios.post("/auth/logout");
 
-      if (status === 200) {
+      if (data.result === "ok") {
         dispatch(userActions.deleteUser());
         navigate("/");
+
+        return;
       }
     } catch (error) {
-      <ErrorPage message={error.message} />;
+      console.log(error);
     }
   };
 

@@ -9,12 +9,14 @@ import axios from "axios";
 import { signUpActions } from "../../features/signUpSlice";
 import { authentication } from "../../utils/firebase";
 import { userActions } from "../../features/userSlice";
+import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [userEmail, setUserEmail] = useState("");
   const [photoURL, setPhotoURL] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
@@ -36,7 +38,7 @@ const Login = () => {
       return;
     }
 
-    if (data.result === "해당 유저가 존재하지 않습니다") {
+    if (data.result === RESPONSE_MESSAGE.USER_NOT_EXIST) {
       dispatch(
         signUpActions.saveSignUpInfo({
           email: userEmail,
@@ -48,8 +50,20 @@ const Login = () => {
       return;
     }
 
-    if (data.result === "재로그인이 필요한 유저입니다") {
+    if (data.result === RESPONSE_MESSAGE.RELOGIN_REQUIRED) {
       navigate("/auth/login");
+      return;
+    }
+
+    if (data.error) {
+      if (data.error.code === 400) {
+        setErrorMessage(ERROR_MESSAGE.BAD_REQUEST);
+        return;
+      }
+
+      if (data.error.code === 500) {
+        setErrorMessage(ERROR_MESSAGE.SERVER_UNSTABLE);
+      }
     }
   }, [userEmail]);
 
@@ -63,6 +77,7 @@ const Login = () => {
           <div>
             <h3>Welcome to Travel PhotoLog</h3>
             <GoogleButton onClick={signInWithGoogle} />
+            {errorMessage && <p>{errorMessage}</p>}
           </div>
         </Container>
       </MainContainer>

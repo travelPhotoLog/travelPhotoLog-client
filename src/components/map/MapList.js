@@ -12,44 +12,47 @@ import theme from "../../styles/theme";
 import StyledButton from "../common/CommonStyle";
 import ERROR_MESSAGE from "../../constants";
 
+const getMapList = id => {
+  return axios.get(`/user/${id}/maps`);
+};
+
 const MapList = () => {
   const navigate = useNavigate();
-
-  const [mapList, setMapList] = useState([]);
-  const [errorMsg, setErrorMsg] = useState("");
   const { user } = useSelector(state => state.user);
+
   const userId = user.id;
 
-  const mapListData = () => {
-    return axios.get(`/user/${userId}/maps`);
-  };
-
-  const onSuccess = ({ data }) => {
-    if (data.maps) {
-      setMapList(data.maps);
+  const { data, isError, error, isLoading } = useQuery(
+    "mapList",
+    () => getMapList(userId),
+    {
+      enabled: !!userId,
+      select: data => {
+        return data.data;
+      },
     }
+  );
 
-    if (data.error) {
-      if (data.error.status === 400) {
-        setErrorMsg(ERROR_MESSAGE.BAD_REQUEST);
-      }
-
-      if (data.error.status === 500) {
-        setErrorMsg(ERROR_MESSAGE.SERVER_USTABLE);
-      }
-    }
-  };
-
-  const { isLoading } = useQuery("mapList", mapListData, {
-    enabled: !!userId,
-    onSuccess,
-  });
+  const mapList = data?.maps;
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  return mapList.length ? (
+  if (isError) {
+    return <ErrorPage message={error.message} />;
+  }
+
+  if (data?.error) {
+    if (data.error.status === 400) {
+      return <ErrorPage message={ERROR_MESSAGE.BAD_REQUEST} />;
+    }
+    if (data.error.status === 500) {
+      return <ErrorPage message={ERROR_MESSAGE.SERVER_USTABLE} />;
+    }
+  }
+
+  return (
     <ThemeProvider theme={theme}>
       <MainContainer>
         <Container>
@@ -66,8 +69,6 @@ const MapList = () => {
         </Container>
       </MainContainer>
     </ThemeProvider>
-  ) : (
-    <ErrorPage message={errorMsg} />
   );
 };
 

@@ -8,21 +8,18 @@ import axios from "axios";
 import { userActions } from "../features/userSlice";
 import theme from "../styles/theme";
 import Button from "./common/Button";
+import ErrorPage from "./error/ErrorPage";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
 
-  const userEmail = localStorage.getItem("userEmail");
-
   const checkUserLogin = () => {
-    return axios.post("/auth/login", {
-      email: userEmail,
-    });
+    return axios.post("/auth/auto-login");
   };
 
-  const onSuccess = ({ data }) => {
+  const onSuccess = data => {
     const { user } = data;
 
     if (user) {
@@ -30,10 +27,10 @@ const Header = () => {
     }
   };
 
-  const { isLoading } = useQuery("user", checkUserLogin, {
-    enabled: !!userEmail && !user.isLoggedIn,
-    refetchOnWindowFocus: false,
+  const { isLoading, isError, error } = useQuery("user", checkUserLogin, {
+    enabled: !user.isLoggedIn,
     onSuccess,
+    select: response => response.data,
   });
 
   const handleMyTravelsClick = () => {
@@ -46,22 +43,23 @@ const Header = () => {
 
   const handleLogoutClick = async () => {
     try {
-      const { status } = await axios.post("/auth/logout", {
-        email: userEmail,
-      });
+      const response = await axios.post("/auth/logout");
 
-      if (status === 200) {
-        localStorage.removeItem("userEmail");
+      if (response.status === 200) {
         dispatch(userActions.deleteUser());
         navigate("/");
       }
-    } catch (err) {
-      console.warn(err);
+    } catch (error) {
+      <ErrorPage message={error.message} />;
     }
   };
 
   if (isLoading) {
     return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <ErrorPage message={error.message} />;
   }
 
   return (

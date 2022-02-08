@@ -27,9 +27,7 @@ const MapList = () => {
     () => getMapList(userId),
     {
       enabled: !!userId,
-      select: data => {
-        return data.data;
-      },
+      select: response => response.data,
     }
   );
 

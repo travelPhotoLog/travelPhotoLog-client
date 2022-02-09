@@ -27,9 +27,7 @@ const MapList = () => {
     () => getMapList(userId),
     {
       enabled: !!userId,
-      select: data => {
-        return data.data;
-      },
+      select: response => response.data,
     }
   );
 
@@ -44,10 +42,10 @@ const MapList = () => {
   }
 
   if (data?.error) {
-    if (data.error.status === 400) {
+    if (data.error.code === 400) {
       return <ErrorPage message={ERROR_MESSAGE.BAD_REQUEST} />;
     }
-    if (data.error.status === 500) {
+    if (data.error.code === 500) {
       return <ErrorPage message={ERROR_MESSAGE.SERVER_UNSTABLE} />;
     }
   }

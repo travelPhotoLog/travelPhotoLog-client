@@ -4,9 +4,9 @@ import styled, { ThemeProvider } from "styled-components";
 import PropTypes from "prop-types";
 
 import theme from "../../styles/theme";
-import StyledButton from "../common/CommonStyle";
+import StyledButton from "./CommonStyle";
 
-const ErrorPage = ({ message }) => {
+const ResponseMessage = ({ message }) => {
   const navigate = useNavigate();
 
   return message ? (
@@ -21,7 +21,7 @@ const ErrorPage = ({ message }) => {
   );
 };
 
-export default ErrorPage;
+export default ResponseMessage;
 
 const Container = styled.div`
   position: absolute;
@@ -40,6 +40,6 @@ const HomeButton = styled(StyledButton)`
   width: 50vh;
 `;
 
-ErrorPage.propTypes = {
+ResponseMessage.propTypes = {
   message: PropTypes.string.isRequired,
 };

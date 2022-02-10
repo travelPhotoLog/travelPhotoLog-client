@@ -11,7 +11,7 @@ import {
   validateBirthday,
 } from "../../utils/signUpValidation";
 import StyledButton from "../common/CommonStyle";
-import ErrorPage from "../error/ErrorPage";
+import ResponseMessage from "../common/ResponseMessage";
 
 const SignUp = () => {
   const { signUpInfo } = useSelector(state => state.signUp);
@@ -125,7 +125,7 @@ const SignUp = () => {
   return (
     <ThemeProvider theme={theme}>
       {hasError ? (
-        <ErrorPage message={ERROR_MESSAGE.SERVER_UNSTABLE} />
+        <ResponseMessage message={ERROR_MESSAGE.SERVER_UNSTABLE} />
       ) : (
         <>
           <MainContainer>

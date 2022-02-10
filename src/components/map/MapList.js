@@ -6,11 +6,11 @@ import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 import { FaRegPlusSquare } from "react-icons/fa";
 
-import Map from "./Map";
-import ErrorPage from "../error/ErrorPage";
 import theme from "../../styles/theme";
-import StyledButton from "../common/CommonStyle";
 import { ERROR_MESSAGE } from "../../constants";
+import StyledButton from "../common/CommonStyle";
+import ResponseMessage from "../common/ResponseMessage";
+import Map from "./Map";
 
 const getMapList = id => {
   return axios.get(`/user/${id}/maps`);
@@ -34,19 +34,19 @@ const MapList = () => {
   const mapList = data?.maps;
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div />;
   }
 
   if (isError) {
-    return <ErrorPage message={error.message} />;
+    return <ResponseMessage message={error.message} />;
   }
 
   if (data?.error) {
     if (data.error.code === 400) {
-      return <ErrorPage message={ERROR_MESSAGE.BAD_REQUEST} />;
+      return <ResponseMessage message={ERROR_MESSAGE.BAD_REQUEST} />;
     }
     if (data.error.code === 500) {
-      return <ErrorPage message={ERROR_MESSAGE.SERVER_UNSTABLE} />;
+      return <ResponseMessage message={ERROR_MESSAGE.SERVER_UNSTABLE} />;
     }
   }
 

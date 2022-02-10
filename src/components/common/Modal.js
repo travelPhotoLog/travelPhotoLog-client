@@ -18,12 +18,13 @@ export default function Modal({ children }) {
 
   useEffect(() => {
     const $modalRoot = document.getElementById("modal-root");
+    const $body = document.body;
 
     $modalRoot.style.position = "relative";
-    document.body.style.overflow = "hidden";
+    $body.style.overflow = "hidden";
 
     return () => {
-      document.body.style.overflow = "unset";
+      $body.style.overflow = "unset";
     };
   }, []);
 
@@ -48,10 +49,10 @@ const BackDrop = styled.main`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 100;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);
-  z-index: 100;
 `;
 
 const ModalWrapper = styled.section`

@@ -6,7 +6,7 @@ import MemberList from "./MemberList";
 const Sidebar = () => {
   const [isToggled, setIsToggled] = useState(false);
 
-  const handleToggleClick = () => {
+  const handleSidebarClose = () => {
     const $body = document.body;
 
     if (isToggled) {
@@ -24,9 +24,9 @@ const Sidebar = () => {
     <Container className={isToggled ? "show" : "hide"}>
       <Outside
         className={isToggled ? "show" : "hide"}
-        onClick={handleToggleClick}
+        onClick={handleSidebarClose}
       />
-      <ToggleButton onClick={handleToggleClick} width={300} />
+      <ToggleButton onClick={handleSidebarClose} />
       <MemberList />
     </Container>
   );
@@ -36,6 +36,7 @@ export default Sidebar;
 
 const Outside = styled.main`
   position: fixed;
+  right: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
@@ -53,7 +54,6 @@ const Container = styled.div`
   z-index: 999;
   width: 300px;
   height: 54.4rem;
-  transform: translatex(${props => props.width}px);
   transition: 0.8s ease;
   &.hide {
     left: -300px;

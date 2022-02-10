@@ -11,6 +11,7 @@ import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
 import Modal from "../common/Modal";
 import ResponseMessage from "../common/ResponseMessage";
 import Sidebar from "../sidebar/Sidebar";
+import NewInvitation from "../Invitation/NewInvitation";
 
 const MapDetail = () => {
   const location = useLocation();
@@ -122,7 +123,17 @@ const MapDetail = () => {
       <Routes>
         <Route
           path="point"
-          element={<Modal>포토를 가져와서 보여주는 모달입니다.</Modal>}
+          element={
+            <Modal size="big">포토를 가져와서 보여주는 모달입니다.</Modal>
+          }
+        />
+        <Route
+          path="invitation"
+          element={
+            <Modal size="small">
+              <NewInvitation />
+            </Modal>
+          }
         />
       </Routes>
     </ThemeProvider>

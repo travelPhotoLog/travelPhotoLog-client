@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FcPlus } from "react-icons/fc";
 
 import theme from "../../styles/theme";
@@ -14,6 +14,8 @@ const getMembers = id => {
 
 const MemberList = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const { data, isLoading } = useQuery("members", () => getMembers(id), {
     select: response => response.data,
   });
@@ -24,7 +26,9 @@ const MemberList = () => {
     return <div />;
   }
 
-  const handlePlusClick = () => {};
+  const handlePlusClick = () => {
+    navigate("invitation");
+  };
 
   return (
     <Container>

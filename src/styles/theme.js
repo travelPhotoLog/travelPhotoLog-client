@@ -49,6 +49,11 @@ const container = {
     justify-content: space-around;
     align-items: center;
   `,
+  flexStartColumn: `
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  `,
 };
 
 const theme = {

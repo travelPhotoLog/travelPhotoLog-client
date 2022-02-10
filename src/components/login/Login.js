@@ -10,7 +10,7 @@ import { signUpActions } from "../../features/signUpSlice";
 import { authentication } from "../../utils/firebase";
 import { userActions } from "../../features/userSlice";
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
-import ErrorPage from "../error/ErrorPage";
+import ResponseMessage from "../common/ResponseMessage";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -92,7 +92,7 @@ const Login = () => {
   }, [user.email]);
 
   return errorMessage ? (
-    <ErrorPage />
+    <ResponseMessage message={errorMessage} />
   ) : (
     <>
       <MainContainer>

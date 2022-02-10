@@ -8,7 +8,7 @@ import axios from "axios";
 import { userActions } from "../features/userSlice";
 import theme from "../styles/theme";
 import Button from "./common/Button";
-import ErrorPage from "./error/ErrorPage";
+import ResponseMessage from "./common/ResponseMessage";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -57,11 +57,11 @@ const Header = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div />;
   }
 
   if (isError) {
-    return <ErrorPage message={error.message} />;
+    return <ResponseMessage message={error.message} />;
   }
 
   return (

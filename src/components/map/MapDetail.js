@@ -6,9 +6,10 @@ import MarkerClusterer from "@google/markerclustererplus";
 import styled, { ThemeProvider } from "styled-components";
 import axios from "axios";
 
-import ErrorPage from "../error/ErrorPage";
-import Modal from "../common/Modal";
 import theme from "../../styles/theme";
+import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
+import Modal from "../common/Modal";
+import ResponseMessage from "../common/ResponseMessage";
 
 const MapDetail = () => {
   const location = useLocation();
@@ -67,21 +68,37 @@ const MapDetail = () => {
     }
   };
 
-  const { isLoading, isError, error, data } = useQuery(
-    "points",
-    () => getPoints(id),
-    {
-      onSuccess,
-      select: data => data.data,
-    }
-  );
+  const { isError, error, data } = useQuery("points", () => getPoints(id), {
+    onSuccess,
+    select: response => response.data,
+  });
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (data?.message) {
+    if (data.message) {
+      return <ResponseMessage message={RESPONSE_MESSAGE.RELOGIN_REQUIRED} />;
+    }
+  }
+
+  if (data?.error) {
+    if (data.error.code === 400) {
+      return <ResponseMessage message={ERROR_MESSAGE.BAD_REQUEST} />;
+    }
+
+    if (data.error.code === 401) {
+      return <ResponseMessage message={ERROR_MESSAGE.UNAUTHORIZED} />;
+    }
+
+    if (data.error.code === 403) {
+      return <ResponseMessage message={ERROR_MESSAGE.FORBIDDEN} />;
+    }
+
+    if (data.error.code === 500) {
+      return <ResponseMessage message={ERROR_MESSAGE.SERVER_UNSTABLE} />;
+    }
   }
 
   return isError ? (
-    <ErrorPage message={error.message} />
+    <ResponseMessage message={error.message} />
   ) : (
     <ThemeProvider theme={theme}>
       <Container>
@@ -100,7 +117,6 @@ const MapDetail = () => {
           />
         </GoogleMapContainer>
       </Container>
-      useSuperCluster
       <Routes>
         <Route
           path="point"

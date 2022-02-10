@@ -54,6 +54,11 @@ const container = {
     flex-direction: column;
     justify-content: flex-start;
   `,
+  flexEnd: `
+    display: flex;
+    justify-content: flex-end;
+    algin-items: center;
+  `,
 };
 
 const theme = {

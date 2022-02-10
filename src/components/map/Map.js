@@ -29,5 +29,5 @@ const MapButton = styled(StyledButton)`
 `;
 
 Map.propTypes = {
-  map: PropTypes.arrayOf(PropTypes.object).isRequired,
+  map: PropTypes.objectOf(PropTypes.string).isRequired,
 };

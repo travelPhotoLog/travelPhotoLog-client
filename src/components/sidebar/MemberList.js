@@ -37,11 +37,14 @@ const MemberList = () => {
 };
 
 const Container = styled.div`
-  ${({ theme }) => theme.container.flexStartColumn}
+  ${({ theme }) => theme.container.flexStartColumn};
   align-items: center;
+  z-index: 999;
   width: 100%;
   height: 100%;
   padding: ${({ theme }) => theme.spacing.base};
+  background-color: #cedae9;
+  overflow-y: scroll;
 `;
 
 const Icon = styled(FcPlus)`

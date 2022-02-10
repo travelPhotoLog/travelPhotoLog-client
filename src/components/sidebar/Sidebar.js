@@ -4,20 +4,29 @@ import styled from "styled-components";
 import MemberList from "./MemberList";
 
 const Sidebar = () => {
-  const [xPosition, setX] = useState(-300);
+  const [isToggled, setIsToggled] = useState(false);
 
-  const toggleMenu = () => {
-    if (xPosition < 0) {
-      setX(0);
+  const handleToggleClick = () => {
+    const $body = document.body;
+
+    if (isToggled) {
+      setIsToggled(false);
+      $body.style.overflow = "unset";
+
       return;
     }
 
-    setX(-300);
+    setIsToggled(true);
+    $body.style.overflow = "hidden";
   };
 
   return (
-    <Container width={xPosition}>
-      <ToggleButton onClick={() => toggleMenu()} width={300} />
+    <Container className={isToggled ? "show" : "hide"}>
+      <Outside
+        className={isToggled ? "show" : "hide"}
+        onClick={handleToggleClick}
+      />
+      <ToggleButton onClick={handleToggleClick} width={300} />
       <MemberList />
     </Container>
   );
@@ -25,23 +34,44 @@ const Sidebar = () => {
 
 export default Sidebar;
 
+const Outside = styled.main`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  &.hide {
+    display: none;
+  }
+  &.show {
+    display: block;
+  }
+`;
+
 const Container = styled.div`
   ${({ theme }) => theme.container.flexStartColumn}
+  position: fixed;
+  z-index: 999;
   width: 300px;
-  height: 84vh;
-  border-radius: 0;
-  background-color: rgba(206, 218, 233, 0.5);
+  height: 54.4rem;
   transform: translatex(${props => props.width}px);
   transition: 0.8s ease;
+  &.hide {
+    left: -300px;
+  }
+  &.show {
+    left: 0px;
+  }
 `;
 
 const ToggleButton = styled.button`
   position: absolute;
-  z-index: 1;
   width: 15px;
   height: 70px;
   border-top-right-radius: 10rem;
-  border-bottom-right-radius: 9rem;
+  border-bottom-right-radius: 10rem;
   background-color: #a4aeba;
   transform: translate(300px, 10vh);
+  &:hover {
+    cursor: pointer;
+  }
 `;

@@ -20,13 +20,14 @@ const List = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  z-index: 999;
   width: 100%;
   height: 10%;
   padding: ${({ theme }) => theme.spacing.small};
 `;
 
 const Img = styled.img`
-  height: 100%;
+  height: 85%;
   border-radius: 50%;
 `;
 

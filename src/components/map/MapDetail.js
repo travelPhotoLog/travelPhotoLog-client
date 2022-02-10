@@ -10,6 +10,7 @@ import theme from "../../styles/theme";
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
 import Modal from "../common/Modal";
 import ResponseMessage from "../common/ResponseMessage";
+import Sidebar from "../sidebar/Sidebar";
 
 const MapDetail = () => {
   const location = useLocation();
@@ -44,7 +45,7 @@ const MapDetail = () => {
   };
 
   const onSuccess = data => {
-    if (data.mapPoints) {
+    if (data.mapPoints && googleMapRef.map) {
       const markers = data.mapPoints.map(point => {
         const marker = new googleMapRef.api.Marker({
           position: {
@@ -101,13 +102,14 @@ const MapDetail = () => {
     <ResponseMessage message={error.message} />
   ) : (
     <ThemeProvider theme={theme}>
+      <Sidebar />
       <Container>
         <SearchBoxContainer>SearchBox가 들어가는 곳 입니다.</SearchBoxContainer>
         <GoogleMapContainer>
           <GoogleMapReact
             bootstrapURLKeys={{ key: REACT_APP_GOOGLE_API_KEY }}
             defaultCenter={
-              data?.mapPoints
+              data?.mapPoints.length
                 ? getLatestPoint(data.mapPoints)
                 : defaultProps.center
             }
@@ -138,11 +140,11 @@ const Container = styled.div`
 `;
 
 const GoogleMapContainer = styled.div`
-  width: 70%;
+  width: 65%;
   height: 100%;
 `;
 
 const SearchBoxContainer = styled.div`
-  width: 30%;
+  width: 33%;
   height: 100%;
 `;

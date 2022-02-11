@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 import { FaRegPlusSquare } from "react-icons/fa";
@@ -11,8 +11,6 @@ import { ERROR_MESSAGE } from "../../constants";
 import StyledButton from "../common/CommonStyle";
 import ResponseMessage from "../common/ResponseMessage";
 import Map from "./Map";
-import Modal from "../common/Modal";
-import NewMap from "./NewMap";
 
 const getMapList = id => {
   return axios.get(`/user/${id}/maps`);

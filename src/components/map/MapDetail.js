@@ -91,7 +91,6 @@ const MapDetail = () => {
 
   if (data?.error) {
     if (data.error.code === 400) {
-      console.log(1111);
       return <ResponseMessage message={ERROR_MESSAGE.BAD_REQUEST} />;
     }
 

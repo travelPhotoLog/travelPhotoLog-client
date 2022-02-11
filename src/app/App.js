@@ -27,11 +27,6 @@ const App = () => {
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/sign-up" element={<SignUp />} />
           <Route path="/my-travels" element={<MapList />} />
-          <Route path="/my-travels/:id/*" element={<MapDetail />} />
-          <Route
-            path="/my-travels/:id/invitation/:token"
-            element={<InvitationResult />}
-          />
           <Route
             path="/my-travels/new-map"
             element={
@@ -39,6 +34,11 @@ const App = () => {
                 <NewMap />
               </Modal>
             }
+          />
+          <Route path="/my-travels/:id/*" element={<MapDetail />} />
+          <Route
+            path="/my-travels/:id/invitation/:token"
+            element={<InvitationResult />}
           />
         </Routes>
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />

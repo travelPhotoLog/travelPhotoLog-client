@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 import theme from "../../styles/theme";
 
-const Modal = ({ children, size }) => {
+const Modal = ({ children, size, id }) => {
   const navigate = useNavigate();
 
   const handleExitClick = event => {
@@ -14,7 +14,7 @@ const Modal = ({ children, size }) => {
       return;
     }
 
-    navigate(-1);
+    navigate(`/my-travels/${id}`);
   };
 
   useEffect(() => {
@@ -82,4 +82,9 @@ const ExitButton = styled(AiOutlineCloseSquare)`
 Modal.propTypes = {
   size: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  id: PropTypes.string || PropTypes.number,
+};
+
+Modal.defaultProps = {
+  id: -1,
 };

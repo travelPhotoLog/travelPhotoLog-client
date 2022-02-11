@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import {
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import GoogleMapReact from "google-map-react";
 import MarkerClusterer from "@google/markerclustererplus";
 import styled, { ThemeProvider } from "styled-components";
@@ -14,15 +20,17 @@ import PhotoList from "../photo/PhotoList";
 import Sidebar from "../sidebar/Sidebar";
 import Modal from "../common/Modal";
 import SearchBox from "./SearchBox";
+import PhotoDetail from "../photo/PhotoDetail";
 
 const MapDetail = () => {
+  const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   const [googleMapRef, setGoogleMapRef] = useState({ map: null, api: null });
   const [mapPoints, setMapPoints] = useState([]);
 
   const { REACT_APP_GOOGLE_API_KEY } = process.env;
-  const id = location.pathname.split("/")[2];
+  const pointId = location.pathname.split("/")[2];
   const defaultProps = {
     center: { lat: 37.508105, lng: 127.061341 },
     zoom: 12,
@@ -32,7 +40,7 @@ const MapDetail = () => {
     setGoogleMapRef({ map, api });
   };
 
-  const handleMarkerClick = ({ _id: id, latitude, longitude, placeName }) => {
+  const handleMarkerClick = ({ latitude, longitude, placeName }) => {
     navigate(
       `photos?latitude=${latitude}&longitude=${longitude}&placename=${placeName}`
     );
@@ -79,10 +87,14 @@ const MapDetail = () => {
     }
   };
 
-  const { isError, error, data } = useQuery("points", () => getPoints(id), {
-    onSuccess,
-    select: response => response.data,
-  });
+  const { isError, error, data } = useQuery(
+    "points",
+    () => getPoints(pointId),
+    {
+      onSuccess,
+      select: response => response.data,
+    }
+  );
 
   if (data?.message) {
     if (data.message) {
@@ -146,8 +158,16 @@ const MapDetail = () => {
         <Route
           path="/photos"
           element={
-            <Modal size="big">
+            <Modal size="big" id={id}>
               <PhotoList />
+            </Modal>
+          }
+        />
+        <Route
+          path="/:id"
+          element={
+            <Modal size="big" id={id}>
+              <PhotoDetail />
             </Modal>
           }
         />

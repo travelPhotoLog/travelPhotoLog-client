@@ -10,6 +10,7 @@ import MapList from "../components/map/MapList";
 import SignUp from "../components/login/SignUp";
 import MapDetail from "../components/map/MapDetail";
 import GlobalStyle from "../styles/GlobalStyle";
+import InvitationResult from "../components/Invitation/InvitationResult";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,10 @@ const App = () => {
           <Route path="/auth/sign-up" element={<SignUp />} />
           <Route path="/my-travels" element={<MapList />} />
           <Route path="/my-travels/:id/*" element={<MapDetail />} />
+          <Route
+            path="/my-travels/:id/invitation/:token"
+            element={<InvitationResult />}
+          />
         </Routes>
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       </QueryClientProvider>

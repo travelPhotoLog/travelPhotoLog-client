@@ -9,6 +9,9 @@ const RESPONSE_MESSAGE = Object.freeze({
   RELOGIN_REQUIRED: "재로그인이 필요한 유저입니다",
   USER_NOT_EXIST: "해당 유저가 존재하지 않습니다.",
   EXIST_NICKNAME: "해당 닉네임이 존재합니다.",
+  SENDING_SUCCESS: "메일 발송 성공",
+  ALREADY_IN_SAME_GROUP: "이미 같은 그룹 멤버입니다.",
+  ALREADY_INVITED: "이미 초대 메일을 보낸 유저입니다.",
 });
 
 export { ERROR_MESSAGE, RESPONSE_MESSAGE };

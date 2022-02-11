@@ -144,9 +144,9 @@ const MapDetail = () => {
           }
         />
         <Route
-          path="photos"
+          path="/photos"
           element={
-            <Modal>
+            <Modal size="big">
               <PhotoList />
             </Modal>
           }

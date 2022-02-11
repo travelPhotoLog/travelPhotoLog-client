@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import { AiOutlineCloseSquare } from "react-icons/ai";
+import { IoArrowBackSharp } from "react-icons/io5";
 import PropTypes from "prop-types";
 
 import theme from "../../styles/theme";
@@ -14,7 +15,20 @@ const Modal = ({ children, size, id }) => {
       return;
     }
 
+    if (id === -1) {
+      navigate(-1);
+      return;
+    }
+
     navigate(`/my-travels/${id}`);
+  };
+
+  const handleBackClick = event => {
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -33,7 +47,8 @@ const Modal = ({ children, size, id }) => {
     <ThemeProvider theme={theme}>
       <BackDrop id="modal" onClick={handleExitClick}>
         <ModalWrapper className={size === "big" ? "big" : "small"}>
-          <ExitButton onClick={handleExitClick}>❌</ExitButton>
+          <BackButton onClick={handleBackClick} />
+          <ExitButton onClick={handleExitClick} />
           {children}
         </ModalWrapper>
       </BackDrop>
@@ -74,6 +89,15 @@ const ExitButton = styled(AiOutlineCloseSquare)`
   position: absolute;
   top: 20px;
   right: 20px;
+  color: black;
+  font-size: 30px;
+  cursor: pointer;
+`;
+
+const BackButton = styled(IoArrowBackSharp)`
+  position: absolute;
+  top: 20px;
+  left: 20px;
   color: black;
   font-size: 30px;
   cursor: pointer;

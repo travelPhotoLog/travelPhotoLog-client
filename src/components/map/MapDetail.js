@@ -8,11 +8,12 @@ import axios from "axios";
 
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
-import SearchBox from "./SearchBox";
-import Modal from "../common/Modal";
 import ResponseMessage from "../common/ResponseMessage";
-import Sidebar from "../sidebar/Sidebar";
 import NewInvitation from "../Invitation/NewInvitation";
+import PhotoList from "../photo/PhotoList";
+import Sidebar from "../sidebar/Sidebar";
+import Modal from "../common/Modal";
+import SearchBox from "./SearchBox";
 
 const MapDetail = () => {
   const location = useLocation();
@@ -31,9 +32,9 @@ const MapDetail = () => {
     setGoogleMapRef({ map, api });
   };
 
-  const handleMarkerClick = ({ latitude, longitude, placename }) => {
+  const handleMarkerClick = ({ _id: id, latitude, longitude, placeName }) => {
     navigate(
-      `point?latitude=${latitude}&longitude=${longitude}&placename=${placename}`
+      `photos?latitude=${latitude}&longitude=${longitude}&placename=${placeName}`
     );
   };
 
@@ -135,16 +136,18 @@ const MapDetail = () => {
       </Container>
       <Routes>
         <Route
-          path="/point"
-          element={
-            <Modal size="big">포토를 가져와서 보여주는 모달입니다.</Modal>
-          }
-        />
-        <Route
           path="/invitation"
           element={
             <Modal size="small">
               <NewInvitation />
+            </Modal>
+          }
+        />
+        <Route
+          path="photos"
+          element={
+            <Modal>
+              <PhotoList />
             </Modal>
           }
         />

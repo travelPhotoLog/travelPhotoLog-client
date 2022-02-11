@@ -6,8 +6,9 @@ import styled, { ThemeProvider } from "styled-components";
 import axios from "axios";
 
 import theme from "../../styles/theme";
-import { ERROR_MESSAGE } from "../../constants";
+import { ERROR_MESSAGE, LOADING_MESSAGE } from "../../constants";
 import ResponseMessage from "../common/ResponseMessage";
+import Message from "../common/Message";
 import Photo from "./Photo";
 
 const PhotoList = () => {
@@ -37,7 +38,7 @@ const PhotoList = () => {
   );
 
   if (isLoading || isFetching) {
-    return <ResponseMessage message="사진을 불러오는 중입니다..." />;
+    return <Message message={LOADING_MESSAGE.LOADING_PHOTOS} />;
   }
 
   if (data?.error) {

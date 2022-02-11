@@ -4,8 +4,13 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
-import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
+import {
+  ERROR_MESSAGE,
+  RESPONSE_MESSAGE,
+  LOADING_MESSAGE,
+} from "../../constants";
 import ResponseMessage from "../common/ResponseMessage";
+import Message from "../common/Message";
 
 const NewInvitation = () => {
   const { id } = useParams();
@@ -50,7 +55,7 @@ const NewInvitation = () => {
   );
 
   if (isLoading || isFetching) {
-    return <Message>잠시만 기다려주세요...</Message>;
+    return <Message message={LOADING_MESSAGE.SENDING_IN_PROGRESS} />;
   }
 
   if (data?.error) {
@@ -79,7 +84,7 @@ const NewInvitation = () => {
         onChange={event => setEmail(event.target.value)}
       />
       <Button type="submit">Send</Button>
-      <Message>{message || null}</Message>
+      <Message message={message || null} />
     </Form>
   );
 };
@@ -114,13 +119,6 @@ const Button = styled.button`
   color: white;
   font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: 700;
-`;
-
-const Message = styled.div`
-  margin-top: ${({ theme }) => theme.spacing.xxl};
-  background-color: rgb(255, 255, 255);
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  font-weight: 500;
 `;
 
 export default NewInvitation;

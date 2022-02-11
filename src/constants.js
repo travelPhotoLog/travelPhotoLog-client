@@ -14,4 +14,9 @@ const RESPONSE_MESSAGE = Object.freeze({
   ALREADY_INVITED: "이미 초대 메일을 보낸 유저입니다.",
 });
 
-export { ERROR_MESSAGE, RESPONSE_MESSAGE };
+const LOADING_MESSAGE = Object.freeze({
+  LOADING_PHOTOS: "사진을 불러오는 중입니다...",
+  SENDING_IN_PROGRESS: "잠시만 기다려주세요...",
+});
+
+export { ERROR_MESSAGE, RESPONSE_MESSAGE, LOADING_MESSAGE };

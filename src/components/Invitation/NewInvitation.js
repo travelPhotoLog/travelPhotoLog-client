@@ -5,7 +5,6 @@ import axios from "axios";
 import styled from "styled-components";
 
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
-import theme from "../../styles/theme";
 import ResponseMessage from "../common/ResponseMessage";
 
 const NewInvitation = () => {

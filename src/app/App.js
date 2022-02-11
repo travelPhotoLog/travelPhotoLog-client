@@ -9,6 +9,7 @@ import Login from "../components/login/Login";
 import MapList from "../components/map/MapList";
 import SignUp from "../components/login/SignUp";
 import MapDetail from "../components/map/MapDetail";
+import NewMap from "../components/map/NewMap";
 import GlobalStyle from "../styles/GlobalStyle";
 import InvitationResult from "../components/Invitation/InvitationResult";
 
@@ -30,6 +31,7 @@ const App = () => {
             path="/my-travels/:id/invitation/:token"
             element={<InvitationResult />}
           />
+          <Route path="/my-travels/new-map" element={<NewMap />} />
         </Routes>
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       </QueryClientProvider>

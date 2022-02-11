@@ -5,7 +5,6 @@ import { FcPlus } from "react-icons/fc";
 import axios from "axios";
 import styled from "styled-components";
 
-import theme from "../../styles/theme";
 import Member from "./Member";
 
 const getMembers = id => {
@@ -32,7 +31,7 @@ const MemberList = () => {
 
   return (
     <Container>
-      {memberList.map(member => (
+      {memberList?.map(member => (
         <Member key={Math.random(100 * 20)} member={member} />
       ))}
       <Icon size="30" onClick={handlePlusClick} />

@@ -8,6 +8,7 @@ import axios from "axios";
 
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
+import SearchBox from "./SearchBox";
 import Modal from "../common/Modal";
 import ResponseMessage from "../common/ResponseMessage";
 import Sidebar from "../sidebar/Sidebar";
@@ -17,6 +18,7 @@ const MapDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [googleMapRef, setGoogleMapRef] = useState({ map: null, api: null });
+  const [mapPoints, setMapPoints] = useState([]);
 
   const { REACT_APP_GOOGLE_API_KEY } = process.env;
   const id = location.pathname.split("/")[2];
@@ -67,6 +69,12 @@ const MapDetail = () => {
         imagePath:
           "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
       });
+
+      const currentMapPoints = data.mapPoints.map(
+        point => `${point.latitude.toString()}%${point.longitude.toString()}`
+      );
+
+      setMapPoints(currentMapPoints);
     }
   };
 
@@ -105,10 +113,15 @@ const MapDetail = () => {
     <ThemeProvider theme={theme}>
       <Sidebar />
       <Container>
-        <SearchBoxContainer>SearchBox가 들어가는 곳 입니다.</SearchBoxContainer>
+        <SearchBoxContainer>
+          <SearchBox />
+        </SearchBoxContainer>
         <GoogleMapContainer>
           <GoogleMapReact
-            bootstrapURLKeys={{ key: REACT_APP_GOOGLE_API_KEY }}
+            bootstrapURLKeys={{
+              key: REACT_APP_GOOGLE_API_KEY,
+              libraries: ["places"],
+            }}
             defaultCenter={
               data?.mapPoints.length
                 ? getLatestPoint(data.mapPoints)
@@ -151,11 +164,11 @@ const Container = styled.div`
 `;
 
 const GoogleMapContainer = styled.div`
-  width: 65%;
+  width: 70%;
   height: 100%;
 `;
 
 const SearchBoxContainer = styled.div`
-  width: 33%;
+  width: 28%;
   height: 100%;
 `;

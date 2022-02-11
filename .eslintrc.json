@@ -19,6 +19,14 @@
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/function-component-definition": "off",
+    "react/prop-types": "off",
+    "react/jsx-props-no-spreading": [
+      1,
+      {
+        "html": "ignore"
+      }
+    ],
+    "react/jsx-key": [0, { "checkFragmentShorthand": true }],
     "indent": "off",
     "semi": ["error", "always"],
     "quotes": ["error", "double"],

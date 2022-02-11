@@ -4,16 +4,16 @@ import PropTypes from "prop-types";
 
 const Member = ({ member }) => {
   const { nickname, profileUrl } = member;
-  const basicImg =
-    "https://travelphotolog.s3.ap-northeast-2.amazonaws.com/travel.png";
 
   return (
     <List key={nickname}>
-      <Img src={profileUrl || basicImg} alt={nickname} />
+      <Img src={profileUrl} alt={nickname} />
       <Nickname>{nickname}</Nickname>
     </List>
   );
 };
+
+export default Member;
 
 const List = styled.div`
   display: flex;
@@ -38,8 +38,6 @@ const Nickname = styled.div`
   font-weight: 700;
   line-height: 100%;
 `;
-
-export default Member;
 
 Member.propTypes = {
   member: PropTypes.shape({

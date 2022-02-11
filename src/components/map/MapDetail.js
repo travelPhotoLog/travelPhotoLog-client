@@ -122,13 +122,13 @@ const MapDetail = () => {
       </Container>
       <Routes>
         <Route
-          path="point"
+          path="/point"
           element={
             <Modal size="big">포토를 가져와서 보여주는 모달입니다.</Modal>
           }
         />
         <Route
-          path="invitation"
+          path="/invitation"
           element={
             <Modal size="small">
               <NewInvitation />

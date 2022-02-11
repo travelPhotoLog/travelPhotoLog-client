@@ -1,7 +1,7 @@
 import React from "react";
-import axios from "axios";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 import ResponseMessage from "../common/ResponseMessage";
 import { ERROR_MESSAGE } from "../../constants";
@@ -13,7 +13,7 @@ const getInvitationResult = (id, token) => {
 const InvitationResult = () => {
   const { id, token } = useParams();
   const { data, isLoading } = useQuery(
-    "InvitationResult",
+    "invitationResult",
     () => getInvitationResult(id, token),
     {
       select: response => response.data,
@@ -24,7 +24,7 @@ const InvitationResult = () => {
     return <div />;
   }
 
-  if (data.error) {
+  if (data?.error) {
     if (data.error.code === 403) {
       return <ResponseMessage message={ERROR_MESSAGE.FORBIDDEN} />;
     }
@@ -38,7 +38,7 @@ const InvitationResult = () => {
     }
   }
 
-  if (data.result) {
+  if (data?.result) {
     return <ResponseMessage message="초대가 완료 되었습니다🍑" />;
   }
 

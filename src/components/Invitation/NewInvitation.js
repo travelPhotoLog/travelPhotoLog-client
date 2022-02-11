@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
-import ResponseMessage from "../common/ResponseMessage";
 import theme from "../../styles/theme";
-
-const sendEmail = (id, email) => {
-  return axios.put(`/map/${id}/invitation`, {
-    email,
-  });
-};
+import ResponseMessage from "../common/ResponseMessage";
 
 const NewInvitation = () => {
   const { id } = useParams();
@@ -38,6 +32,12 @@ const NewInvitation = () => {
     if (data.result === RESPONSE_MESSAGE.SENDING_SUCCESS) {
       setMessage("초대 링크 전송에 성공했습니다🍑");
     }
+  };
+
+  const sendEmail = (id, email) => {
+    return axios.put(`/map/${id}/invitation`, {
+      email,
+    });
   };
 
   const { data, isLoading, isError, error, isFetching, refetch } = useQuery(

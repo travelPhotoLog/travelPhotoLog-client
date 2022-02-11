@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
-import PropTypes from "prop-types";
 import { AiOutlineCloseSquare } from "react-icons/ai";
+import PropTypes from "prop-types";
 
 import theme from "../../styles/theme";
 

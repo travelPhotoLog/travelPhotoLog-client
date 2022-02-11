@@ -6,10 +6,10 @@ import MarkerClusterer from "@google/markerclustererplus";
 import styled, { ThemeProvider } from "styled-components";
 import axios from "axios";
 
-import Modal from "../common/Modal";
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
 import SearchBox from "./SearchBox";
+import Modal from "../common/Modal";
 import ResponseMessage from "../common/ResponseMessage";
 import Sidebar from "../sidebar/Sidebar";
 import NewInvitation from "../Invitation/NewInvitation";
@@ -91,6 +91,7 @@ const MapDetail = () => {
 
   if (data?.error) {
     if (data.error.code === 400) {
+      console.log(1111);
       return <ResponseMessage message={ERROR_MESSAGE.BAD_REQUEST} />;
     }
 

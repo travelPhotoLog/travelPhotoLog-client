@@ -18,10 +18,11 @@ const SearchBox = () => {
   const handleSelect = async (address, placeId, suggestion) => {
     const results = await geocodeByAddress(address);
     const latLng = await getLatLng(results[0]);
+    const placeName = suggestion.formattedSuggestion.mainText;
     setAddress(address);
     setCoordinates(latLng);
     navigate(
-      `point?latitude=${latLng.lat}&longitude=${latLng.lng}&longitude=${suggestion.formattedSuggestion.mainText}`
+      `point?latitude=${latLng.lat}&longitude=${latLng.lng}&longitude=${placeName}`
     );
   };
 

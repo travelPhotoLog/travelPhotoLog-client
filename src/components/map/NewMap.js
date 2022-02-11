@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import axios from "axios";
 
-import Modal from "../common/Modal";
 import theme from "../../styles/theme";
 
 const NewMap = () => {
@@ -35,20 +34,18 @@ const NewMap = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Modal size="small">
-        <Form>
-          <Title>New Map</Title>
-          <Message>Title</Message>
-          <Input
-            name="title"
-            onChange={event => setMapTitle(event.target.value)}
-            required
-          />
-          <Button type="submit" onClick={handleCreateButtonClick}>
-            CREATE
-          </Button>
-        </Form>
-      </Modal>
+      <Form>
+        <Title>New Map</Title>
+        <Message>Title</Message>
+        <Input
+          name="title"
+          onChange={event => setMapTitle(event.target.value)}
+          required
+        />
+        <Button type="submit" onClick={handleCreateButtonClick}>
+          CREATE
+        </Button>
+      </Form>
     </ThemeProvider>
   );
 };

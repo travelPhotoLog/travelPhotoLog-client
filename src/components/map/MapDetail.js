@@ -32,7 +32,7 @@ const MapDetail = () => {
     setGoogleMapRef({ map, api });
   };
 
-  const handleMarkerClick = ({ _id: id, latitude, longitude, placeName }) => {
+  const handleMarkerClick = ({ latitude, longitude, placeName }) => {
     navigate(
       `photos?latitude=${latitude}&longitude=${longitude}&placename=${placeName}`
     );
@@ -134,24 +134,6 @@ const MapDetail = () => {
           />
         </GoogleMapContainer>
       </Container>
-      <Routes>
-        <Route
-          path="/invitation"
-          element={
-            <Modal size="small">
-              <NewInvitation />
-            </Modal>
-          }
-        />
-        <Route
-          path="/photos"
-          element={
-            <Modal size="big">
-              <PhotoList />
-            </Modal>
-          }
-        />
-      </Routes>
     </ThemeProvider>
   );
 };

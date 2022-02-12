@@ -15,6 +15,8 @@ import Modal from "../components/common/Modal";
 import PhotoList from "../components/photo/PhotoList";
 import NewInvitation from "../components/Invitation/NewInvitation";
 import InvitationResult from "../components/Invitation/InvitationResult";
+import Selection from "../components/map/SelectionButton";
+import PhotoEditor from "../components/PhotoEditor";
 
 const queryClient = new QueryClient();
 
@@ -55,6 +57,19 @@ const App = () => {
               }
             />
             <Route
+              path="options"
+              element={
+                <Modal size="big" column={false}>
+                  <Selection>수정</Selection>
+                  <Selection>업로드</Selection>
+                </Modal>
+              }
+            />
+            <Route
+              path="options/new-photo"
+              element={<Modal size="big">사진업로드 페이지</Modal>}
+            />
+            <Route
               path="invitation"
               element={
                 <Modal size="small">
@@ -64,6 +79,10 @@ const App = () => {
             />
             <Route path="invitation/:token" element={<InvitationResult />} />
           </Route>
+          <Route
+            path="/my-travels/:id/options/photo-editor"
+            element={<PhotoEditor />}
+          />
         </Routes>
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       </QueryClientProvider>

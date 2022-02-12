@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "@toast-ui/react-image-editor": "^3.15.2",
     "axios": "^0.25.0",
     "dotenv": "^16.0.0",
     "firebase": "^9.6.6",
@@ -27,6 +28,7 @@
     "redux-logger": "^3.0.6",
     "socket.io-client": "^4.4.1",
     "styled-components": "^5.3.3",
+    "tui-image-editor": "^3.15.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

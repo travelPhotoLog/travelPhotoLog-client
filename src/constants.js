@@ -17,6 +17,7 @@ const RESPONSE_MESSAGE = Object.freeze({
 const LOADING_MESSAGE = Object.freeze({
   LOADING_PHOTOS: "사진을 불러오는 중입니다...",
   SENDING_IN_PROGRESS: "잠시만 기다려주세요...",
+  DELETING_PHOTO: "사진을 삭제하는 중입니다...",
 });
 
 export { ERROR_MESSAGE, RESPONSE_MESSAGE, LOADING_MESSAGE };

@@ -167,7 +167,7 @@ const MapDetail = () => {
           path="/:id"
           element={
             <Modal size="big" id={id}>
-              <PhotoDetail />
+              <PhotoDetail mapId={id} />
             </Modal>
           }
         />

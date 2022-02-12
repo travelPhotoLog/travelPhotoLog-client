@@ -71,6 +71,9 @@ const BackDrop = styled.main`
 
 const ModalWrapper = styled.section`
   ${({ theme }) => theme.container.flexCenterColumn};
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  overflow-y: scroll;
   position: relative;
   padding: ${({ theme }) => theme.spacing.xxxl};
   border-radius: 20px;

@@ -34,7 +34,7 @@ const NewMap = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Form>
+      <Form onSubmit={handleCreateButtonClick}>
         <Title>New Map</Title>
         <Message>Title</Message>
         <Input
@@ -42,9 +42,7 @@ const NewMap = () => {
           onChange={event => setMapTitle(event.target.value)}
           required
         />
-        <Button type="submit" onClick={handleCreateButtonClick}>
-          CREATE
-        </Button>
+        <Button type="submit">CREATE</Button>
       </Form>
     </ThemeProvider>
   );

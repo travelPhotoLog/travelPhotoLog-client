@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import styled, { ThemeProvider } from "styled-components";
 import PropTypes from "prop-types";
@@ -14,8 +14,10 @@ import theme from "../../styles/theme";
 import Message from "../common/Message";
 import ResponseMessage from "../common/ResponseMessage";
 import CommentList from "./CommentList";
+import Modal from "../common/Modal";
 
-const PhotoDetail = ({ mapId }) => {
+const PhotoDetail = () => {
+  const { id: mapId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isDeleted, setIsDeleted] = useState(false);
@@ -72,28 +74,32 @@ const PhotoDetail = ({ mapId }) => {
   };
 
   return isError ? (
-    <ResponseMessage message={ERROR_MESSAGE.SERVER_UNSTABLE} />
+    <Modal size="big">
+      <ResponseMessage message={ERROR_MESSAGE.SERVER_UNSTABLE} />
+    </Modal>
   ) : (
     <ThemeProvider theme={theme}>
-      <Container>
-        <LeftButton onClick={handleLeftClick} />
-        <Detail>
-          <Img src={url} alt={description} />
-          <Description>{description}</Description>
-          <Box>
-            <SubData>{createdBy}</SubData>
-            <SubData>{date}</SubData>
-            <Button
-              className={isUploader ? "show" : "hide"}
-              onClick={() => setIsDeleted(true)}
-            >
-              DELETE
-            </Button>
-          </Box>
-          <CommentList />
-        </Detail>
-        <RightButton onClick={handleRightClick} />
-      </Container>
+      <Modal size="big" id={mapId}>
+        <Container>
+          <LeftButton onClick={handleLeftClick} />
+          <Detail>
+            <Img src={url} alt={description} />
+            <Description>{description}</Description>
+            <Box>
+              <SubData>{createdBy}</SubData>
+              <SubData>{date}</SubData>
+              <Button
+                className={isUploader ? "show" : "hide"}
+                onClick={() => setIsDeleted(true)}
+              >
+                DELETE
+              </Button>
+            </Box>
+            <CommentList />
+          </Detail>
+          <RightButton onClick={handleRightClick} />
+        </Container>
+      </Modal>
     </ThemeProvider>
   );
 };

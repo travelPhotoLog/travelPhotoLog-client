@@ -8,7 +8,7 @@ import { FaRegPlusSquare } from "react-icons/fa";
 
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE } from "../../constants";
-import StyledButton from "../common/CommonStyle";
+import { StyledButton } from "../common/CommonStyle";
 import ResponseMessage from "../common/ResponseMessage";
 import Map from "./Map";
 

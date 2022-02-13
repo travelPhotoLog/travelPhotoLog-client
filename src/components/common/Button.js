@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import StyledButton from "./CommonStyle";
+import { StyledButton } from "./CommonStyle";
 
 const Button = ({ children, onClick }) => {
   return <StyledButton onClick={onClick}>{children}</StyledButton>;

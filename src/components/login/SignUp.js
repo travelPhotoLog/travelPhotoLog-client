@@ -10,7 +10,7 @@ import {
   validateContact,
   validateBirthday,
 } from "../../utils/signUpValidation";
-import StyledButton from "../common/CommonStyle";
+import { StyledButton } from "../common/CommonStyle";
 import ResponseMessage from "../common/ResponseMessage";
 
 const SignUp = () => {

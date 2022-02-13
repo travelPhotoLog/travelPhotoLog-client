@@ -49,7 +49,6 @@ const App = () => {
             <Route path="invitation" element={<NewInvitation />} />
             <Route path="invitation/:token" element={<InvitationResult />} />
           </Route>
-
           <Route
             path="/my-travels/:id/options/photo-editor"
             element={<PhotoEditor />}

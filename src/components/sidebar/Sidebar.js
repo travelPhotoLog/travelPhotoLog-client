@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
+import theme from "../../styles/theme";
 import MemberList from "./MemberList";
 
 const Sidebar = () => {
@@ -21,14 +22,16 @@ const Sidebar = () => {
   };
 
   return (
-    <Container className={isToggled ? "show" : "hide"}>
-      <Outside
-        className={isToggled ? "show" : "hide"}
-        onClick={handleSidebarClose}
-      />
-      <ToggleButton onClick={handleSidebarClose} />
-      <MemberList />
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container className={isToggled ? "show" : "hide"}>
+        <Outside
+          className={isToggled ? "show" : "hide"}
+          onClick={handleSidebarClose}
+        />
+        <ToggleButton onClick={handleSidebarClose} />
+        <MemberList />
+      </Container>
+    </ThemeProvider>
   );
 };
 

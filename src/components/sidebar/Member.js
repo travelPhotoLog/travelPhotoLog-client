@@ -1,15 +1,19 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import PropTypes from "prop-types";
+
+import theme from "../../styles/theme";
 
 const Member = ({ member }) => {
   const { nickname, profileUrl } = member;
 
   return (
-    <List key={nickname}>
-      <Img src={profileUrl} alt={nickname} />
-      <Nickname>{nickname}</Nickname>
-    </List>
+    <ThemeProvider theme={theme}>
+      <List key={nickname}>
+        <Img src={profileUrl} alt={nickname} />
+        <Nickname>{nickname}</Nickname>
+      </List>
+    </ThemeProvider>
   );
 };
 

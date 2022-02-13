@@ -4,12 +4,12 @@ import PropTypes from "prop-types";
 
 import theme from "../../styles/theme";
 
-const Photo = ({ photo, onClick }) => {
+const Photo = ({ photo, index, onClick }) => {
   const { id, url, description } = photo;
 
   return (
     <ThemeProvider theme={theme}>
-      <PhotoCardContainer id={id} onClick={onClick}>
+      <PhotoCardContainer id={id} data-index={index} onClick={onClick}>
         <Image src={url} />
         <p>{description}</p>
       </PhotoCardContainer>
@@ -19,16 +19,12 @@ const Photo = ({ photo, onClick }) => {
 
 export default Photo;
 
-Photo.propTypes = {
-  photo: PropTypes.objectOf(PropTypes.string).isRequired,
-  onClick: PropTypes.func.isRequired,
-};
-
 const PhotoCardContainer = styled.div`
   ${({ theme }) => theme.container.flexCenterColumn};
-  width: 200px;
-  height: 260px;
+  width: 10vw;
+  height: 30vh;
   margin: ${({ theme }) => theme.spacing.xxl};
+  padding: ${({ theme }) => theme.spacing.base};
   border-radius: 20px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   cursor: pointer;
@@ -39,3 +35,9 @@ const Image = styled.img`
   height: 80%;
   margin-bottom: ${({ theme }) => theme.spacing.base};
 `;
+
+Photo.propTypes = {
+  photo: PropTypes.objectOf(PropTypes.string).isRequired,
+  onClick: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
+};

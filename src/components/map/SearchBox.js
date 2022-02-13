@@ -22,7 +22,7 @@ const SearchBox = () => {
     setAddress(address);
     setCoordinates(latLng);
     navigate(
-      `point?latitude=${latLng.lat}&longitude=${latLng.lng}&longitude=${placeName}`
+      `photos?latitude=${latLng.lat}&longitude=${latLng.lng}&placename=${placeName}`
     );
   };
 

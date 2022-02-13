@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
 import {
   ERROR_MESSAGE,
   RESPONSE_MESSAGE,
   LOADING_MESSAGE,
 } from "../../constants";
+import theme from "../../styles/theme";
 import ResponseMessage from "../common/ResponseMessage";
 import Message from "../common/Message";
 
@@ -77,15 +78,17 @@ const NewInvitation = () => {
   return isError ? (
     <ResponseMessage message={error.message} />
   ) : (
-    <Form onSubmit={handleSendClick}>
-      <Title>Invite new member</Title>
-      <Input
-        placeholder="Please enter E-mail"
-        onChange={event => setEmail(event.target.value)}
-      />
-      <Button type="submit">Send</Button>
-      <Message message={message || null} />
-    </Form>
+    <ThemeProvider theme={theme}>
+      <Form onSubmit={handleSendClick}>
+        <Title>Invite new member</Title>
+        <Input
+          placeholder="Please enter E-mail"
+          onChange={event => setEmail(event.target.value)}
+        />
+        <Button type="submit">Send</Button>
+        <Message message={message || null} />
+      </Form>
+    </ThemeProvider>
   );
 };
 

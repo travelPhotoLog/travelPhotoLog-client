@@ -2,14 +2,28 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import { AiOutlineCloseSquare } from "react-icons/ai";
+import { IoArrowBackSharp } from "react-icons/io5";
 import PropTypes from "prop-types";
 
 import theme from "../../styles/theme";
 
-const Modal = ({ children, size }) => {
+const Modal = ({ children, size, id }) => {
   const navigate = useNavigate();
 
   const handleExitClick = event => {
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+
+    if (id === -1) {
+      navigate(-1);
+      return;
+    }
+
+    navigate(`/my-travels/${id}`);
+  };
+
+  const handleBackClick = event => {
     if (event.target !== event.currentTarget) {
       return;
     }
@@ -33,7 +47,8 @@ const Modal = ({ children, size }) => {
     <ThemeProvider theme={theme}>
       <BackDrop id="modal" onClick={handleExitClick}>
         <ModalWrapper className={size === "big" ? "big" : "small"}>
-          <ExitButton onClick={handleExitClick}>❌</ExitButton>
+          <BackButton onClick={handleBackClick} />
+          <ExitButton onClick={handleExitClick} />
           {children}
         </ModalWrapper>
       </BackDrop>
@@ -56,6 +71,9 @@ const BackDrop = styled.main`
 
 const ModalWrapper = styled.section`
   ${({ theme }) => theme.container.flexCenterColumn};
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  overflow-y: scroll;
   position: relative;
   padding: ${({ theme }) => theme.spacing.xxxl};
   border-radius: 20px;
@@ -79,7 +97,21 @@ const ExitButton = styled(AiOutlineCloseSquare)`
   cursor: pointer;
 `;
 
+const BackButton = styled(IoArrowBackSharp)`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: black;
+  font-size: 30px;
+  cursor: pointer;
+`;
+
 Modal.propTypes = {
   size: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  id: PropTypes.string || PropTypes.number,
+};
+
+Modal.defaultProps = {
+  id: -1,
 };

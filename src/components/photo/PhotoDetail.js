@@ -19,15 +19,14 @@ const PhotoDetail = ({ mapId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isDeleted, setIsDeleted] = useState(false);
-  const user = useSelector(state => state.user);
-  const photoIndex = useSelector(state => state.photo);
-  const index = photoIndex.currentIndex;
-
+  const user = useSelector(state => state.user.user);
+  const index = useSelector(state => state.photo.currentIndex);
   const queryClient = useQueryClient();
+
   const photos = queryClient.getQueryData("photos")?.data?.photos;
   const photo = photos[index];
   const [isUploader, setIsUploader] = useState(
-    photo.createdBy === user.user.nickname
+    photo.createdBy === user.nickname
   );
 
   const { url, description, createdBy, createdAt } = photo;
@@ -61,14 +60,14 @@ const PhotoDetail = ({ mapId }) => {
   const handleLeftClick = () => {
     if (index > 0) {
       dispatch(photoActions.updateIndex({ index: index - 1 }));
-      setIsUploader(photos[index - 1].createdBy === user.user.nickname);
+      setIsUploader(photos[index - 1].createdBy === user.nickname);
     }
   };
 
   const handleRightClick = () => {
     if (index < photos.length - 1) {
       dispatch(photoActions.updateIndex({ index: index + 1 }));
-      setIsUploader(photos[index + 1].createdBy === user.user.nickname);
+      setIsUploader(photos[index + 1].createdBy === user.nickname);
     }
   };
 

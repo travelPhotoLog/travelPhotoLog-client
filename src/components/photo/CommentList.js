@@ -12,19 +12,20 @@ import Comment from "./Comment";
 
 const CommentList = () => {
   const [reply, setReply] = useState("");
-  const [warnMsg, setWarnMsg] = useState("");
+  // setNotice를 사용하는 부분에서 과한 리랜더링이 발생함..
+  const [notice, setNotice] = useState("");
   const [isSave, setIsSave] = useState(false);
-  const photoIndex = useSelector(state => state.photo);
-  const user = useSelector(state => state.user);
-  const index = photoIndex.currentIndex;
+  const index = useSelector(state => state.photo.currentIndex);
+  const user = useSelector(state => state.user.user);
   const queryClient = useQueryClient();
+
   const photos = queryClient.getQueryData("photos")?.data?.photos;
   const commentList = photos[index].comments;
 
   const postComment = () => {
     const comment = {
       createdAt: new Date(),
-      createdBy: user.user.nickname,
+      createdBy: user.nickname,
       message: reply,
     };
 
@@ -50,25 +51,26 @@ const CommentList = () => {
   }
 
   if (data?.result) {
-    // 왜 여기서는 리렌더링 안일어나..?
+    return setNotice("댓글이 등록되었습니다-🍑");
   }
 
   if (data?.error) {
     if (data.error.code === 500) {
-      return setWarnMsg("잠시 후에 다시 시도해주세요.");
+      return setNotice("잠시 후에 다시 시도해주세요.");
     }
 
-    setWarnMsg(data.error.message);
+    setNotice(data.error.message);
   }
 
   const handleSaveClick = () => {
     const trimmedReply = reply.trimStart();
 
     if (!trimmedReply) {
-      setWarnMsg("내용을 입력해주세요.");
+      setNotice("내용을 입력해주세요.");
       return;
     }
 
+    // 스테이트를 변경하면 리랜더가 일어나서 새로고침 한 것처럼 문제가 발생
     setIsSave(true);
   };
 
@@ -84,7 +86,7 @@ const CommentList = () => {
           required
         />
         <Button onClick={handleSaveClick}>save</Button>
-        <Message message={warnMsg} />
+        <Message message={notice} />
       </Form>
       {commentList.map(comment => (
         <Comment key={comment._id} comment={comment} />

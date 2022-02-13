@@ -17,14 +17,15 @@ import Message from "../common/Message";
 const Comment = ({ comment }) => {
   const [hasError, setHasError] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
+  const index = useSelector(state => state.photo.currentIndex);
   const user = useSelector(state => state.user);
-  const photoIndex = useSelector(state => state.photo);
-  const index = photoIndex.currentIndex;
-  const { message, createdAt, createdBy } = comment;
-  const date = dayjs(createdAt).format("YY/MM/DD HH:mm");
   const queryClient = useQueryClient();
+
   const photos = queryClient.getQueryData("photos")?.data?.photos;
   const photo = photos[index];
+
+  const { message, createdAt, createdBy } = comment;
+  const date = dayjs(createdAt).format("YY/MM/DD HH:mm");
 
   const deleteComment = (commentId, photoId) => {
     setIsDelete(false);

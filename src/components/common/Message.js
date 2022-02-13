@@ -9,7 +9,7 @@ const Message = ({ message }) => {
 export default Message;
 
 Message.propTypes = {
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
 };
 
 const MessageContainer = styled.div`
@@ -18,3 +18,7 @@ const MessageContainer = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.base};
   font-weight: 500;
 `;
+
+Message.defaultProps = {
+  message: "",
+};

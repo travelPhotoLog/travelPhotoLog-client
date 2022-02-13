@@ -3,8 +3,9 @@ import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { FcPlus } from "react-icons/fc";
 import axios from "axios";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
+import theme from "../../styles/theme";
 import Member from "./Member";
 
 const getMembers = id => {
@@ -30,12 +31,14 @@ const MemberList = () => {
   };
 
   return (
-    <Container>
-      {memberList?.map(member => (
-        <Member key={Math.random(100 * 20)} member={member} />
-      ))}
-      <Icon size="30" onClick={handlePlusClick} />
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container>
+        {memberList?.map(member => (
+          <Member key={Math.random(100 * 20)} member={member} />
+        ))}
+        <Icon size="30" onClick={handlePlusClick} />
+      </Container>
+    </ThemeProvider>
   );
 };
 

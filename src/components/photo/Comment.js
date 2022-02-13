@@ -56,10 +56,6 @@ const Comment = ({ comment }) => {
     }
   }
 
-  const handleDeleteClick = () => {
-    setIsDelete(true);
-  };
-
   return hasError || isError ? (
     <RESPONSE_MESSAGE message={ERROR_MESSAGE.SERVER_UNSTABLE} />
   ) : (
@@ -70,7 +66,7 @@ const Comment = ({ comment }) => {
         <Date>{date}</Date>
         <Button
           className={createdBy === user.user.nickname ? "show" : "hidden"}
-          onClick={handleDeleteClick}
+          onClick={() => setIsDelete(true)}
         >
           Delete
         </Button>

@@ -71,10 +71,6 @@ const PhotoDetail = ({ mapId }) => {
     }
   };
 
-  const handleDeleteclick = () => {
-    setIsDeleted(true);
-  };
-
   return isError ? (
     <ResponseMessage message={ERROR_MESSAGE.SERVER_UNSTABLE} />
   ) : (
@@ -89,7 +85,7 @@ const PhotoDetail = ({ mapId }) => {
             <SubData>{date}</SubData>
             <Button
               className={isUploader ? "show" : "hide"}
-              onClick={handleDeleteclick}
+              onClick={() => setIsDeleted(true)}
             >
               DELETE
             </Button>

@@ -93,14 +93,14 @@ const PhotoUploader = () => {
               type="text"
               name="description"
               value={formInputs.description}
-              placeholder="description"
+              placeholder="사진에 대한 설명을 간략하게 남겨주세요 📷"
               onChange={handleInputChange}
             />
+            <DateLabel>위 사진을 어느 날의 기억으로 남기고 싶나요?</DateLabel>
             <DateInput
               type="date"
               name="date"
               value={formInputs.date}
-              placeholder="date"
               onChange={handleInputChange}
             />
             <UploadButton type="submit">UPLOAD</UploadButton>
@@ -134,8 +134,16 @@ const DescriptionInput = styled(Input)`
   padding: ${({ theme }) => theme.spacing.xl};
 `;
 
+const DateLabel = styled.div`
+  ${({ theme }) => theme.container.flexCenter};
+  width: 80%;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  color: gray;
+`;
 const UploadButton = styled(StyledButton)`
-  width: 9vw;
+  ${({ theme }) => theme.container.flexCenter};
+  width: 80%;
   background-color: green;
   color: white;
   text-align: center;

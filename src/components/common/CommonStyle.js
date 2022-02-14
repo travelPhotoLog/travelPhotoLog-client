@@ -18,7 +18,7 @@ const StyledButton = styled.button`
 
 const Input = styled.input`
   ${({ theme }) => theme.container.flexCenter};
-  width: 100%;
+  width: 80%;
   height: 15%;
   padding: ${({ theme }) => theme.spacing.xxl};
   margin-bottom: ${({ theme }) => theme.spacing.xl};

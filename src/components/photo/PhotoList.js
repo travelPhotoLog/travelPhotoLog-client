@@ -88,6 +88,8 @@ export default PhotoList;
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   width: 90%;
   height: 90%;
   padding: ${({ theme }) => theme.spacing.xxxl};

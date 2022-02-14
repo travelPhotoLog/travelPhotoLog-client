@@ -10,6 +10,8 @@ const photoSlice = createSlice({
   reducers: {
     updateIndex: (state, action) => {
       state.currentIndex = action.payload.index;
+
+      return state;
     },
   },
 });

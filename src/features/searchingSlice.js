@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  searching: {
+  keyword: {
     region: "",
     tag: "",
   },
@@ -12,7 +12,21 @@ const searchingSlice = createSlice({
   initialState,
   reducers: {
     setKeyword: (state, action) => {
-      state = action.payload;
+      const { region, tag } = action.payload;
+
+      if (region) {
+        state.keyword.region = region;
+      } else {
+        state.keyword.region = "";
+      }
+
+      if (tag) {
+        state.keyword.tag = tag;
+      } else {
+        state.keyword.tag = "";
+      }
+
+      return state;
     },
   },
 });

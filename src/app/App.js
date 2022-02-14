@@ -11,6 +11,7 @@ import SignUp from "../components/login/SignUp";
 import MapDetail from "../components/map/MapDetail";
 import NewMap from "../components/map/NewMap";
 import Modal from "../components/common/Modal";
+import Board from "../components/board/Board";
 import GlobalStyle from "../styles/GlobalStyle";
 import InvitationResult from "../components/Invitation/InvitationResult";
 
@@ -40,6 +41,7 @@ const App = () => {
             path="/my-travels/:id/invitation/:token"
             element={<InvitationResult />}
           />
+          <Route path="/board" element={<Board />} />
         </Routes>
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       </QueryClientProvider>

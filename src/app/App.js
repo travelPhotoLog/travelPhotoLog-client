@@ -47,6 +47,7 @@ const App = () => {
             <Route path="photos" element={<PhotoList />} />
             <Route path="options" element={<Options />} />
             <Route path="options/new-photo" element={<PhotoUploader />} />
+            <Route path="options/photo-editor" element={<PhotoEditor />} />
             <Route path="invitation" element={<NewInvitation />} />
             <Route path="invitation/:token" element={<InvitationResult />} />
           </Route>

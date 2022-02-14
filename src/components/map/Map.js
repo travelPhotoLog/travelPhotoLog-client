@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import styled, { ThemeProvider } from "styled-components";
 
 import theme from "../../styles/theme";
-import StyledButton from "../common/CommonStyle";
+import { StyledButton } from "../common/CommonStyle";
 
 const Map = ({ map }) => {
   const navigate = useNavigate();

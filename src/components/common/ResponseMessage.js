@@ -4,7 +4,7 @@ import styled, { ThemeProvider } from "styled-components";
 import PropTypes from "prop-types";
 
 import theme from "../../styles/theme";
-import StyledButton from "./CommonStyle";
+import { StyledButton } from "./CommonStyle";
 
 const ResponseMessage = ({ message }) => {
   const navigate = useNavigate();

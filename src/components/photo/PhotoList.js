@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { FcPlus } from "react-icons/fc";
 import styled, { ThemeProvider } from "styled-components";
@@ -9,11 +9,13 @@ import { useDispatch } from "react-redux";
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE, LOADING_MESSAGE } from "../../constants";
 import ResponseMessage from "../common/ResponseMessage";
-import Message from "../common/Message";
-import Photo from "./Photo";
 import { photoActions } from "../../features/photoSlice";
+import Message from "../common/Message";
+import Modal from "../common/Modal";
+import Photo from "./Photo";
 
 const PhotoList = () => {
+  const { id: mapId } = useParams();
   const { search: query } = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -57,22 +59,26 @@ const PhotoList = () => {
   }
 
   return isError ? (
-    <ResponseMessage message={error.message} />
+    <Modal size="big">
+      <ResponseMessage message={error.message} />\
+    </Modal>
   ) : (
     <ThemeProvider theme={theme}>
-      <Container>
-        {data?.photos.map((photo, index) => (
-          <Photo
-            key={photo.id}
-            photo={photo}
-            index={index}
-            onClick={handlePhotoClick}
-          />
-        ))}
-        <NewButton onClick={handleNewButtonClick}>
-          <FcPlus />
-        </NewButton>
-      </Container>
+      <Modal size="big" id={mapId}>
+        <Container>
+          {data?.photos.map((photo, index) => (
+            <Photo
+              key={photo.id}
+              photo={photo}
+              index={index}
+              onClick={handlePhotoClick}
+            />
+          ))}
+          <NewButton onClick={handleNewButtonClick}>
+            <FcPlus />
+          </NewButton>
+        </Container>
+      </Modal>
     </ThemeProvider>
   );
 };

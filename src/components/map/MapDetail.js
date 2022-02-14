@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import {
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import GoogleMapReact from "google-map-react";
 import MarkerClusterer from "@google/markerclustererplus";
 import styled, { ThemeProvider } from "styled-components";
@@ -15,15 +9,10 @@ import axios from "axios";
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
 import ResponseMessage from "../common/ResponseMessage";
-import NewInvitation from "../Invitation/NewInvitation";
-import PhotoList from "../photo/PhotoList";
 import Sidebar from "../sidebar/Sidebar";
-import Modal from "../common/Modal";
 import SearchBox from "./SearchBox";
-import PhotoDetail from "../photo/PhotoDetail";
 
 const MapDetail = () => {
-  const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   const [googleMapRef, setGoogleMapRef] = useState({ map: null, api: null });
@@ -146,32 +135,6 @@ const MapDetail = () => {
           />
         </GoogleMapContainer>
       </Container>
-      <Routes>
-        <Route
-          path="/invitation"
-          element={
-            <Modal size="small">
-              <NewInvitation />
-            </Modal>
-          }
-        />
-        <Route
-          path="/photos"
-          element={
-            <Modal size="big" id={id}>
-              <PhotoList />
-            </Modal>
-          }
-        />
-        <Route
-          path="/:id"
-          element={
-            <Modal size="big" id={id}>
-              <PhotoDetail mapId={id} />
-            </Modal>
-          }
-        />
-      </Routes>
     </ThemeProvider>
   );
 };

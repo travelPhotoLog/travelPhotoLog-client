@@ -1,9 +1,15 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { PropTypes } from "prop-types";
 
+import theme from "../../styles/theme";
+
 const Message = ({ message }) => {
-  return <MessageContainer>{message}</MessageContainer>;
+  return (
+    <ThemeProvider theme={theme}>
+      <MessageContainer>{message}</MessageContainer>;
+    </ThemeProvider>
+  );
 };
 
 export default Message;

@@ -27,5 +27,15 @@ const greyButton = styled.button`
   font-weight: 700;
 `;
 
-export default StyledButton;
-export { greyButton };
+const Input = styled.input`
+  ${({ theme }) => theme.container.flexCenter};
+  width: 80%;
+  height: 15%;
+  padding: ${({ theme }) => theme.spacing.xxl};
+  margin-bottom: ${({ theme }) => theme.spacing.xl};
+  border: 1px solid gray;
+  border-radius: 15px;
+  text-align: center;
+`;
+
+export { Input, StyledButton, greyButton };

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import GoogleMapReact from "google-map-react";
 import MarkerClusterer from "@google/markerclustererplus";
 import styled, { ThemeProvider } from "styled-components";
@@ -22,7 +22,7 @@ const MapDetail = () => {
   const pointId = location.pathname.split("/")[2];
   const defaultProps = {
     center: { lat: 37.508105, lng: 127.061341 },
-    zoom: 12,
+    zoom: 14,
   };
 
   const handleApiLoaded = (map, api) => {
@@ -85,12 +85,6 @@ const MapDetail = () => {
     }
   );
 
-  if (data?.message) {
-    if (data.message) {
-      return <ResponseMessage message={RESPONSE_MESSAGE.RELOGIN_REQUIRED} />;
-    }
-  }
-
   if (data?.error) {
     if (data.error.code === 400) {
       return <ResponseMessage message={ERROR_MESSAGE.BAD_REQUEST} />;
@@ -109,9 +103,17 @@ const MapDetail = () => {
     }
   }
 
-  return isError ? (
-    <ResponseMessage message={error.message} />
-  ) : (
+  if (isError) {
+    return <ResponseMessage message={error.message} />;
+  }
+
+  if (data?.message) {
+    if (data.message) {
+      return <ResponseMessage message={RESPONSE_MESSAGE.RELOGIN_REQUIRED} />;
+    }
+  }
+
+  return (
     <ThemeProvider theme={theme}>
       <Sidebar />
       <Container>

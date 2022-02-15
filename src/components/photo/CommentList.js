@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -12,46 +12,67 @@ import Comment from "./Comment";
 
 const CommentList = () => {
   const [reply, setReply] = useState("");
-  // setNotice를 사용하는 부분에서 과한 리랜더링이 발생함..
   const [notice, setNotice] = useState("");
-  const [isSave, setIsSave] = useState(false);
-  const index = useSelector(state => state.photo.currentIndex);
   const user = useSelector(state => state.user.user);
+  const index = useSelector(state => state.photo.currentIndex);
   const queryClient = useQueryClient();
+  const photo = queryClient.getQueryData("photos")?.data?.photos[index];
+  const photoId = queryClient.getQueryData("photos")?.data?.photos[index].id;
+  const [comments, setComments] = useState([]);
 
-  const photos = queryClient.getQueryData("photos")?.data?.photos;
-  const commentList = photos[index].comments;
-
-  const postComment = () => {
+  const postComment = id => {
     const comment = {
       createdAt: new Date(),
       createdBy: user.nickname,
       message: reply,
     };
 
-    const photo = photos[index].id;
-
-    setIsSave(false);
-    setReply("");
-
-    return axios.post("/comment/new", { comment, photo });
+    return axios.post("/comment/new", { comment, photo: id });
   };
 
-  const { data, isLoading, isFetching, isError } = useQuery(
+  const { data, isLoading, isFetching, isError, refetch } = useQuery(
     "postComment",
-    postComment,
+    () => postComment(photoId),
     {
-      enabled: !!isSave,
+      enabled: false,
       select: response => response.data,
+      initialData: () => {
+        const photo = queryClient.getQueryData("photos")?.data?.photos[index];
+        const { comments } = photo;
+
+        if (photo) {
+          return {
+            data: { comments },
+          };
+        }
+      },
     }
   );
 
+  useEffect(() => {
+    if (data?.comments === photo.comments) {
+      setComments(photo.comments);
+      return;
+    }
+
+    if (data?.comments !== photo.comments) {
+      setComments(data?.comments);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (data?.comments === photo.comments) {
+      setComments(data?.comments);
+      return;
+    }
+
+    if (data?.comments !== photo.comments) {
+      setComments(photo.comments);
+    }
+  }, [index]);
+
   if (isLoading || isFetching) {
     return <Message message={LOADING_MESSAGE.SENDING_IN_PROGRESS} />;
-  }
-
-  if (data?.result) {
-    return setNotice("댓글이 등록되었습니다-🍑");
   }
 
   if (data?.error) {
@@ -62,33 +83,37 @@ const CommentList = () => {
     setNotice(data.error.message);
   }
 
-  const handleSaveClick = () => {
+  const handleSaveClick = event => {
+    event.preventDefault();
+
     const trimmedReply = reply.trimStart();
 
     if (!trimmedReply) {
+      setReply("");
       setNotice("내용을 입력해주세요.");
+
       return;
     }
 
-    // 스테이트를 변경하면 리랜더가 일어나서 새로고침 한 것처럼 문제가 발생
-    setIsSave(true);
+    setReply("");
+    refetch();
   };
 
   return isError ? (
     <ResponseMessage message={ERROR_MESSAGE.SERVER_UNSTABLE} />
   ) : (
     <ThemeProvider theme={theme}>
-      <Form>
+      <Form onSubmit={handleSaveClick}>
         <Input
           name="message"
           onChange={event => setReply(event.target.value)}
           value={reply}
           required
         />
-        <Button onClick={handleSaveClick}>save</Button>
+        <Button type="submit">save</Button>
         <Message message={notice} />
       </Form>
-      {commentList.map(comment => (
+      {comments.map(comment => (
         <Comment key={comment._id} comment={comment} />
       ))}
     </ThemeProvider>

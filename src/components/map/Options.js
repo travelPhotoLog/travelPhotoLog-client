@@ -18,10 +18,10 @@ const Options = () => {
   return (
     <Modal size="big">
       <Container>
-        <Option onClick={event => navigatePage(event.currentTarget.value)}>
+        <Option onClick={event => navigatePage(event.target.innerText)}>
           수정
         </Option>
-        <Option onClick={event => navigatePage(event.currentTarget.value)}>
+        <Option onClick={event => navigatePage(event.target.innerText)}>
           업로드
         </Option>
       </Container>

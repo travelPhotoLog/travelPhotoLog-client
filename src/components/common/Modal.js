@@ -83,6 +83,7 @@ const ModalWrapper = styled.section`
     height: 80%;
   }
   &.small {
+    justify-content: center;
     width: 40%;
     height: 30%;
   }
@@ -92,6 +93,7 @@ const ExitButton = styled(AiOutlineCloseSquare)`
   position: absolute;
   top: 20px;
   right: 20px;
+  z-index: 1000;
   color: black;
   font-size: 30px;
   cursor: pointer;
@@ -101,6 +103,7 @@ const BackButton = styled(IoArrowBackSharp)`
   position: absolute;
   top: 20px;
   left: 20px;
+  z-index: 1000;
   color: black;
   font-size: 30px;
   cursor: pointer;

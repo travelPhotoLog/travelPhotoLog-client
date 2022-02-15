@@ -57,7 +57,7 @@ const Login = () => {
 
     if (data.user) {
       dispatch(userActions.updateUser(data.user));
-      navigate("/");
+      navigate(-1);
 
       return;
     }

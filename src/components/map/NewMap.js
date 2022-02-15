@@ -36,9 +36,9 @@ const NewMap = () => {
   return (
     <ThemeProvider theme={theme}>
       <Modal size="small">
+        <Title>New Map</Title>
+        <Message>Title</Message>
         <Form onSubmit={handleCreateButtonClick}>
-          <Title>New Map</Title>
-          <Message>Title</Message>
           <Input
             name="title"
             onChange={event => setMapTitle(event.target.value)}
@@ -56,7 +56,8 @@ export default NewMap;
 const Form = styled.form`
   position: relative;
   width: 100%;
-  height: 50%;
+  height: 30%;
+  margin-top: ${({ theme }) => theme.spacing.base};
   background-color: rgb(255, 255, 255);
   text-align: center;
 `;
@@ -70,13 +71,13 @@ const Title = styled.div`
 
 const Input = styled.input`
   width: 50%;
-  height: 30%;
+  height: 50%;
   margin: 0 ${({ theme }) => theme.spacing.base};
 `;
 
 const Button = styled.button`
   width: 15%;
-  height: 30%;
+  height: 50%;
   margin: 0 ${({ theme }) => theme.spacing.base};
   border-radius: 5%;
   background-color: grey;

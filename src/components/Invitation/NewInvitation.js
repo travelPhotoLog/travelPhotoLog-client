@@ -12,6 +12,7 @@ import {
 import theme from "../../styles/theme";
 import ResponseMessage from "../common/ResponseMessage";
 import Message from "../common/Message";
+import Modal from "../common/Modal";
 
 const NewInvitation = () => {
   const { id } = useParams();
@@ -56,7 +57,11 @@ const NewInvitation = () => {
   );
 
   if (isLoading || isFetching) {
-    return <Message message={LOADING_MESSAGE.SENDING_IN_PROGRESS} />;
+    return (
+      <Modal size="small">
+        <Message message={LOADING_MESSAGE.SENDING_IN_PROGRESS} />
+      </Modal>
+    );
   }
 
   if (data?.error) {
@@ -79,18 +84,22 @@ const NewInvitation = () => {
     <ResponseMessage message={error.message} />
   ) : (
     <ThemeProvider theme={theme}>
-      <Form onSubmit={handleSendClick}>
-        <Title>Invite new member</Title>
-        <Input
-          placeholder="Please enter E-mail"
-          onChange={event => setEmail(event.target.value)}
-        />
-        <Button type="submit">Send</Button>
-        <Message message={message || null} />
-      </Form>
+      <Modal size="small">
+        <Form onSubmit={handleSendClick}>
+          <Title>Invite new member</Title>
+          <Input
+            placeholder="Please enter E-mail"
+            onChange={event => setEmail(event.target.value)}
+          />
+          <Button type="submit">Send</Button>
+          <Message message={message || null} />
+        </Form>
+      </Modal>
     </ThemeProvider>
   );
 };
+
+export default NewInvitation;
 
 const Form = styled.form`
   position: relative;
@@ -123,5 +132,3 @@ const Button = styled.button`
   font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: 700;
 `;
-
-export default NewInvitation;

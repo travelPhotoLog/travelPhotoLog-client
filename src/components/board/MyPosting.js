@@ -4,18 +4,18 @@ import PropTypes from "prop-types";
 import styled, { ThemeProvider } from "styled-components";
 import dayjs from "dayjs";
 
+import { DEFAULT_POSTING_IMG } from "../../constants";
 import theme from "../../styles/theme";
 
 const Posting = ({ postingInfo }) => {
   const navigate = useNavigate();
 
-  const { _id, title, createdAt, createdBy } = postingInfo;
+  const { id, title, createdAt, createdBy, imageUrl } = postingInfo;
   const date = dayjs(createdAt).format("YY/MM/DD");
-  const defaultImage =
-    "https://t1.daumcdn.net/cfile/tistory/99D77C485C6A8D042C";
+  const defaultImage = imageUrl || DEFAULT_POSTING_IMG;
 
   const handlePostClick = () => {
-    navigate(`/board/${_id}`);
+    navigate(`/board/posting/${id}`);
   };
 
   return (
@@ -83,6 +83,6 @@ Posting.propTypes = {
     logOption: PropTypes.bool.isRequired,
     regions: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
   }.isRequired,
 };

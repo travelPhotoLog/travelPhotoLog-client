@@ -7,8 +7,8 @@ import styled, { ThemeProvider } from "styled-components";
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE } from "../../constants";
 import ResponseMessage from "../common/ResponseMessage";
-import UserMap from "./UserMap";
 import Modal from "../common/Modal";
+import UserMap from "./UserMap";
 
 const getMapList = id => {
   return axios.get(`/user/${id}/maps`);
@@ -16,7 +16,6 @@ const getMapList = id => {
 
 const UserMapList = () => {
   const { user } = useSelector(state => state.user);
-
   const userId = user.id;
 
   const { data, isError, error, isLoading } = useQuery(
@@ -42,6 +41,7 @@ const UserMapList = () => {
     if (data.error.code === 400) {
       return <ResponseMessage message={ERROR_MESSAGE.BAD_REQUEST} />;
     }
+
     if (data.error.code === 500) {
       return <ResponseMessage message={ERROR_MESSAGE.SERVER_UNSTABLE} />;
     }

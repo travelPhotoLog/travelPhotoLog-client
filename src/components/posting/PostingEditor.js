@@ -7,8 +7,8 @@ import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
 import { postingPhotoActions } from "../../features/postingPhotoSlice";
-import { StyledButton } from "../common/CommonStyle";
 import theme from "../../styles/theme";
+import { StyledButton } from "../common/CommonStyle";
 
 const regionList = [
   "서울특별시",
@@ -83,12 +83,6 @@ const PostingEditor = () => {
       },
     };
   }, []);
-
-  console.log("title", title);
-  console.log("content", content);
-  console.log("hashtags", hashtags);
-  console.log("regions", regions);
-  console.log("logOption", logOption);
 
   useEffect(() => {
     if (photoUrl[photoUrl.length - 1]) {

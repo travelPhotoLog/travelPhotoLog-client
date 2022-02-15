@@ -13,7 +13,6 @@ const postingPhotoSlice = createSlice({
       return state;
     },
     resetPhotoUrl: (state, action) => {
-      console.log(111111111);
       state.photoUrl = [];
       return state;
     },

@@ -33,6 +33,7 @@ const PostingPhotoList = () => {
   const handlePhotoClick = event => {
     const { index } = event.currentTarget.dataset;
     const { photos } = data;
+
     dispatch(postingPhotoActions.savePhotoUrlInfo(photos[index]));
     navigate(-2);
   };

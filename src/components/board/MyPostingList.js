@@ -7,7 +7,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { ERROR_MESSAGE } from "../../constants";
 import theme from "../../styles/theme";
 import ResponseMessage from "../common/ResponseMessage";
-import Posting from "./Posting";
+import MyPosting from "./MyPosting";
 
 const MyPostingList = () => {
   const { user } = useSelector(state => state.user);
@@ -64,7 +64,7 @@ const MyPostingList = () => {
         <h1>[ My postings ]</h1>
         <Content>
           {posts.map(post => (
-            <Posting key={post._id} postingInfo={post} />
+            <MyPosting key={post._id} postingInfo={post} />
           ))}
         </Content>
       </Container>

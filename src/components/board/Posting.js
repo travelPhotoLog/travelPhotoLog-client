@@ -4,18 +4,18 @@ import PropTypes from "prop-types";
 import styled, { ThemeProvider } from "styled-components";
 import dayjs from "dayjs";
 
+import { DEFAULT_POSTING_IMG } from "../../constants";
 import theme from "../../styles/theme";
 
 const Posting = ({ postingInfo }) => {
   const navigate = useNavigate();
 
-  const { id, title, createdAt, createdBy, imageUrl } = postingInfo;
+  const { _id, title, createdAt, createdBy, imageUrl } = postingInfo;
   const date = dayjs(createdAt).format("YY/MM/DD");
-  const defaultImage =
-    imageUrl || "https://t1.daumcdn.net/cfile/tistory/99D77C485C6A8D042C";
+  const defaultImage = imageUrl || DEFAULT_POSTING_IMG;
 
   const handlePostClick = () => {
-    navigate(`/board/posting/${id}`);
+    navigate(`/board/posting/${_id}`);
   };
 
   return (

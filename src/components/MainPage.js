@@ -22,10 +22,10 @@ const MainPage = () => {
 export default MainPage;
 
 const Container = styled.div`
-  padding: ${({ theme }) => theme.spacing.xxxl};
-  padding-top: 70px;
   width: 100%;
   height: 80vh;
+  padding: ${({ theme }) => theme.spacing.xxxl};
+  padding-top: 70px;
   background-image: url("https://cdn.pixabay.com/photo/2018/01/31/05/43/web-3120321_960_720.png");
   background-position: center;
   background-size: cover;

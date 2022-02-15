@@ -20,4 +20,12 @@ const LOADING_MESSAGE = Object.freeze({
   DELETING_PHOTO: "사진을 삭제하는 중입니다...",
 });
 
-export { ERROR_MESSAGE, RESPONSE_MESSAGE, LOADING_MESSAGE };
+const DEFAULT_POSTING_IMG =
+  "https://t1.daumcdn.net/cfile/tistory/99D77C485C6A8D042C";
+
+export {
+  ERROR_MESSAGE,
+  RESPONSE_MESSAGE,
+  LOADING_MESSAGE,
+  DEFAULT_POSTING_IMG,
+};

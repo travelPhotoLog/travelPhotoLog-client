@@ -6,25 +6,25 @@ import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
+import theme from "../../styles/theme";
+import Modal from "../common/Modal";
 import { ERROR_MESSAGE, LOADING_MESSAGE } from "../../constants";
 import Message from "../common/Message";
 import ResponseMessage from "../common/ResponseMessage";
 import { StyledButton } from "../common/CommonStyle";
-import theme from "../../styles/theme";
-import Modal from "../common/Modal";
 
 const PostingDetail = () => {
   const navigate = useNavigate();
   const { user } = useSelector(state => state.user);
   const { id } = useParams();
 
-  const detailPosting = id => {
+  const getPostingDetail = id => {
     return axios.get(`/posting/${id}`);
   };
 
   const { data, isLoading, isFetching, isError, error } = useQuery(
     "photos",
-    () => detailPosting(id),
+    () => getPostingDetail(id),
     {
       select: response => response?.data,
     }
@@ -37,7 +37,7 @@ const PostingDetail = () => {
     navigate(`/board/write/${id}`);
   };
 
-  const handleDeletePosting = () => {
+  const handleDeletePosting = async () => {
     navigate(`/board/${user.nickname}`);
   };
 
@@ -47,7 +47,7 @@ const PostingDetail = () => {
 
   return isError ? (
     <Modal size="big">
-      <ResponseMessage message={error.message} />\
+      <ResponseMessage message={error.message} />
     </Modal>
   ) : (
     <ThemeProvider theme={theme}>

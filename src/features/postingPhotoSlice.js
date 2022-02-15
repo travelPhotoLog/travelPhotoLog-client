@@ -10,6 +10,12 @@ const postingPhotoSlice = createSlice({
   reducers: {
     savePhotoUrlInfo: (state, action) => {
       state.photoUrl.push(action.payload);
+      return state;
+    },
+    resetPhotoUrl: (state, action) => {
+      console.log(111111111);
+      state.photoUrl = [];
+      return state;
     },
   },
 });

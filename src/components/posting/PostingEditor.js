@@ -1,11 +1,12 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
+import { postingPhotoActions } from "../../features/postingPhotoSlice";
 import { StyledButton } from "../common/CommonStyle";
 import theme from "../../styles/theme";
 
@@ -33,6 +34,8 @@ const regionList = [
 
 const PostingEditor = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const quillRef = useRef();
   const { user } = useSelector(state => state.user);
   const { photoUrl } = useSelector(state => state.postingPhoto);
@@ -42,6 +45,7 @@ const PostingEditor = () => {
   const [hashtags, setHashtags] = useState("");
   const [regions, setRegions] = useState([]);
   const [logOption, setLogOption] = useState(false);
+  const imageUrl = photoUrl[Math.floor(Math.random() * photoUrl.length)];
 
   const [warnMsgs, setWarnMsgs] = useState({
     title: "",
@@ -124,6 +128,7 @@ const PostingEditor = () => {
         regions: "최소 1개부터 최대 3개까지 선택해야 합니다.",
         logOption: "로그옵션을 선택해주세요.",
       });
+
       return;
     }
 
@@ -135,10 +140,13 @@ const PostingEditor = () => {
         hashtags: splitedHashtags,
         regions,
         logOption,
+        imageUrl,
       },
       user: user.id,
     });
+
     setWarnMsgs({ ...warnMsgs, result: "posting이 생성되었습니다" });
+    dispatch(postingPhotoActions.resetPhotoUrl());
   };
 
   return (
@@ -150,8 +158,8 @@ const PostingEditor = () => {
           </div>
         </Title>
 
-        <Editor>
-          <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
+          <Editor>
             Title :
             <input name="title" onChange={e => setTitle(e.target.value)} />
             <WarningMessage>{warnMsgs.title || ""}</WarningMessage>
@@ -202,11 +210,13 @@ const PostingEditor = () => {
             <WarningMessage>{warnMsgs.logOption || ""}</WarningMessage>
             <div style={{ textAlign: "center", margin: "2rem" }}>
               <WarningMessage>{warnMsgs.result}</WarningMessage>
-              <Button onClick={() => navigate("/board")}>BACK </Button>
-              <Button>SAVE</Button>
+              <Button type="submit" onClick={() => navigate("/board")}>
+                BACK
+              </Button>
+              <Button type="submit">SAVE</Button>
             </div>
-          </form>
-        </Editor>
+          </Editor>
+        </form>
       </Container>
     </ThemeProvider>
   );

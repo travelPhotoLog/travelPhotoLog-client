@@ -5,12 +5,10 @@ import PropTypes from "prop-types";
 import theme from "../../styles/theme";
 
 const Photo = ({ photo, index, onClick }) => {
-  const { id, url } = photo;
-
   return (
     <ThemeProvider theme={theme}>
-      <PhotoCardContainer id={id} data-index={index} onClick={onClick}>
-        <Image src={url} />
+      <PhotoCardContainer key={index} data-index={index} onClick={onClick}>
+        <Image src={photo} />
       </PhotoCardContainer>
     </ThemeProvider>
   );
@@ -19,7 +17,9 @@ const Photo = ({ photo, index, onClick }) => {
 export default Photo;
 
 const PhotoCardContainer = styled.div`
-  ${({ theme }) => theme.container.flexCenterColumn};
+  display: flex;
+  justify-content: space-around;
+  align-content: flex-start;
   width: 10vw;
   height: 30vh;
   margin: ${({ theme }) => theme.spacing.xxl};
@@ -37,6 +37,6 @@ const Image = styled.img`
 
 Photo.propTypes = {
   photo: PropTypes.objectOf(PropTypes.string).isRequired,
-  // onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
 };

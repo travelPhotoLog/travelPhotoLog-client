@@ -9,13 +9,13 @@ import theme from "../../styles/theme";
 const Posting = ({ postingInfo }) => {
   const navigate = useNavigate();
 
-  const { id, title, createdAt, createdBy, imageUrl } = postingInfo;
+  const { _id, title, createdAt, createdBy } = postingInfo;
   const date = dayjs(createdAt).format("YY/MM/DD");
   const defaultImage =
-    imageUrl || "https://t1.daumcdn.net/cfile/tistory/99D77C485C6A8D042C";
+    "https://t1.daumcdn.net/cfile/tistory/99D77C485C6A8D042C";
 
   const handlePostClick = () => {
-    navigate(`/board/posting/${id}`);
+    navigate(`/board/${_id}`);
   };
 
   return (

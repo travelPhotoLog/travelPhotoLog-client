@@ -21,6 +21,8 @@ import PhotoEditor from "../components/photo/PhotoEditor";
 import PhotoUploader from "../components/photo/PhotoUploader";
 import PhotoDetail from "../components/photo/PhotoDetail";
 import UserMapList from "../components/posting/UserMapList";
+import MyPostingList from "../components/board/MyPostingList";
+import PostingDetail from "../components/board/PostingDetail";
 import PostingPhotoList from "../components/posting/PostingPhotoList";
 
 const queryClient = new QueryClient();
@@ -83,6 +85,8 @@ const App = () => {
             </Route>
           </Route>
           <Route path="/board" element={<Board />} />
+          <Route path="/board/:nickname" element={<MyPostingList />} />
+          <Route path="/board/posting/:id" element={<PostingDetail />} />
         </Routes>
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       </QueryClientProvider>

@@ -10,8 +10,7 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 4px;
   color: black;
-  background-color: white;
-  font-size: ${({ theme }) => theme.fontSizes.lg};
+  background-color: transparent;
   font-weight: bold;
   cursor: pointer;
 `;

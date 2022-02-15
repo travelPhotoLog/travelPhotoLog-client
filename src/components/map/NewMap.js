@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import axios from "axios";
 
-import theme from "../../styles/theme";
 import Modal from "../common/Modal";
+import theme from "../../styles/theme";
 
 const NewMap = () => {
   const naviagte = useNavigate();

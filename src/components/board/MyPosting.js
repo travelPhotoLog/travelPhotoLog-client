@@ -10,12 +10,12 @@ import theme from "../../styles/theme";
 const Posting = ({ postingInfo }) => {
   const navigate = useNavigate();
 
-  const { _id, title, createdAt, createdBy, imageUrl } = postingInfo;
+  const { id, title, createdAt, createdBy, imageUrl } = postingInfo;
   const date = dayjs(createdAt).format("YY/MM/DD");
   const defaultImage = imageUrl || DEFAULT_POSTING_IMG;
 
   const handlePostClick = () => {
-    navigate(`/board/posting/${_id}`);
+    navigate(`/board/posting/${id}`);
   };
 
   return (
@@ -83,6 +83,6 @@ Posting.propTypes = {
     logOption: PropTypes.bool.isRequired,
     regions: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
   }.isRequired,
 };

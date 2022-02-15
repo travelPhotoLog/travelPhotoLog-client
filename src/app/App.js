@@ -35,6 +35,10 @@ const App = () => {
           <Route path="/my-travels" element={<MapList />} />
           <Route path="/my-travels/new-map" element={<NewMap />} />
           <Route
+            path="/my-travels/:id/invitation/:token"
+            element={<InvitationResult />}
+          />
+          <Route
             path="/my-travels/:id/*"
             element={
               <>
@@ -49,7 +53,6 @@ const App = () => {
             <Route path="options/new-photo" element={<PhotoUploader />} />
             <Route path="options/photo-editor" element={<PhotoEditor />} />
             <Route path="invitation" element={<NewInvitation />} />
-            <Route path="invitation/:token" element={<InvitationResult />} />
           </Route>
           <Route
             path="/my-travels/:id/options/photo-editor"

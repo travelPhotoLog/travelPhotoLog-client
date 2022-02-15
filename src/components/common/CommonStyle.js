@@ -16,6 +16,17 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
+const GreyButton = styled.button`
+  width: 6%;
+  height: 40%;
+  margin: 0 ${({ theme }) => theme.spacing.base};
+  border-radius: 5%;
+  background-color: grey;
+  color: white;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
+  font-weight: 700;
+`;
+
 const Input = styled.input`
   ${({ theme }) => theme.container.flexCenter};
   width: 80%;
@@ -27,4 +38,4 @@ const Input = styled.input`
   text-align: center;
 `;
 
-export { Input, StyledButton };
+export { Input, StyledButton, GreyButton };

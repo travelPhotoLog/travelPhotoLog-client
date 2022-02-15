@@ -14,6 +14,8 @@ const signUpSlice = createSlice({
     saveSignUpInfo: (state, action) => {
       const savedInfo = action.payload;
       state.signUpInfo = savedInfo;
+
+      return state;
     },
   },
 });

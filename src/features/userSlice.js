@@ -18,10 +18,14 @@ const userSlice = createSlice({
 
       state.user = currentUser;
       state.isLoggedIn = true;
+
+      return state;
     },
     deleteUser: (state, action) => {
       state.user = initialState.user;
       state.isLoggedIn = initialState.isLoggedIn;
+
+      return state;
     },
   },
 });

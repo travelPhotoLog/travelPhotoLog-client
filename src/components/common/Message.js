@@ -7,7 +7,7 @@ import theme from "../../styles/theme";
 const Message = ({ message }) => {
   return (
     <ThemeProvider theme={theme}>
-      <MessageContainer>{message}</MessageContainer>;
+      <MessageContainer>{message}</MessageContainer>
     </ThemeProvider>
   );
 };

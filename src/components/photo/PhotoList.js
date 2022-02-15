@@ -32,20 +32,26 @@ const PhotoList = () => {
     navigate(`../options${query}`);
   };
 
-  const getPhotos = query => {
-    return axios.get(`/point/photos${decodeURI(query)}`);
+  const getPhotos = (query, mapId) => {
+    const queryForMapList = `${query}&map=${mapId}`;
+
+    return axios.get(`/point/photos${decodeURI(queryForMapList)}`);
   };
 
   const { data, isLoading, isFetching, isError, error } = useQuery(
     "photos",
-    () => getPhotos(query),
+    () => getPhotos(query, mapId),
     {
       select: response => response.data,
     }
   );
 
   if (isLoading || isFetching) {
-    return <Message message={LOADING_MESSAGE.LOADING_PHOTOS} />;
+    return (
+      <Modal size="big">
+        <Message message={LOADING_MESSAGE.LOADING_PHOTOS} />
+      </Modal>
+    );
   }
 
   if (data?.error) {

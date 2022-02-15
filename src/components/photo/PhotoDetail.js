@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import styled, { ThemeProvider } from "styled-components";
 import PropTypes from "prop-types";
@@ -17,7 +17,7 @@ import CommentList from "./CommentList";
 import Modal from "../common/Modal";
 
 const PhotoDetail = () => {
-  const { id: mapId } = useParams();
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isDeleted, setIsDeleted] = useState(false);
@@ -25,7 +25,16 @@ const PhotoDetail = () => {
   const index = useSelector(state => state.photo.currentIndex);
   const queryClient = useQueryClient();
 
+  const mapId = pathname.split("/")[2];
+
   const photos = queryClient.getQueryData("photos")?.data?.photos;
+
+  if (!photos) {
+    navigate("/my-travels/");
+
+    return <div />;
+  }
+
   const photo = photos[index];
   const [isUploader, setIsUploader] = useState(
     photo.createdBy === user.nickname
@@ -38,21 +47,23 @@ const PhotoDetail = () => {
     return axios.delete(`/photo/${id}?map=${mapId}`);
   };
 
+  const onSuccess = () => {
+    queryClient.invalidateQueries("photos");
+    navigate(-1);
+  };
+
   const { data, isLoading, isFetching, isError } = useQuery(
     "photoDelete",
     () => deletePhoto(photo.id, mapId),
     {
       enabled: !!isDeleted,
       select: response => response.data,
+      onSuccess,
     }
   );
 
   if (isLoading || isFetching) {
     return <Message message={LOADING_MESSAGE.DELETING_PHOTO} />;
-  }
-
-  if (data?.result) {
-    navigate(-1);
   }
 
   if (data?.error) {

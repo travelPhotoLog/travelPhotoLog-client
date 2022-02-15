@@ -67,7 +67,7 @@ const Header = () => {
   return (
     <ThemeProvider theme={theme}>
       <HeaderContainer>
-        <Logo to="/">OCN</Logo>
+        <Logo to="/">Travel Photo-Log</Logo>
         <Container>
           <NavContainer>
             <StyledLink to="/board">Board</StyledLink>
@@ -91,8 +91,8 @@ export default Header;
 const HeaderContainer = styled.div`
   ${({ theme }) => theme.container.flexSpaceBetween};
   width: 100%;
-  height: 6rem;
-  border-bottom: 2px solid gray;
+  height: 5rem;
+  background-color: #ebedf2;
 `;
 
 const Container = styled.div`
@@ -110,7 +110,7 @@ const LoginContainer = styled.div`
   padding-left: ${({ theme }) => theme.spacing.lg};
   padding-right: ${({ theme }) => theme.spacing.lg};
   width: 8rem;
-  border-left: 2px solid black;
+  color: #ffcc80;
 `;
 
 const StyledLink = styled(NavLink)`
@@ -118,7 +118,7 @@ const StyledLink = styled(NavLink)`
   margin-right: ${({ theme }) => theme.spacing.xl};
   padding: ${({ theme }) => theme.spacing.xl};
   border-radius: 0.5rem;
-  background-color: white;
+  background-color: transparent;
   color: black;
   font-weight: bold;
   text-decoration: none;
@@ -126,4 +126,6 @@ const StyledLink = styled(NavLink)`
 
 const Logo = styled(StyledLink)`
   background-color: transparent;
+  color: #616161;
+  font-size: 20px;
 `;

@@ -120,7 +120,7 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: url("/login2.png") no-repeat;
+  background: url("/login.png") no-repeat;
   background-position: center top;
 `;
 
@@ -134,8 +134,8 @@ const Container = styled.div`
   transform: translateX(-50%);
   width: 50%;
   height: 60%;
-  border: 1px double gray;
-  background: #f5f5f5;
+  border: 1px double #ebedf2;
+  background: white;
   border-radius: 10px;
 `;
 

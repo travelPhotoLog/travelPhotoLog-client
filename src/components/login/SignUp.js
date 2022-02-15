@@ -193,7 +193,7 @@ const MainContainer = styled.div`
   ${({ theme }) => theme.container.flexCenterColumn};
   position: relative;
   height: 86vh;
-  background: url("/login2.png") no-repeat;
+  background: url("/login.png") no-repeat;
   background-position: center top;
 `;
 

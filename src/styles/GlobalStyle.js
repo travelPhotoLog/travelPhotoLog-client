@@ -1,10 +1,14 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Architects+Daughter&family=Josefin+Sans:ital,wght@1,300&family=Varela+Round&display=swap');
+
   * {
     margin: 0;
     padding: 0;
     font: inherit;
+    font-family: 'Acme', sans-serif;
     color: inherit;
   }
 
@@ -52,6 +56,21 @@ const GlobalStyle = createGlobalStyle`
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   }
+
+  #root .ql-container {
+  border-bottom-left-radius: 0.3em;
+  border-bottom-right-radius: 0.3em;
+  background: #fefcfc;
+}
+  #root .ql-snow.ql-toolbar {
+  display: block;
+  border-top-left-radius: 0.3em;
+  border-top-right-radius: 0.3em;
+}
+
+#root .ql-editor {
+  min-height: 13rem;
+}
 `;
 
 export default GlobalStyle;

@@ -13,11 +13,14 @@ import MapDetail from "../components/map/MapDetail";
 import NewMap from "../components/map/NewMap";
 import PhotoList from "../components/photo/PhotoList";
 import NewInvitation from "../components/Invitation/NewInvitation";
+import PostingEditor from "../components/posting/PostingEditor";
 import InvitationResult from "../components/Invitation/InvitationResult";
 import Options from "../components/map/Options";
 import PhotoEditor from "../components/photo/PhotoEditor";
 import PhotoUploader from "../components/photo/PhotoUploader";
 import PhotoDetail from "../components/photo/PhotoDetail";
+import UserMapList from "../components/posting/UserMapList";
+import PostingPhotoList from "../components/posting/PostingPhotoList";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +56,27 @@ const App = () => {
             path="/my-travels/:id/options/photo-editor"
             element={<PhotoEditor />}
           />
+          <Route
+            path="board/new-posting/*"
+            element={
+              <>
+                <PostingEditor />
+                <Outlet />
+              </>
+            }
+          >
+            <Route
+              path=":id/*"
+              element={
+                <>
+                  <UserMapList />
+                  <Outlet />
+                </>
+              }
+            >
+              <Route path=":id" element={<PostingPhotoList />} />
+            </Route>
+          </Route>
         </Routes>
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       </QueryClientProvider>

@@ -14,7 +14,8 @@ const Posting = ({ postingInfo }) => {
 
   const { _id, title, createdAt, createdBy } = postingInfo;
   const date = dayjs(createdAt).format("YY/MM/DD");
-  const image = "https://t1.daumcdn.net/cfile/tistory/99D77C485C6A8D042C";
+  const defaultImage =
+    "https://t1.daumcdn.net/cfile/tistory/99D77C485C6A8D042C";
 
   const handlePostClick = () => {
     navigate(`${_id}`);
@@ -23,7 +24,7 @@ const Posting = ({ postingInfo }) => {
   return (
     <ThemeProvider theme={theme}>
       <Container onClick={handlePostClick}>
-        <Img src={image} />
+        <Img src={defaultImage} />
         <Title>{title}</Title>
         <Date>{date}</Date>
         <Creator>{createdBy}</Creator>
@@ -35,10 +36,7 @@ const Posting = ({ postingInfo }) => {
 export default Posting;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  ${({ theme }) => theme.container.flexCenterColumn};
   width: 15vw;
   height: 30vh;
   margin: ${({ theme }) => theme.spacing.xxxl};

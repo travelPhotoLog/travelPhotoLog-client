@@ -5,7 +5,7 @@ import styled, { ThemeProvider } from "styled-components";
 
 import { searchingActions } from "../../features/searchingSlice";
 import theme from "../../styles/theme";
-import { greyButton } from "../common/CommonStyle";
+import { GreyButton } from "../common/CommonStyle";
 
 const SearchForm = () => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const SearchForm = () => {
     region: "",
     tag: "",
   });
-  const user = useSelector(state => state.user.user);
+  const { user } = useSelector(state => state.user);
 
   const regions = [
     "서울특별시",
@@ -40,7 +40,7 @@ const SearchForm = () => {
 
   const handleWriteClick = () => {
     if (user.email) {
-      navigate(`/board/${user.nickname}`);
+      navigate("/board/new-posting");
       return;
     }
 
@@ -49,7 +49,7 @@ const SearchForm = () => {
 
   const handleMyPostingClick = () => {
     if (user.email) {
-      navigate("/board/new-posting");
+      navigate(`/board/${user.nickname}`);
       return;
     }
 
@@ -63,7 +63,7 @@ const SearchForm = () => {
     });
   };
 
-  const handleTagInput = event => {
+  const handleTagInputChange = event => {
     setSearchingWord({
       ...searchingWord,
       tag: event.target.value,
@@ -89,21 +89,13 @@ const SearchForm = () => {
         </RegionBox>
         <Input
           placeholder="🔎 검색을 원하는 태그를 입력해주세요-"
-          onChange={handleTagInput}
+          onChange={handleTagInputChange}
         />
-        <Search type="submit">Search 🕵️‍♀️</Search>
-        <Post
-          className={user.email ? "show" : "hide"}
-          onClick={handleWriteClick}
-        >
-          Post 📝
-        </Post>
-        <MyPosting
-          className={user.email ? "show" : "hide"}
-          onClick={handleMyPostingClick}
-        >
+        <SearchBtn type="submit">Search 🕵️‍♀️</SearchBtn>
+        <PostBtn onClick={handleWriteClick}>Post 📝</PostBtn>
+        <MyPostingBtn onClick={handleMyPostingClick}>
           My Posting 📗
-        </MyPosting>
+        </MyPostingBtn>
       </Form>
     </ThemeProvider>
   );
@@ -132,18 +124,12 @@ const Input = styled.input`
   margin: 0 ${({ theme }) => theme.spacing.base};
 `;
 
-const Search = styled(greyButton)``;
+const SearchBtn = styled(GreyButton)``;
 
-const Post = styled(greyButton)`
+const PostBtn = styled(GreyButton)`
   width: 5%;
-  &.hide {
-    display: none;
-  }
 `;
 
-const MyPosting = styled(greyButton)`
+const MyPostingBtn = styled(GreyButton)`
   width: 8%;
-  &.hide {
-    display: none;
-  }
 `;

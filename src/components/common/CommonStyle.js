@@ -16,7 +16,7 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
-const greyButton = styled.button`
+const GreyButton = styled.button`
   width: 6%;
   height: 40%;
   margin: 0 ${({ theme }) => theme.spacing.base};
@@ -38,4 +38,4 @@ const Input = styled.input`
   text-align: center;
 `;
 
-export { Input, StyledButton, greyButton };
+export { Input, StyledButton, GreyButton };

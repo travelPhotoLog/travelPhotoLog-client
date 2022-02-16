@@ -217,27 +217,27 @@ const PostingEditor = () => {
               name="title"
               placeholder="Title"
               value={title}
-              onChange={e => setTitle(e.target.value)}
+              onChange={event => setTitle(event.target.value)}
             />
-            <WarningMessage>{warnMsgs.title || ""}</WarningMessage>
+            <WarningMessage>{warnMsgs.title || <div />}</WarningMessage>
             <ReactQuill
               ref={quillRef}
               theme="snow"
               placeholder="Type your photolog"
               value={content}
-              onChange={e => setContent(e)}
+              onChange={event => setContent(event)}
               modules={modules}
             />
-            <WarningMessage>{warnMsgs.content || ""}</WarningMessage>
+            <WarningMessage>{warnMsgs.content || <div />}</WarningMessage>
             <div>
               <HashTagInput
                 name="hashtags"
                 value={hashtags}
                 placeholder="Hash tags"
-                onChange={e => setHashtags(e.target.value)}
+                onChange={event => setHashtags(event.target.value)}
               />
             </div>
-            <WarningMessage>{warnMsgs.hashtag || ""}</WarningMessage>
+            <WarningMessage>{warnMsgs.hashtag || <div />}</WarningMessage>
             <p>[Region]</p>
             <RegionCheck>
               {regionList.map(item => (
@@ -246,8 +246,8 @@ const PostingEditor = () => {
                     type="checkbox"
                     name="region"
                     value={item}
-                    onChange={e => {
-                      handleChangeRegions(e.currentTarget.checked, item);
+                    onChange={event => {
+                      handleChangeRegions(event.currentTarget.checked, item);
                     }}
                     checked={!!regions.includes(item)}
                   />
@@ -255,22 +255,22 @@ const PostingEditor = () => {
                 </div>
               ))}
             </RegionCheck>
-            <WarningMessage>{warnMsgs.regions || ""}</WarningMessage>
+            <WarningMessage>{warnMsgs.regions || <div />}</WarningMessage>
             <LogOptionTitle>
               [Log option] 날짜별 방문기록 장소를 보여주시겠습니까 ?
             </LogOptionTitle>
             <LogOptionItem
               name="logOption"
               value={logOption}
-              onChange={e => setLogOption(e.target.value)}
+              onChange={event => setLogOption(event.target.value)}
             >
               <option value="옵션선택">옵션선택</option>
               <option value="true">예</option>
               <option value="false">아니요</option>
             </LogOptionItem>
-            <WarningMessage>{warnMsgs.logOption || ""}</WarningMessage>
+            <WarningMessage>{warnMsgs.logOption || <div />}</WarningMessage>
             <div style={{ textAlign: "center", margin: "2rem" }}>
-              <WarningMessage>{warnMsgs.result || ""}</WarningMessage>
+              <WarningMessage>{warnMsgs.result || <div />}</WarningMessage>
               <Button type="submit">{isEditing ? "UPDATE" : "SAVE"}</Button>
               <Button onClick={() => navigate("/board")}>BACK</Button>
             </div>

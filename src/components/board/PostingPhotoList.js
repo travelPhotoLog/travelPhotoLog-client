@@ -1,12 +1,11 @@
 import React from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import styled, { ThemeProvider } from "styled-components";
+import styled from "styled-components";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
 import { postingPhotoActions } from "../../features/postingPhotoSlice";
-import theme from "../../styles/theme";
 import { ERROR_MESSAGE, LOADING_MESSAGE } from "../../constants";
 import ResponseMessage from "../common/ResponseMessage";
 import Message from "../common/Message";
@@ -22,7 +21,7 @@ const PostingPhotoList = () => {
     return axios.get(`/map/${id}/photos`);
   };
 
-  const { data, isLoading, isFetching, isError, error } = useQuery(
+  const { data, isLoading, isFetching } = useQuery(
     "photos",
     () => getPhotos(mapId),
     {

@@ -69,7 +69,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 #root .ql-editor {
-  min-height: 13rem;
+  min-height: 15rem;
 }
 `;
 

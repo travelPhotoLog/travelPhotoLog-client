@@ -20,7 +20,7 @@ export default UserMap;
 
 const MapButton = styled(StyledButton)`
   ${({ theme }) => theme.container.flexSpaceAround};
-  width: 60vw;
+  width: 100%;
   margin: 10px;
   border-radius: 50px;
   color: black;

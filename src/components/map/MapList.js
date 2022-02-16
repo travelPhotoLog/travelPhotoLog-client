@@ -79,7 +79,8 @@ const MainContainer = styled.div`
   height: 100vh;
   background: #fafafa;
   background-position: center top;
-  background: url("images/myboards-background.png") no-repeat;
+  background: url("https://travelphotolog.s3.ap-northeast-2.amazonaws.com/myboards-background.png")
+    no-repeat;
   background-position: center;
 `;
 

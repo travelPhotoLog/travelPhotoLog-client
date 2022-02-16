@@ -22,7 +22,7 @@ const MyPostingList = () => {
       try {
         const response = (
           await axios.get(`/user/${user.id}/postings?page=${pageNum}`)
-        ).data;
+        )?.data;
 
         if (response.postings) {
           const { postings, totalPages } = response;
@@ -61,7 +61,7 @@ const MyPostingList = () => {
   ) : (
     <ThemeProvider theme={theme}>
       <Container>
-        <h1>[ My postings ]</h1>
+        <Title>My postings</Title>
         <Content>
           {posts.map(post => (
             <MyPosting key={post._id} postingInfo={post} />
@@ -90,7 +90,10 @@ const Container = styled.div`
   width: 100%;
   height: 83%;
 `;
-
+const Title = styled.h1`
+  margin: 20px;
+  font-size: 25px;
+`;
 const Content = styled.div`
   display: flex;
   flex-wrap: wrap;

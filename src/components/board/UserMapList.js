@@ -72,7 +72,9 @@ const MainContainer = styled.div`
   height: 100vh;
   background: #fafafa;
   background-position: center top;
-  background: url("images/myboards-background.png") no-repeat;
+  background-color: #dcedc8;
+  background: url("https://travelphotolog.s3.ap-northeast-2.amazonaws.com/myboards-background.png")
+    no-repeat;
   background-position: center;
 `;
 
@@ -85,17 +87,6 @@ const Container = styled.div`
   left: 10%;
   align-items: center;
   border-radius: 10px;
-`;
-
-const Phrase = styled.h1`
-  padding: 10px 20px;
-  margin: 20px;
-  background-color: white;
-  color: #9e9e9e;
-  font-size: 20px;
-  font-weight: semi;
-  font-style: italic;
-  font-family: "Gill Sans", sans-serif;
 `;
 
 const Title = styled.h1`

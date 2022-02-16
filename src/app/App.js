@@ -14,16 +14,16 @@ import NewMap from "../components/map/NewMap";
 import Board from "../components/board/Board";
 import PhotoList from "../components/photo/PhotoList";
 import NewInvitation from "../components/Invitation/NewInvitation";
-import PostingEditor from "../components/posting/PostingEditor";
+import PostingEditor from "../components/board/PostingEditor";
 import InvitationResult from "../components/Invitation/InvitationResult";
 import Options from "../components/map/Options";
 import PhotoEditor from "../components/photo/PhotoEditor";
 import PhotoUploader from "../components/photo/PhotoUploader";
 import PhotoDetail from "../components/photo/PhotoDetail";
-import UserMapList from "../components/posting/UserMapList";
+import UserMapList from "../components/board/UserMapList";
 import MyPostingList from "../components/board/MyPostingList";
 import PostingDetail from "../components/board/PostingDetail";
-import PostingPhotoList from "../components/posting/PostingPhotoList";
+import PostingPhotoList from "../components/board/PostingPhotoList";
 
 const queryClient = new QueryClient();
 

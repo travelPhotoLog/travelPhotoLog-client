@@ -51,14 +51,7 @@ const PostingEditor = () => {
   const [isEditing, setIsEditing] = useState(false);
   const imageUrl = photoUrl[Math.floor(Math.random() * photoUrl.length)];
 
-  const [warnMsgs, setWarnMsgs] = useState({
-    title: "",
-    content: "",
-    hashtag: "",
-    regions: "",
-    logOption: "",
-    result: "",
-  });
+  const [resultMsg, setResultMsg] = useState("");
 
   const imageHandler = () => {
     navigate(`/board/new-posting/${user.id}`);
@@ -130,27 +123,6 @@ const PostingEditor = () => {
     const latestPhotoUrl = photoUrl[photoUrl.length - 1];
     const splitedHashtags = hashtags.split(",").map(hash => hash.trim());
 
-    if (
-      !title.length ||
-      !content.length ||
-      splitedHashtags.length > 5 ||
-      !splitedHashtags[0] ||
-      regions.length > 3 ||
-      !regions.length ||
-      !logOption.length
-    ) {
-      setWarnMsgs({
-        ...warnMsgs,
-        title: "제목을 입력해주세요.",
-        content: "내용을 입력해주세요.",
-        hashtag: "최소 1개부터 최대 5개까지 작성하셔야 합니다.",
-        regions: "최소 1개부터 최대 3개까지 선택해야 합니다.",
-        logOption: "로그옵션을 선택해주세요.",
-      });
-
-      return;
-    }
-
     if (isEditing) {
       const { data } = await axios.put(`/posting/${postingId}`, {
         posting: {
@@ -189,22 +161,24 @@ const PostingEditor = () => {
     });
 
     if (data.error) {
+      setResultMsg(
+        `* 필수입력칸을 모두 작성해주세요 /  hashtag는 최소 1 최대 5개 선택가능 /  region은 최소 1 최대 5개 선택가능 *
+      `
+      );
       return <ResponseMessage message={data.error.message} />;
     }
 
     if (data.result === "ok") {
-      setWarnMsgs({ ...warnMsgs, result: "posting이 생성되었습니다" });
       dispatch(postingPhotoActions.resetPhotoUrl());
+      navigate("/board");
     }
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <Title
-          style={{ maxWidth: "700px", margin: "2rem auto", fontSize: "25px" }}
-        >
-          <div style={{ textAlign: "center" }}>
+        <Title>
+          <div>
             <span>
               {isEditing ? "📃 EDIT YOUR POSTING" : "📃 NEW POSTING BOARD"}
             </span>
@@ -215,30 +189,30 @@ const PostingEditor = () => {
           <Editor>
             <TitleInput
               name="title"
-              placeholder="Title"
+              placeholder="* Title"
               value={title}
               onChange={event => setTitle(event.target.value)}
             />
-            <WarningMessage>{warnMsgs.title || <div />}</WarningMessage>
+            <div />
             <ReactQuill
               ref={quillRef}
               theme="snow"
-              placeholder="Type your photolog"
+              placeholder="* Type your photolog"
               value={content}
               onChange={event => setContent(event)}
               modules={modules}
             />
-            <WarningMessage>{warnMsgs.content || <div />}</WarningMessage>
+            <div />
             <div>
               <HashTagInput
                 name="hashtags"
                 value={hashtags}
-                placeholder="Hash tags"
+                placeholder="* Hash Tags"
                 onChange={event => setHashtags(event.target.value)}
               />
             </div>
-            <WarningMessage>{warnMsgs.hashtag || <div />}</WarningMessage>
-            <p>[Region]</p>
+            <div />
+            <p>[* Region] </p>
             <RegionCheck>
               {regionList.map(item => (
                 <div key={item.key}>
@@ -255,24 +229,26 @@ const PostingEditor = () => {
                 </div>
               ))}
             </RegionCheck>
-            <WarningMessage>{warnMsgs.regions || <div />}</WarningMessage>
+            <div />
             <LogOptionTitle>
-              [Log option] 날짜별 방문기록 장소를 보여주시겠습니까 ?
+              [* Log option] 날짜별 방문기록 장소를 보여주시겠습니까 ?
             </LogOptionTitle>
             <LogOptionItem
               name="logOption"
               value={logOption}
               onChange={event => setLogOption(event.target.value)}
             >
-              <option value="옵션선택">옵션선택</option>
-              <option value="true">예</option>
-              <option value="false">아니요</option>
+              <option value="옵션선택">선택</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
             </LogOptionItem>
-            <WarningMessage>{warnMsgs.logOption || <div />}</WarningMessage>
+            <div />
             <div style={{ textAlign: "center", margin: "2rem" }}>
-              <WarningMessage>{warnMsgs.result || <div />}</WarningMessage>
-              <Button type="submit">{isEditing ? "UPDATE" : "SAVE"}</Button>
-              <Button onClick={() => navigate("/board")}>BACK</Button>
+              <WarningMessage>{resultMsg || <div />}</WarningMessage>
+              <Button type="submit">SAVE</Button>
+              <Button type="submit" onClick={() => navigate("/board")}>
+                BACK
+              </Button>
             </div>
           </Editor>
         </Form>
@@ -298,20 +274,19 @@ const TitleInput = styled.input`
   border-bottom: 1px solid gray;
   font-size: 20px;
   &:hover : {
-    background-color: #f8fff8;
+    backgroundcolor: #f8fff8;
   }
   &:focus {
     outline: none;
   }
 `;
-
 const HashTagInput = styled.input`
   width: 100%;
   border: none;
   border-bottom: 1px dotted gray;
   font-size: 15px;
   &:hover : {
-    background-color: #f8fff8;
+    backgroundcolor: #f8fff8;
   }
   &:focus {
     outline: none;
@@ -339,7 +314,13 @@ const LogOptionItem = styled.select`
   border-bottom: 1px solid gray;
 `;
 
-const Title = styled.div``;
+const Title = styled.div`
+  max-width: 700px;
+  padding: 2px;
+  margin: 2rem auto;
+  font-size: 25px;
+  text-align: center;
+`;
 
 const Button = styled(StyledButton)`
   display: inline;

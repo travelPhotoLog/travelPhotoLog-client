@@ -23,7 +23,6 @@ const PostingList = () => {
 
       const filteredPostingEndPoint = `/posting/search?region=${region}&hashtag=${tag}&page=${pageNum}`;
       const allPostingEndPoint = `/posting?page=${pageNum}`;
-
       try {
         response =
           region || tag

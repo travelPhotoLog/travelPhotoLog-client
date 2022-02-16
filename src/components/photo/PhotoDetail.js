@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -17,6 +17,21 @@ import CommentList from "./CommentList";
 import Modal from "../common/Modal";
 
 const PhotoDetail = () => {
+  const window = useRef(null);
+
+  const moveScrollMount = useCallback(() => {
+    if (window.current) {
+      window.current.scrollTo({
+        top: window.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    moveScrollMount();
+  }, []);
+
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -2,15 +2,16 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { FaRegPlusSquare } from "react-icons/fa";
 import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
-import { FaRegPlusSquare } from "react-icons/fa";
 
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE } from "../../constants";
 import { StyledButton } from "../common/CommonStyle";
 import ResponseMessage from "../common/ResponseMessage";
 import Map from "./Map";
+import { socket } from "../../socket";
 
 const getMapList = id => {
   return axios.get(`/user/${id}/maps`);

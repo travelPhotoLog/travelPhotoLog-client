@@ -6,12 +6,12 @@ import MarkerClusterer from "@google/markerclustererplus";
 import styled, { ThemeProvider } from "styled-components";
 import axios from "axios";
 
+import { socket } from "../../socket";
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
 import ResponseMessage from "../common/ResponseMessage";
 import Sidebar from "../sidebar/Sidebar";
 import SearchBox from "./SearchBox";
-import { socket } from "../../socket";
 
 const MapDetail = () => {
   const { id } = useParams();
@@ -95,7 +95,7 @@ const MapDetail = () => {
     }
   );
 
-  socket.on("success", data => {
+  socket.on("uploadSuccess", () => {
     refetch();
   });
 

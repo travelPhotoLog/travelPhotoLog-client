@@ -11,7 +11,6 @@ import { ERROR_MESSAGE } from "../../constants";
 import { StyledButton } from "../common/CommonStyle";
 import ResponseMessage from "../common/ResponseMessage";
 import Map from "./Map";
-import { socket } from "../../socket";
 
 const getMapList = id => {
   return axios.get(`/user/${id}/maps`);

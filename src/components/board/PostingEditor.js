@@ -51,14 +51,7 @@ const PostingEditor = () => {
   const [isEditing, setIsEditing] = useState(false);
   const imageUrl = photoUrl[Math.floor(Math.random() * photoUrl.length)];
 
-  const [warnMsgs, setWarnMsgs] = useState({
-    title: "",
-    content: "",
-    hashtag: [],
-    regions: [],
-    logOption: false,
-    result: "",
-  });
+  const [resultMsg, setResultMsg] = useState("");
 
   const imageHandler = () => {
     navigate(`/board/new-posting/${user.id}`);
@@ -168,11 +161,10 @@ const PostingEditor = () => {
     });
 
     if (data.error) {
-      setWarnMsgs({
-        ...warnMsgs,
-        result: `* 필수입력칸을 모두 작성해주세요 /  hashtag는 최소 1 최대 5개 선택가능 /  region은 최소 1 최대 5개 선택가능 *
-      `,
-      });
+      setResultMsg(
+        `* 필수입력칸을 모두 작성해주세요 /  hashtag는 최소 1 최대 5개 선택가능 /  region은 최소 1 최대 5개 선택가능 *
+      `
+      );
       return <ResponseMessage message={data.error.message} />;
     }
 
@@ -201,7 +193,7 @@ const PostingEditor = () => {
               value={title}
               onChange={event => setTitle(event.target.value)}
             />
-            <WarningMessage>{warnMsgs.title || <div />}</WarningMessage>
+            <div />
             <ReactQuill
               ref={quillRef}
               theme="snow"
@@ -210,7 +202,7 @@ const PostingEditor = () => {
               onChange={event => setContent(event)}
               modules={modules}
             />
-            <WarningMessage>{warnMsgs.content || <div />}</WarningMessage>
+            <div />
             <div>
               <HashTagInput
                 name="hashtags"
@@ -219,7 +211,7 @@ const PostingEditor = () => {
                 onChange={event => setHashtags(event.target.value)}
               />
             </div>
-            <WarningMessage>{warnMsgs.hashtag || <div />}</WarningMessage>
+            <div />
             <p>[* Region] </p>
             <RegionCheck>
               {regionList.map(item => (
@@ -237,7 +229,7 @@ const PostingEditor = () => {
                 </div>
               ))}
             </RegionCheck>
-            <WarningMessage>{warnMsgs.regions || <div />}</WarningMessage>
+            <div />
             <LogOptionTitle>
               [* Log option] 날짜별 방문기록 장소를 보여주시겠습니까 ?
             </LogOptionTitle>
@@ -250,9 +242,9 @@ const PostingEditor = () => {
               <option value="true">Yes</option>
               <option value="false">No</option>
             </LogOptionItem>
-            <WarningMessage>{warnMsgs.logOption || <br />}</WarningMessage>
+            <div />
             <div style={{ textAlign: "center", margin: "2rem" }}>
-              <WarningMessage>{warnMsgs.result || <div />}</WarningMessage>
+              <WarningMessage>{resultMsg || <div />}</WarningMessage>
               <Button type="submit">SAVE</Button>
               <Button type="submit" onClick={() => navigate("/board")}>
                 BACK

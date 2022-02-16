@@ -87,6 +87,7 @@ const App = () => {
           <Route path="/board" element={<Board />} />
           <Route path="/board/:nickname" element={<MyPostingList />} />
           <Route path="/board/posting/:id" element={<PostingDetail />} />
+          <Route path="/board/write/:id" element={<PostingEditor />} />
         </Routes>
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       </QueryClientProvider>

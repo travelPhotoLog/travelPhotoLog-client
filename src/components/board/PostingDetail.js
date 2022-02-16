@@ -8,7 +8,7 @@ import styled, { ThemeProvider } from "styled-components";
 
 import theme from "../../styles/theme";
 import Modal from "../common/Modal";
-import { ERROR_MESSAGE, LOADING_MESSAGE } from "../../constants";
+import { LOADING_MESSAGE } from "../../constants";
 import Message from "../common/Message";
 import ResponseMessage from "../common/ResponseMessage";
 import { StyledButton } from "../common/CommonStyle";
@@ -33,8 +33,8 @@ const PostingDetail = () => {
   const title = data?.posting?.title;
   const content = data?.posting?.content;
 
-  const handleEditPosting = () => {
-    navigate(`/board/write/${id}`);
+  const handleEditPosting = (id, posting) => {
+    navigate(`/board/write/${id}`, { state: posting });
   };
 
   const handleDeletePosting = async () => {
@@ -61,7 +61,10 @@ const PostingDetail = () => {
         <Editor>
           <div dangerouslySetInnerHTML={{ __html: content }} />
         </Editor>
-        <Button type="submit" onClick={handleEditPosting}>
+        <Button
+          type="submit"
+          onClick={() => handleEditPosting(id, data.posting)}
+        >
           Edit
         </Button>
         <Button type="submit" onClick={handleDeletePosting}>
@@ -75,7 +78,7 @@ const PostingDetail = () => {
 export default PostingDetail;
 
 const Container = styled.div`
-  maxwidth: 700px;
+  max-width: 700px;
   margin: auto 50px;
 `;
 
@@ -90,14 +93,4 @@ const Editor = styled.div`
   height: 400px;
   margin: 10px auto;
   border: 1px solid black;
-`;
-
-const WarningMessage = styled.div`
-  width: 100%;
-  height: 10%;
-  margin-bottom: ${({ theme }) => theme.spacing.base};
-  color: red;
-  font-size: ${({ theme }) => theme.fontSizes.small};
-  font-weight: 700;
-  text-align: center;
 `;

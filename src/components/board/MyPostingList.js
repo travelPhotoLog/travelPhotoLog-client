@@ -91,8 +91,8 @@ const Container = styled.div`
   height: 83%;
 `;
 const Title = styled.h1`
-  font-size: 25px;
   margin: 20px;
+  font-size: 25px;
 `;
 const Content = styled.div`
   display: flex;

@@ -5,13 +5,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
+import { LOADING_MESSAGE } from "../../constants";
 import "react-quill/dist/quill.snow.css";
 import theme from "../../styles/theme";
 import Modal from "../common/Modal";
 import Message from "../common/Message";
 import ResponseMessage from "../common/ResponseMessage";
 import { StyledButton } from "../common/CommonStyle";
-import { LOADING_MESSAGE } from "../../constants";
 
 const PostingDetail = () => {
   const navigate = useNavigate();
@@ -34,15 +34,11 @@ const PostingDetail = () => {
   const content = data?.posting?.content;
   const createdBy = data?.posting?.createdBy;
 
-  const handleMoveBack = () => {
-    navigate("/board");
-  };
-
   const handleEditPosting = (id, posting) => {
     navigate(`/board/write/${id}`, { state: posting });
   };
 
-  const handleDeletePosting = async () => {
+  const handleDeleteClick = async () => {
     navigate(`/board/${user.nickname}`);
     await axios.delete(`/posting/${id}?user=${user.id}`);
   };
@@ -70,7 +66,7 @@ const PostingDetail = () => {
           </Editor>
         </Form>
         <Buttons>
-          <Button onClick={handleMoveBack}>Back</Button>
+          <Button onClick={() => navigate("/board")}>Back</Button>
           <Button
             className={createdBy !== user.nickname ? "hidden" : "shown"}
             type="submit"
@@ -81,7 +77,7 @@ const PostingDetail = () => {
           <Button
             className={createdBy !== user.nickname ? "hidden" : "shown"}
             type="submit"
-            onClick={handleDeletePosting}
+            onClick={handleDeleteClick}
           >
             Delete
           </Button>
@@ -95,27 +91,26 @@ export default PostingDetail;
 
 const Container = styled.div`
   width: 80%;
-  margin: 10px auto;
   height: 15rem;
+  margin: 10px auto;
 `;
 
 const Form = styled.form`
-  margin: 10px auto;
-  margin-bottom: 50px;
+  margin: 10px auto 50px auto;
 `;
 
 const Title = styled.div`
   max-width: 700px;
   margin: 2rem auto;
   padding: 2px;
-  text-align: center;
   border-bottom: 1px dotted #a5b592;
   font-size: 25px;
+  text-align: center;
 `;
 
 const TitleText = styled.h1`
-  color: #5a6151;
   border-radius: 5px;
+  color: #5a6151;
 `;
 
 const Editor = styled.div`

@@ -316,10 +316,10 @@ const LogOptionItem = styled.select`
 
 const Title = styled.div`
   max-width: 700px;
-  margin: 2rem auto;
   padding: 2px;
-  text-align: center;
+  margin: 2rem auto;
   font-size: 25px;
+  text-align: center;
 `;
 
 const Button = styled(StyledButton)`

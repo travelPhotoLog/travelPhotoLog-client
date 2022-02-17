@@ -6,7 +6,6 @@ const initialState = {
     profileUrl: "",
   },
 };
-
 const signUpSlice = createSlice({
   name: "signUp",
   initialState,

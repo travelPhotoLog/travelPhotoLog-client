@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import GoogleButton from "react-google-button";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import styled from "styled-components";
 import axios from "axios";
 
-import { signUpActions } from "../../features/signUpSlice";
+import { signUpActions } from "../../features/signupSlice";
 import { authentication } from "../../utils/firebase";
 import { userActions } from "../../features/userSlice";
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";

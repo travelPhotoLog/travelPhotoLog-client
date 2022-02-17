@@ -6,13 +6,8 @@ import dayjs from "dayjs";
 import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
-import {
-  ERROR_MESSAGE,
-  LOADING_MESSAGE,
-  RESPONSE_MESSAGE,
-} from "../../constants";
+import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
 import theme from "../../styles/theme";
-import Message from "../common/Message";
 
 const Comment = ({ comment, onSet }) => {
   const [hasError, setHasError] = useState(false);

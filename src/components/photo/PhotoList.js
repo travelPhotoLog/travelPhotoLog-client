@@ -13,12 +13,13 @@ import { photoActions } from "../../features/photoSlice";
 import Message from "../common/Message";
 import Modal from "../common/Modal";
 import Photo from "./Photo";
+import { urlAction } from "../../features/urlSlice";
 
 const PhotoList = () => {
   const { id: mapId } = useParams();
   const { search: query } = useLocation();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handlePhotoClick = event => {
     const photoId = event.currentTarget.id;
@@ -34,8 +35,10 @@ const PhotoList = () => {
 
   const getPhotos = (query, mapId) => {
     const queryForMapList = `${query}&map=${mapId}`;
+    const url = `/point/photos${decodeURI(queryForMapList)}`;
+    dispatch(urlAction.setUrl({ url }));
 
-    return axios.get(`/point/photos${decodeURI(queryForMapList)}`);
+    return axios.get(url);
   };
 
   const { data, isLoading, isFetching, isError, error } = useQuery(

@@ -1,9 +1,9 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
+import axios from "../../api/axiosInstance";
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE } from "../../constants";
 import ResponseMessage from "../common/ResponseMessage";

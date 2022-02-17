@@ -3,9 +3,9 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { FcPlus } from "react-icons/fc";
 import styled, { ThemeProvider } from "styled-components";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 
+import axios from "../../api/axiosInstance";
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE, LOADING_MESSAGE } from "../../constants";
 import ResponseMessage from "../common/ResponseMessage";

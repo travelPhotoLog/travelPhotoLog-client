@@ -2,9 +2,9 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { FcPlus } from "react-icons/fc";
-import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
+import axios from "../../api/axiosInstance";
 import theme from "../../styles/theme";
 import Member from "./Member";
 

@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import GoogleButton from "react-google-button";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import styled from "styled-components";
-import axios from "axios";
 
+import axios from "../../api/axiosInstance";
 import { signUpActions } from "../../features/signupSlice";
 import { authentication } from "../../utils/firebase";
 import { userActions } from "../../features/userSlice";

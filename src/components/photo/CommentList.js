@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
-import { LOADING_MESSAGE, ERROR_MESSAGE } from "../../constants";
+import { ERROR_MESSAGE } from "../../constants";
 import theme from "../../styles/theme";
 import Message from "../common/Message";
 import ResponseMessage from "../common/ResponseMessage";
@@ -13,77 +12,24 @@ import Comment from "./Comment";
 const CommentList = () => {
   const [reply, setReply] = useState("");
   const [notice, setNotice] = useState("");
+  const [photos, setPhotos] = useState([]);
+  const [commentList, setCommentList] = useState([]);
   const user = useSelector(state => state.user.user);
   const index = useSelector(state => state.photo.currentIndex);
-  const queryClient = useQueryClient();
-  const photo = queryClient.getQueryData("photos")?.data?.photos[index];
-  const photoId = queryClient.getQueryData("photos")?.data?.photos[index].id;
-  const [comments, setComments] = useState([]);
+  const { url } = useSelector(state => state.url);
 
-  const postComment = id => {
-    const comment = {
-      createdAt: new Date(),
-      createdBy: user.nickname,
-      message: reply,
-    };
+  useEffect(async () => {
+    try {
+      const { photos } = (await axios.get(url)).data;
 
-    return axios.post("/comment/new", { comment, photo: id });
-  };
-
-  const { data, isLoading, isFetching, isError, refetch } = useQuery(
-    "postComment",
-    () => postComment(photoId),
-    {
-      enabled: false,
-      select: response => response.data,
-      initialData: () => {
-        const photo = queryClient.getQueryData("photos")?.data?.photos[index];
-        const { comments } = photo;
-
-        if (photo) {
-          return {
-            data: { comments },
-          };
-        }
-      },
-    }
-  );
-
-  useEffect(() => {
-    if (data?.comments === photo.comments) {
-      setComments(photo.comments);
-      return;
-    }
-
-    if (data?.comments !== photo.comments) {
-      setComments(data?.comments);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (data?.comments === photo.comments) {
-      setComments(data?.comments);
-      return;
-    }
-
-    if (data?.comments !== photo.comments) {
-      setComments(photo.comments);
+      setPhotos(photos);
+      setCommentList(photos[index].comments);
+    } catch {
+      return <ResponseMessage message={ERROR_MESSAGE.SERVER_UNSTABLE} />;
     }
   }, [index]);
 
-  if (isLoading || isFetching) {
-    return <Message message={LOADING_MESSAGE.SENDING_IN_PROGRESS} />;
-  }
-
-  if (data?.error) {
-    if (data.error.code === 500) {
-      return setNotice("잠시 후에 다시 시도해주세요.");
-    }
-
-    setNotice(data.error.message);
-  }
-
-  const handleSaveClick = event => {
+  const handleSaveClick = async event => {
     event.preventDefault();
 
     const trimmedReply = reply.trimStart();
@@ -96,12 +42,25 @@ const CommentList = () => {
     }
 
     setReply("");
-    refetch();
+
+    const comment = {
+      createdAt: new Date(),
+      createdBy: user.nickname,
+      message: reply,
+    };
+
+    try {
+      const { comments } = (
+        await axios.post("/comment/new", { comment, photo: photos[index].id })
+      ).data;
+
+      setCommentList(comments);
+    } catch {
+      return <ResponseMessage message={ERROR_MESSAGE.SERVER_UNSTABLE} />;
+    }
   };
 
-  return isError ? (
-    <ResponseMessage message={ERROR_MESSAGE.SERVER_UNSTABLE} />
-  ) : (
+  return (
     <ThemeProvider theme={theme}>
       <Form onSubmit={handleSaveClick}>
         <Input
@@ -113,8 +72,8 @@ const CommentList = () => {
         <Button type="submit">save</Button>
         <Message message={notice} />
       </Form>
-      {comments.map(comment => (
-        <Comment key={comment._id} comment={comment} />
+      {commentList.map(comment => (
+        <Comment key={comment._id} comment={comment} onSet={setCommentList} />
       ))}
     </ThemeProvider>
   );

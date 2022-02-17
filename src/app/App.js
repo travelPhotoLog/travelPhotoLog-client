@@ -23,7 +23,7 @@ import PhotoDetail from "../components/photo/PhotoDetail";
 import UserMapList from "../components/board/UserMapList";
 import MyPostingList from "../components/board/MyPostingList";
 import PostingDetail from "../components/board/PostingDetail";
-import PostingPhotoList from "../components/board/PostingList";
+import PostingPhotoList from "../components/board/PostingPhotoList";
 import { socket, SocketContext } from "../socket";
 
 const queryClient = new QueryClient();

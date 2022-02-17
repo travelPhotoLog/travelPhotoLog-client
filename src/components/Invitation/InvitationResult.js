@@ -1,8 +1,8 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
-import axios from "../../api/axiosInstance";
 import ResponseMessage from "../common/ResponseMessage";
 import { ERROR_MESSAGE } from "../../constants";
 

@@ -14,7 +14,7 @@ import {
 import theme from "../../styles/theme";
 import Message from "../common/Message";
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, onSet }) => {
   const [hasError, setHasError] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const index = useSelector(state => state.photo.currentIndex);
@@ -43,11 +43,13 @@ const Comment = ({ comment }) => {
   );
 
   if (isLoading || isFetching) {
-    return <Message message={LOADING_MESSAGE.SENDING_IN_PROGRESS} />;
+    return <div />;
   }
 
   if (data?.comments) {
-    // 소켓..?
+    onSet(data.comments);
+
+    queryClient.resetQueries("deleteComment");
   }
 
   if (data?.error) {

@@ -39,7 +39,7 @@ const PostingDetail = () => {
   };
 
   const handleDeleteClick = async () => {
-    navigate(`/board/${user.nickname}`);
+    navigate(-1);
     await axios.delete(`/posting/${id}?user=${user.id}`);
   };
 

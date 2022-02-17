@@ -34,7 +34,12 @@ const Login = () => {
   useEffect(() => {
     const getLoginUser = async () => {
       try {
-        const { data } = await axios.get("/auth/auto-login");
+        const { data } = await axios.get(
+          `${process.env.REACT_APP_SERVER_URI}/auth/auto-login`,
+          {
+            withCredentials: true,
+          }
+        );
 
         if (data.user) {
           navigate("/");
@@ -53,7 +58,13 @@ const Login = () => {
       return;
     }
 
-    const { data } = await axios.post("/auth/login", { email: user.email });
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_SERVER_URI}/auth/login`,
+      { email: user.email },
+      {
+        withCredentials: true,
+      }
+    );
 
     if (data.user) {
       dispatch(userActions.updateUser(data.user));

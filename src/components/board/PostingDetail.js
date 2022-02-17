@@ -2,9 +2,9 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
+import axios from "../../api/axiosInstance";
 import { LOADING_MESSAGE } from "../../constants";
 import "react-quill/dist/quill.snow.css";
 import theme from "../../styles/theme";

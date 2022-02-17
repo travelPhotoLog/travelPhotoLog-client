@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import queryString from "query-string";
-import axios from "axios";
 
+import axios from "../../api/axiosInstance";
 import { socket } from "../../socket";
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE } from "../../constants";

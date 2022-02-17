@@ -3,8 +3,8 @@ import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
-import axios from "axios";
 
+import axios from "../api/axiosInstance";
 import { userActions } from "../features/userSlice";
 import theme from "../styles/theme";
 import Button from "./common/Button";

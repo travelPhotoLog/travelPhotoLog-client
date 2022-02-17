@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
-import axios from "axios";
 
+import axios from "../../api/axiosInstance";
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
 import {

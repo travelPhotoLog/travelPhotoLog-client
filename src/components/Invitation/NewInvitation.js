@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
+import axios from "../../api/axiosInstance";
 import {
   ERROR_MESSAGE,
   RESPONSE_MESSAGE,

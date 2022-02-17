@@ -3,8 +3,8 @@ import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
-import axios from "axios";
 
+import axios from "../../api/axiosInstance";
 import Modal from "../common/Modal";
 import theme from "../../styles/theme";
 

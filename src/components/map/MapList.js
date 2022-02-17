@@ -3,9 +3,9 @@ import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaRegPlusSquare } from "react-icons/fa";
+import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
-import axios from "../../api/axiosInstance";
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE } from "../../constants";
 import { StyledButton } from "../common/CommonStyle";

@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import GoogleMapReact from "google-map-react";
 import MarkerClusterer from "@google/markerclustererplus";
 import styled, { ThemeProvider } from "styled-components";
 import axios from "axios";
 
+import { socket } from "../../socket";
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
 import ResponseMessage from "../common/ResponseMessage";
@@ -13,6 +14,7 @@ import Sidebar from "../sidebar/Sidebar";
 import SearchBox from "./SearchBox";
 
 const MapDetail = () => {
+  const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   const [googleMapRef, setGoogleMapRef] = useState({ map: null, api: null });
@@ -24,6 +26,14 @@ const MapDetail = () => {
     center: { lat: 37.508105, lng: 127.061341 },
     zoom: 14,
   };
+
+  useEffect(() => {
+    socket.emit("join", id);
+
+    return () => {
+      socket.emit("leave", id);
+    };
+  }, []);
 
   const handleApiLoaded = (map, api) => {
     setGoogleMapRef({ map, api });
@@ -76,7 +86,7 @@ const MapDetail = () => {
     }
   };
 
-  const { isError, error, data } = useQuery(
+  const { isError, error, data, refetch } = useQuery(
     "points",
     () => getPoints(pointId),
     {
@@ -84,6 +94,10 @@ const MapDetail = () => {
       select: response => response.data,
     }
   );
+
+  socket.on("uploadSuccess", () => {
+    refetch();
+  });
 
   if (data?.error) {
     if (data.error.code === 400) {

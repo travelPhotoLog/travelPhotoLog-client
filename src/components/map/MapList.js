@@ -2,9 +2,9 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { FaRegPlusSquare } from "react-icons/fa";
 import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
-import { FaRegPlusSquare } from "react-icons/fa";
 
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE } from "../../constants";

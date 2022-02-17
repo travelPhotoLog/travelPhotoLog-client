@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Route, Routes, Outlet } from "react-router-dom";
@@ -23,13 +23,20 @@ import PhotoDetail from "../components/photo/PhotoDetail";
 import UserMapList from "../components/board/UserMapList";
 import MyPostingList from "../components/board/MyPostingList";
 import PostingDetail from "../components/board/PostingDetail";
-import PostingPhotoList from "../components/board/PostingPhotoList";
+import PostingPhotoList from "../components/board/PostingList";
+import { socket, SocketContext } from "../socket";
 
 const queryClient = new QueryClient();
 
 const App = () => {
+  useEffect(() => {
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
   return (
-    <>
+    <SocketContext.Provider value={socket}>
       <GlobalStyle />
       <QueryClientProvider client={queryClient}>
         <Header />
@@ -91,7 +98,7 @@ const App = () => {
         </Routes>
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       </QueryClientProvider>
-    </>
+    </SocketContext.Provider>
   );
 };
 

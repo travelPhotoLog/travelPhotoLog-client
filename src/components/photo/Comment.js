@@ -46,8 +46,8 @@ const Comment = ({ comment }) => {
     return <Message message={LOADING_MESSAGE.SENDING_IN_PROGRESS} />;
   }
 
-  if (data?.result) {
-    // 소켓...?
+  if (data?.comments) {
+    // 소켓..?
   }
 
   if (data?.error) {

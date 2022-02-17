@@ -33,7 +33,7 @@ const PhotoUploader = () => {
 
   useEffect(() => {
     if (isUpload) {
-      socket.emit("uploadSuccess", `${mapId}`);
+      socket.emit("uploadSuccess", mapId);
     }
   }, [isUpload]);
 

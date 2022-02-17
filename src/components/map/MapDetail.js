@@ -28,10 +28,10 @@ const MapDetail = () => {
   };
 
   useEffect(() => {
-    socket.emit("join", `${id}`);
+    socket.emit("join", id);
 
     return () => {
-      socket.emit("leave", `${id}`);
+      socket.emit("leave", id);
     };
   }, []);
 

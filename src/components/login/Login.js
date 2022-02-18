@@ -39,7 +39,8 @@ const Login = () => {
 
     const { data } = await axios.post(
       `${process.env.REACT_APP_SERVER_URI}/auth/login`,
-      { email: user.email }
+      { email: user.email },
+      { withCredentials: true }
     );
 
     if (data.user) {

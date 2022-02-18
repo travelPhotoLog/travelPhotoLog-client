@@ -15,10 +15,14 @@ const NewMap = () => {
   const { id } = useSelector(state => state.user.user);
 
   const createNewMap = () => {
-    return axios.post(`${process.env.REACT_APP_SERVER_URI}/map/new`, {
-      map: { title: mapTitle },
-      user: id,
-    });
+    return axios.post(
+      `${process.env.REACT_APP_SERVER_URI}/map/new`,
+      {
+        map: { title: mapTitle },
+        user: id,
+      },
+      { withCredentials: true }
+    );
   };
 
   const onSuccess = () => {

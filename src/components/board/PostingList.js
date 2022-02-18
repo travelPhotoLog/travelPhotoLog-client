@@ -26,8 +26,13 @@ const PostingList = () => {
       try {
         response =
           region || tag
-            ? (await axios.get(filteredPostingEndPoint)).data
-            : (await axios.get(allPostingEndPoint)).data;
+            ? (
+                await axios.get(filteredPostingEndPoint, {
+                  withCredentials: true,
+                })
+              ).data
+            : (await axios.get(allPostingEndPoint), { withCredentials: true })
+                .data;
 
         if (response.postings) {
           const { postings, totalPages } = response;

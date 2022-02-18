@@ -40,7 +40,7 @@ const PhotoList = () => {
     )}`;
     dispatch(urlAction.setUrl({ url }));
 
-    return axios.get(url);
+    return axios.get(url, { withCredentials: true });
   };
 
   const { data, isLoading, isFetching, isError, error } = useQuery(

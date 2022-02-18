@@ -19,7 +19,9 @@ const Header = () => {
   const cookies = new Cookies();
 
   const checkUserLogin = () => {
-    return axios.post(`${process.env.REACT_APP_SERVER_URI}/auth/auto-login`);
+    return axios.post(`${process.env.REACT_APP_SERVER_URI}/auth/auto-login`, {
+      withCredentials: true,
+    });
   };
 
   const onSuccess = data => {
@@ -61,7 +63,8 @@ const Header = () => {
   const handleLogoutClick = async () => {
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_SERVER_URI}/auth/logout`
+        `${process.env.REACT_APP_SERVER_URI}/auth/logout`,
+        { withCredentials: true }
       );
 
       if (data.result === "ok") {

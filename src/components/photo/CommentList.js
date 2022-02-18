@@ -20,7 +20,7 @@ const CommentList = () => {
 
   useEffect(async () => {
     try {
-      const { photos } = (await axios.get(url)).data;
+      const { photos } = (await axios.get(url, { withCredentials: true })).data;
 
       setPhotos(photos);
       setCommentList(photos[index].comments);
@@ -51,10 +51,14 @@ const CommentList = () => {
 
     try {
       const { comments } = (
-        await axios.post(`${process.env.REACT_APP_SERVER_URI}/comment/new`, {
-          comment,
-          photo: photos[index].id,
-        })
+        await axios.post(
+          `${process.env.REACT_APP_SERVER_URI}/comment/new`,
+          {
+            comment,
+            photo: photos[index].id,
+          },
+          { withCredentials: true }
+        )
       ).data;
 
       setCommentList(comments);

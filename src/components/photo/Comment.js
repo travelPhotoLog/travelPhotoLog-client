@@ -26,7 +26,8 @@ const Comment = ({ comment, onSet }) => {
     setIsDelete(false);
 
     return axios.delete(
-      `${process.env.REACT_APP_SERVER_URI}/comment/${commentId}?photo=${photoId}`
+      `${process.env.REACT_APP_SERVER_URI}/comment/${commentId}?photo=${photoId}`,
+      { withCredentials: true }
     );
   };
 

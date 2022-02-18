@@ -22,7 +22,8 @@ const MyPostingList = () => {
       try {
         const response = (
           await axios.get(
-            `${process.env.REACT_APP_SERVER_URI}/user/${user.id}/postings?page=${pageNum}`
+            `${process.env.REACT_APP_SERVER_URI}/user/${user.id}/postings?page=${pageNum}`,
+            { withCredentials: true }
           )
         )?.data;
 

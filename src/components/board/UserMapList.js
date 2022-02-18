@@ -11,7 +11,9 @@ import Modal from "../common/Modal";
 import UserMap from "./UserMap";
 
 const getMapList = id => {
-  return axios.get(`${process.env.REACT_APP_SERVER_URI}/user/${id}/maps`);
+  return axios.get(`${process.env.REACT_APP_SERVER_URI}/user/${id}/maps`, {
+    withCredentials: true,
+  });
 };
 
 const UserMapList = () => {

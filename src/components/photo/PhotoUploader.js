@@ -82,6 +82,7 @@ const PhotoUploader = () => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        withCredentials: true,
       }
     );
 

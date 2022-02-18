@@ -45,7 +45,8 @@ const NewInvitation = () => {
       `${process.env.REACT_APP_SERVER_URI}/map/${id}/invitation`,
       {
         email,
-      }
+      },
+      { withCredentials: true }
     );
   };
 

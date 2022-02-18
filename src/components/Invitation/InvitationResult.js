@@ -8,7 +8,8 @@ import { ERROR_MESSAGE } from "../../constants";
 
 const getInvitationResult = (id, token) => {
   return axios.put(
-    `${process.env.REACT_APP_SERVER_URI}/map/${id}/invitation/${token}`
+    `${process.env.REACT_APP_SERVER_URI}/map/${id}/invitation/${token}`,
+    { withCredentials: true }
   );
 };
 

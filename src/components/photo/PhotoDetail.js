@@ -60,7 +60,8 @@ const PhotoDetail = () => {
 
   const deletePhoto = (id, mapId) => {
     return axios.delete(
-      `${process.env.REACT_APP_SERVER_URI}/photo/${id}?map=${mapId}`
+      `${process.env.REACT_APP_SERVER_URI}/photo/${id}?map=${mapId}`,
+      { withCredentials: true }
     );
   };
 

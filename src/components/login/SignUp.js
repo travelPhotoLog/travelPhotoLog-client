@@ -39,7 +39,8 @@ const SignUp = () => {
     const getLoginUser = async () => {
       try {
         const { data } = await axios.get(
-          `${process.env.REACT_APP_SERVER_URI}/auth/auto-login`
+          `${process.env.REACT_APP_SERVER_URI}/auth/auto-login`,
+          { withCredentials: true }
         );
 
         if (data.user) {
@@ -91,7 +92,8 @@ const SignUp = () => {
           birthday,
           occupation,
         },
-      }
+      },
+      { withCredentials: true }
     );
 
     if (data.result === "ok") {

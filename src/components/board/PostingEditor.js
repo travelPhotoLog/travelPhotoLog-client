@@ -135,7 +135,8 @@ const PostingEditor = () => {
             logOption,
             imageUrl: latestPhotoUrl,
           },
-        }
+        },
+        { withCredentials: true }
       );
 
       if (data.error) {
@@ -163,7 +164,8 @@ const PostingEditor = () => {
           imageUrl,
         },
         user: user.id,
-      }
+      },
+      { withCredentials: true }
     );
 
     if (data.error) {
@@ -236,18 +238,6 @@ const PostingEditor = () => {
               ))}
             </RegionCheck>
             <div />
-            <LogOptionTitle>
-              [* Log option] 날짜별 방문기록 장소를 보여주시겠습니까 ?
-            </LogOptionTitle>
-            <LogOptionItem
-              name="logOption"
-              value={logOption}
-              onChange={event => setLogOption(event.target.value)}
-            >
-              <option value="옵션선택">선택</option>
-              <option value="true">Yes</option>
-              <option value="false">No</option>
-            </LogOptionItem>
             <div />
             <div style={{ textAlign: "center", margin: "2rem" }}>
               <WarningMessage>{resultMsg || <div />}</WarningMessage>
@@ -286,6 +276,7 @@ const TitleInput = styled.input`
     outline: none;
   }
 `;
+
 const HashTagInput = styled.input`
   width: 100%;
   border: none;
@@ -309,15 +300,6 @@ const RegionCheck = styled.div`
 
 const RegionItem = styled.input`
   margin: 5px;
-`;
-
-const LogOptionTitle = styled.h3`
-  display: inline-block;
-`;
-
-const LogOptionItem = styled.select`
-  border: none;
-  border-bottom: 1px solid gray;
 `;
 
 const Title = styled.div`

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import GoogleButton from "react-google-button";
-import Cookies from "universal-cookie";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import styled from "styled-components";
 
@@ -21,7 +20,6 @@ const Login = () => {
     email: "",
     photoURL: "",
   });
-  const cookies = new Cookies();
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
@@ -40,22 +38,6 @@ const Login = () => {
     const { data } = await axios.post("/auth/login", { email: user.email });
 
     if (data.user) {
-      if (data.accessToken) {
-        cookies.set("accessToken", data.accessToken, {
-          path: "/",
-          // httpOnly: true,
-          maxAge: 14 * 24 * 60 * 60,
-        });
-      }
-
-      if (data.refreshToken) {
-        cookies.set("refreshToken", data.refreshToken, {
-          path: "/",
-          // httpOnly: true,
-          maxAge: 14 * 24 * 60 * 60,
-        });
-      }
-
       dispatch(userActions.updateUser(data.user));
       navigate(-1);
 
@@ -75,6 +57,9 @@ const Login = () => {
     }
 
     if (data.result === RESPONSE_MESSAGE.RELOGIN_REQUIRED) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+
       navigate("/auth/login");
       return;
     }

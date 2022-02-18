@@ -2,7 +2,6 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
 import styled, { ThemeProvider } from "styled-components";
 
 import axios from "../api/axiosInstance";
@@ -16,30 +15,14 @@ const Header = () => {
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
 
-  const cookies = new Cookies();
-
   const checkUserLogin = () => {
     return axios.post("/auth/auto-login");
   };
 
   const onSuccess = data => {
-    const { user, accessToken, refreshToken } = data;
+    const user = data?.user;
 
     if (user) {
-      if (accessToken) {
-        cookies.set("accessToken", data.accessToken, {
-          path: "/",
-          maxAge: 14 * 24 * 60 * 60,
-        });
-      }
-
-      if (refreshToken) {
-        cookies.set("refreshToken", data.refreshToken, {
-          path: "/",
-          maxAge: 14 * 24 * 60 * 60,
-        });
-      }
-
       dispatch(userActions.updateUser(user));
     }
   };
@@ -63,6 +46,9 @@ const Header = () => {
       const { data } = await axios.post("/auth/logout");
 
       if (data.result === "ok") {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+
         dispatch(userActions.deleteUser());
         navigate("/");
 

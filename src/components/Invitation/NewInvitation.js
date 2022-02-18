@@ -41,9 +41,12 @@ const NewInvitation = () => {
   };
 
   const sendEmail = (id, email) => {
-    return axios.put(`/map/${id}/invitation`, {
-      email,
-    });
+    return axios.put(
+      `${process.env.REACT_APP_SERVER_URI}/map/${id}/invitation`,
+      {
+        email,
+      }
+    );
   };
 
   const { data, isLoading, isError, error, isFetching, refetch } = useQuery(

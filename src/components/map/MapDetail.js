@@ -52,7 +52,7 @@ const MapDetail = () => {
   };
 
   const getPoints = id => {
-    return axios.get(`/map/${id}/points`);
+    return axios.get(`${process.env.REACT_APP_SERVER_URI}/map/${id}/points`);
   };
 
   const onSuccess = data => {

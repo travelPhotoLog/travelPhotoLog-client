@@ -32,29 +32,15 @@ const Login = () => {
     setUser({ email, photoURL });
   };
 
-  // useEffect(() => {
-  //   const getLoginUser = async () => {
-  //     try {
-  //       const { data } = await axios.get("/auth/auto-login");
-
-  //       if (data.user) {
-  //         navigate("/");
-  //         return;
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   getLoginUser();
-  // }, []);
-
   useEffect(async () => {
     if (!user.email) {
       return;
     }
 
-    const { data } = await axios.post("/auth/login", { email: user.email });
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_SERVER_URI}/auth/login`,
+      { email: user.email }
+    );
 
     if (data.user) {
       if (data.accessToken) {

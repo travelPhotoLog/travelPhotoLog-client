@@ -51,7 +51,10 @@ const CommentList = () => {
 
     try {
       const { comments } = (
-        await axios.post("/comment/new", { comment, photo: photos[index].id })
+        await axios.post(`${process.env.REACT_APP_SERVER_URI}/comment/new`, {
+          comment,
+          photo: photos[index].id,
+        })
       ).data;
 
       setCommentList(comments);

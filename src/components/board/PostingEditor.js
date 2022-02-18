@@ -124,16 +124,19 @@ const PostingEditor = () => {
     const splitedHashtags = hashtags.split(",").map(hash => hash.trim());
 
     if (isEditing) {
-      const { data } = await axios.put(`/posting/${postingId}`, {
-        posting: {
-          title,
-          content,
-          hashtags: splitedHashtags,
-          regions,
-          logOption,
-          imageUrl: latestPhotoUrl,
-        },
-      });
+      const { data } = await axios.put(
+        `${process.env.REACT_APP_SERVER_URI}/posting/${postingId}`,
+        {
+          posting: {
+            title,
+            content,
+            hashtags: splitedHashtags,
+            regions,
+            logOption,
+            imageUrl: latestPhotoUrl,
+          },
+        }
+      );
 
       if (data.error) {
         return <ResponseMessage message={data.error.message} />;
@@ -147,18 +150,21 @@ const PostingEditor = () => {
       return;
     }
 
-    const { data } = await axios.post("/posting/new", {
-      posting: {
-        title,
-        createdBy: user.nickname,
-        content,
-        hashtags: splitedHashtags,
-        regions,
-        logOption,
-        imageUrl,
-      },
-      user: user.id,
-    });
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_SERVER_URI}/posting/new`,
+      {
+        posting: {
+          title,
+          createdBy: user.nickname,
+          content,
+          hashtags: splitedHashtags,
+          regions,
+          logOption,
+          imageUrl,
+        },
+        user: user.id,
+      }
+    );
 
     if (data.error) {
       setResultMsg(

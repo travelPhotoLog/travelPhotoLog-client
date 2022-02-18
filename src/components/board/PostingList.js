@@ -21,8 +21,8 @@ const PostingList = () => {
     const getPostings = async (region, tag, pageNum) => {
       let response;
 
-      const filteredPostingEndPoint = `/posting/search?region=${region}&hashtag=${tag}&page=${pageNum}`;
-      const allPostingEndPoint = `/posting?page=${pageNum}`;
+      const filteredPostingEndPoint = `${process.env.REACT_APP_SERVER_URI}/posting/search?region=${region}&hashtag=${tag}&page=${pageNum}`;
+      const allPostingEndPoint = `${process.env.REACT_APP_SERVER_URI}/posting?page=${pageNum}`;
       try {
         response =
           region || tag

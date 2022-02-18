@@ -21,7 +21,9 @@ const MyPostingList = () => {
     const getMyPostings = async pageNum => {
       try {
         const response = (
-          await axios.get(`/user/${user.id}/postings?page=${pageNum}`)
+          await axios.get(
+            `${process.env.REACT_APP_SERVER_URI}/user/${user.id}/postings?page=${pageNum}`
+          )
         )?.data;
 
         if (response.postings) {

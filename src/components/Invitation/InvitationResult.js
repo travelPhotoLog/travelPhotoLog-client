@@ -7,7 +7,9 @@ import ResponseMessage from "../common/ResponseMessage";
 import { ERROR_MESSAGE } from "../../constants";
 
 const getInvitationResult = (id, token) => {
-  return axios.put(`/map/${id}/invitation/${token}`);
+  return axios.put(
+    `${process.env.REACT_APP_SERVER_URI}/map/${id}/invitation/${token}`
+  );
 };
 
 const InvitationResult = () => {

@@ -9,7 +9,7 @@ import theme from "../../styles/theme";
 import Member from "./Member";
 
 const getMembers = id => {
-  return axios.get(`/map/${id}/members`);
+  return axios.get(`${process.env.REACT_APP_SERVER_URI}/map/${id}/members`);
 };
 
 const MemberList = () => {

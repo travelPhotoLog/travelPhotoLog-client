@@ -59,7 +59,9 @@ const PhotoDetail = () => {
   const date = dayjs(createdAt).format("YYYY년 MM월 DD일 HH:mm:ss");
 
   const deletePhoto = (id, mapId) => {
-    return axios.delete(`/photo/${id}?map=${mapId}`);
+    return axios.delete(
+      `${process.env.REACT_APP_SERVER_URI}/photo/${id}?map=${mapId}`
+    );
   };
 
   const onSuccess = () => {

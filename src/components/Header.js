@@ -19,7 +19,7 @@ const Header = () => {
   const cookies = new Cookies();
 
   const checkUserLogin = () => {
-    return axios.post("/auth/auto-login");
+    return axios.post(`${process.env.REACT_APP_SERVER_URI}/auth/auto-login`);
   };
 
   const onSuccess = data => {
@@ -60,7 +60,9 @@ const Header = () => {
 
   const handleLogoutClick = async () => {
     try {
-      const { data } = await axios.post("/auth/logout");
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_SERVER_URI}/auth/logout`
+      );
 
       if (data.result === "ok") {
         dispatch(userActions.deleteUser());

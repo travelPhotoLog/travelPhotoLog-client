@@ -3,10 +3,10 @@ import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
+import "react-quill/dist/quill.snow.css";
 
 import axios from "../../api/axiosInstance";
 import { LOADING_MESSAGE } from "../../constants";
-import "react-quill/dist/quill.snow.css";
 import theme from "../../styles/theme";
 import Modal from "../common/Modal";
 import Message from "../common/Message";
@@ -91,7 +91,7 @@ const PostingDetail = () => {
 export default PostingDetail;
 
 const Container = styled.div`
-  width: 80%;
+  width: 60%;
   height: 15rem;
   margin: 10px auto;
 `;
@@ -116,10 +116,12 @@ const TitleText = styled.h1`
 
 const Editor = styled.div`
   width: 100%;
-  height: 30rem;
+  height: 60vh;
+  padding: 3rem;
   margin: 10px auto;
-  border: 1px solid gray;
-  border-radius: 10px;
+  border: none;
+  border-radius: 20px;
+  background-color: #f8fff8;
   overflow: scroll;
 `;
 

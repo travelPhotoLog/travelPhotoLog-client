@@ -197,6 +197,7 @@ const PostingEditor = () => {
             <ReactQuill
               ref={quillRef}
               theme="snow"
+              style={{ height: "45vh", margin: "0 0 3.2rem 0" }}
               placeholder="* Type your photolog"
               value={content}
               onChange={event => setContent(event)}
@@ -248,7 +249,7 @@ const PostingEditor = () => {
 export default PostingEditor;
 
 const Container = styled.div`
-  width: 80%;
+  width: 85%;
   margin: 10px auto;
 `;
 
@@ -260,9 +261,10 @@ const TitleInput = styled.input`
   width: 100%;
   border: none;
   border-bottom: 1px solid gray;
+  margin-bottom: ${({ theme }) => theme.spacing.xxxl};
   font-size: 20px;
   &:hover {
-    backgroundcolor: #f8fff8;
+    background-color: #f8fff8;
   }
   &:focus {
     outline: none;
@@ -271,11 +273,12 @@ const TitleInput = styled.input`
 
 const HashTagInput = styled.input`
   width: 100%;
+  margin: 0.5rem 0;
   border: none;
   border-bottom: 1px dotted gray;
   font-size: 15px;
   &:hover {
-    backgroundcolor: #f8fff8;
+    background-color: #f8fff8;
   }
   &:focus {
     outline: none;
@@ -311,6 +314,7 @@ const Button = styled(StyledButton)`
 
 const Editor = styled.div`
   width: 80%;
+  height: 60vh;
   margin: 10px auto;
 `;
 

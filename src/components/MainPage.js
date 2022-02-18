@@ -6,12 +6,11 @@ import theme from "../styles/theme";
 const MainPage = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Container>
-        <TitleContainer>
-          <h1>TRAVEL PHOTO-LOG</h1>
-          <p>여행과 장소의 변화는 우리 마음에 활력을 선사한다.</p>
-        </TitleContainer>
-      </Container>
+      <TitleContainer>
+        <h1>TRAVEL PHOTO-LOG</h1>
+        <p>여행과 장소의 변화는 우리 마음에 활력을 선사한다.</p>
+      </TitleContainer>
+      <BackgroundContainer />
       <Footer>
         <p>@OCN cooperation</p>
       </Footer>
@@ -21,18 +20,21 @@ const MainPage = () => {
 
 export default MainPage;
 
-const Container = styled.div`
+const BackgroundContainer = styled.div`
+  ${({ theme }) => theme.container.flexCenter};
   width: 100%;
-  height: 80vh;
+  height: 70vh;
   padding: ${({ theme }) => theme.spacing.xxxl};
   padding-top: 70px;
-  background-image: url("https://cdn.pixabay.com/photo/2018/01/31/05/43/web-3120321_960_720.png");
+  background-image: url("https://travelphotolog.s3.ap-northeast-2.amazonaws.com/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A1.jpeg");
   background-position: center;
-  background-size: cover;
+  background-size: contain;
+  opacity: 0.3;
 `;
 
 const TitleContainer = styled.div`
   ${({ theme }) => theme.container.flexCenterColumn};
+  height: 10vh;
   font-family: "Gill Sans", sans-serif;
   color: gray;
   font-size: 15px;

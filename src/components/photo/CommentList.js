@@ -93,18 +93,32 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
-  width: 24vw;
-  height: 4vh;
+  width: 60%;
+  height: 40%;
+  padding: 0 1rem;
   margin: 0 ${({ theme }) => theme.spacing.base};
+  border-radius: 10px;
+  border: 1px solid #dcedc8;
+  &:hover {
+    background-color: #f8fff8;
+  }
+
+  &:focus {
+    background-color: #f8fff8;
+  }
 `;
 
 const Button = styled.button`
   width: 15%;
-  height: 4vh;
+  height: 40%;
   margin: ${({ theme }) => theme.spacing.base};
-  border-radius: 5%;
-  background-color: grey;
-  color: white;
+  border-radius: 10px;
+  background-color: #689f35;
+  color: #f8fff8;
   font-size: ${({ theme }) => theme.fontSizes.xxl};
   font-weight: 600;
+  transition: all 0.03 ease-out;
+  &:hover {
+    transform: scale(1.01);
+  }
 `;

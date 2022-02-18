@@ -145,7 +145,11 @@ const LeftButton = styled(AiOutlineLeft)`
   left: 22%;
   color: black;
   font-size: 30px;
+  transition: all 0.1s ease-out;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.3);
+  }
 `;
 
 const RightButton = styled(AiOutlineRight)`
@@ -154,18 +158,30 @@ const RightButton = styled(AiOutlineRight)`
   right: 22%;
   color: black;
   font-size: 30px;
+  transition: all 0.1s ease-out;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.3);
+  }
 `;
 
 const Detail = styled.div`
   ${({ theme }) => theme.container.flexCenterColumn}
   flex-wrap: wrap;
+  width: 100%;
+  padding-top: 1rem;
+  margin-top: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+    rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 `;
 
 const Box = styled.div`
-  width: 33vw;
+  width: 85%;
   height: auto;
+  padding-bottom: 1rem;
   margin: ${({ theme }) => theme.spacing.base};
+  border-bottom: 1px solid #a6ae9c;
   text-align: right;
 `;
 
@@ -188,6 +204,10 @@ const Button = styled.button`
   color: white;
   font-size: ${({ theme }) => theme.fontSizes.base};
   font-weight: 500;
+  transition: all 0.3s ease-out;
+  &:hover {
+    background-color: black;
+  }
   &.hide {
     display: none;
   }

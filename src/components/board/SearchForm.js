@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
@@ -75,6 +75,17 @@ const SearchForm = () => {
 
     dispatch(searchingActions.setKeyword(searchingWord));
   };
+
+  useEffect(() => {
+    return () => {
+      const initialState = {
+        region: "",
+        tag: "",
+      };
+
+      dispatch(searchingActions.setKeyword(initialState));
+    };
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

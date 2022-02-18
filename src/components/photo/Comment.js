@@ -106,6 +106,10 @@ const Button = styled.button`
   color: white;
   font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: 600;
+  transition: all 0.1s ease-in-out;
+  &:hover {
+    background-color: black;
+  }
   &.hidden {
     display: none;
   }

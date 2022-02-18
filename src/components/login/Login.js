@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import GoogleButton from "react-google-button";
+import Cookies from "universal-cookie";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import styled from "styled-components";
 import axios from "axios";
@@ -15,12 +16,12 @@ import ResponseMessage from "../common/ResponseMessage";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [errorMessage, setErrorMessage] = useState("");
   const [user, setUser] = useState({
     email: "",
     photoURL: "",
   });
-  const [errorMessage, setErrorMessage] = useState("");
+  const cookies = new Cookies();
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
@@ -31,28 +32,6 @@ const Login = () => {
     setUser({ email, photoURL });
   };
 
-  useEffect(() => {
-    const getLoginUser = async () => {
-      try {
-        const { data } = await axios.get(
-          `${process.env.REACT_APP_SERVER_URI}/auth/auto-login`,
-          {
-            withCredentials: true,
-          }
-        );
-
-        if (data.user) {
-          navigate("/");
-          return;
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getLoginUser();
-  }, []);
-
   useEffect(async () => {
     if (!user.email) {
       return;
@@ -61,12 +40,26 @@ const Login = () => {
     const { data } = await axios.post(
       `${process.env.REACT_APP_SERVER_URI}/auth/login`,
       { email: user.email },
-      {
-        withCredentials: true,
-      }
+      { withCredentials: true }
     );
 
     if (data.user) {
+      if (data.accessToken) {
+        cookies.set("accessToken", data.accessToken, {
+          path: "/",
+          // httpOnly: true,
+          maxAge: 14 * 24 * 60 * 60,
+        });
+      }
+
+      if (data.refreshToken) {
+        cookies.set("refreshToken", data.refreshToken, {
+          path: "/",
+          // httpOnly: true,
+          maxAge: 14 * 24 * 60 * 60,
+        });
+      }
+
       dispatch(userActions.updateUser(data.user));
       navigate(-1);
 

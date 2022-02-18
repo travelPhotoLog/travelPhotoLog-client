@@ -21,13 +21,18 @@ const PostingList = () => {
     const getPostings = async (region, tag, pageNum) => {
       let response;
 
-      const filteredPostingEndPoint = `/posting/search?region=${region}&hashtag=${tag}&page=${pageNum}`;
-      const allPostingEndPoint = `/posting?page=${pageNum}`;
+      const filteredPostingEndPoint = `${process.env.REACT_APP_SERVER_URI}/posting/search?region=${region}&hashtag=${tag}&page=${pageNum}`;
+      const allPostingEndPoint = `${process.env.REACT_APP_SERVER_URI}/posting?page=${pageNum}`;
       try {
         response =
           region || tag
-            ? (await axios.get(filteredPostingEndPoint)).data
-            : (await axios.get(allPostingEndPoint)).data;
+            ? (
+                await axios.get(filteredPostingEndPoint, {
+                  withCredentials: true,
+                })
+              ).data
+            : (await axios.get(allPostingEndPoint), { withCredentials: true })
+                .data;
 
         if (response.postings) {
           const { postings, totalPages } = response;

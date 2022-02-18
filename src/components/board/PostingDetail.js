@@ -19,7 +19,9 @@ const PostingDetail = () => {
   const { id } = useParams();
 
   const getPostingDetail = id => {
-    return axios.get(`/posting/${id}`);
+    return axios.get(`${process.env.REACT_APP_SERVER_URI}/posting/${id}`, {
+      withCredentials: true,
+    });
   };
 
   const { data, isLoading, isFetching, isError, error } = useQuery(
@@ -40,7 +42,11 @@ const PostingDetail = () => {
 
   const handleDeleteClick = async () => {
     navigate(-1);
-    await axios.delete(`/posting/${id}?user=${user.id}`);
+
+    await axios.delete(
+      `${process.env.REACT_APP_SERVER_URI}/posting/${id}?user=${user.id}`,
+      { withCredentials: true }
+    );
   };
 
   if (isLoading || isFetching) {

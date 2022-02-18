@@ -13,7 +13,9 @@ import ResponseMessage from "../common/ResponseMessage";
 import Map from "./Map";
 
 const getMapList = id => {
-  return axios.get(`/user/${id}/maps`);
+  return axios.get(`${process.env.REACT_APP_SERVER_URI}/user/${id}/maps`, {
+    withCredentials: true,
+  });
 };
 
 const MapList = () => {

@@ -38,7 +38,10 @@ const SignUp = () => {
   useEffect(() => {
     const getLoginUser = async () => {
       try {
-        const { data } = await axios.get("/auth/auto-login");
+        const { data } = await axios.get(
+          `${process.env.REACT_APP_SERVER_URI}/auth/auto-login`,
+          { withCredentials: true }
+        );
 
         if (data.user) {
           navigate("/");
@@ -78,16 +81,20 @@ const SignUp = () => {
 
     const { nickname, contact, birthday, occupation } = inputValue;
 
-    const { data } = await axios.post("/auth/sign-up", {
-      user: {
-        email: signUpInfo.email,
-        profileUrl: signUpInfo.profileUrl,
-        nickname,
-        contact,
-        birthday,
-        occupation,
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_SERVER_URI}/auth/sign-up`,
+      {
+        user: {
+          email: signUpInfo.email,
+          profileUrl: signUpInfo.profileUrl,
+          nickname,
+          contact,
+          birthday,
+          occupation,
+        },
       },
-    });
+      { withCredentials: true }
+    );
 
     if (data.result === "ok") {
       setMessage("");

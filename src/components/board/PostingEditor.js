@@ -124,16 +124,20 @@ const PostingEditor = () => {
     const splitedHashtags = hashtags.split(",").map(hash => hash.trim());
 
     if (isEditing) {
-      const { data } = await axios.put(`/posting/${postingId}`, {
-        posting: {
-          title,
-          content,
-          hashtags: splitedHashtags,
-          regions,
-          logOption,
-          imageUrl: latestPhotoUrl,
+      const { data } = await axios.put(
+        `${process.env.REACT_APP_SERVER_URI}/posting/${postingId}`,
+        {
+          posting: {
+            title,
+            content,
+            hashtags: splitedHashtags,
+            regions,
+            logOption,
+            imageUrl: latestPhotoUrl,
+          },
         },
-      });
+        { withCredentials: true }
+      );
 
       if (data.error) {
         return <ResponseMessage message={data.error.message} />;
@@ -147,18 +151,22 @@ const PostingEditor = () => {
       return;
     }
 
-    const { data } = await axios.post("/posting/new", {
-      posting: {
-        title,
-        createdBy: user.nickname,
-        content,
-        hashtags: splitedHashtags,
-        regions,
-        logOption,
-        imageUrl,
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_SERVER_URI}/posting/new`,
+      {
+        posting: {
+          title,
+          createdBy: user.nickname,
+          content,
+          hashtags: splitedHashtags,
+          regions,
+          logOption,
+          imageUrl,
+        },
+        user: user.id,
       },
-      user: user.id,
-    });
+      { withCredentials: true }
+    );
 
     if (data.error) {
       setResultMsg(
@@ -261,7 +269,7 @@ const TitleInput = styled.input`
   border: none;
   border-bottom: 1px solid gray;
   font-size: 20px;
-  &:hover : {
+  &:hover {
     backgroundcolor: #f8fff8;
   }
   &:focus {
@@ -274,6 +282,12 @@ const HashTagInput = styled.input`
   border: none;
   border-bottom: 1px dotted gray;
   font-size: 15px;
+  &:hover {
+    backgroundcolor: #f8fff8;
+  }
+  &:focus {
+    outline: none;
+  }
 `;
 
 const RegionCheck = styled.div`

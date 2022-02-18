@@ -25,7 +25,10 @@ const Comment = ({ comment, onSet }) => {
   const deleteComment = (commentId, photoId) => {
     setIsDelete(false);
 
-    return axios.delete(`/comment/${commentId}?photo=${photoId}`);
+    return axios.delete(
+      `${process.env.REACT_APP_SERVER_URI}/comment/${commentId}?photo=${photoId}`,
+      { withCredentials: true }
+    );
   };
 
   const { data, isLoading, isFetching, isError } = useQuery(

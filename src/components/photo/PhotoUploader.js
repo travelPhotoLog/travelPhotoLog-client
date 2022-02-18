@@ -75,11 +75,16 @@ const PhotoUploader = () => {
     formData.append("point", JSON.stringify(point));
     formData.append("map", mapId);
 
-    const { data } = await axios.post("/photo/new", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_SERVER_URI}/photo/new`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      }
+    );
 
     if (data.result === "ok") {
       setIsUpload(true);

@@ -18,7 +18,9 @@ const PostingPhotoList = () => {
   const navigate = useNavigate();
 
   const getPhotos = id => {
-    return axios.get(`/map/${id}/photos`);
+    return axios.get(`${process.env.REACT_APP_SERVER_URI}/map/${id}/photos`, {
+      withCredentials: true,
+    });
   };
 
   const { data, isLoading, isFetching } = useQuery(

@@ -35,10 +35,12 @@ const PhotoList = () => {
 
   const getPhotos = (query, mapId) => {
     const queryForMapList = `${query}&map=${mapId}`;
-    const url = `/point/photos${decodeURI(queryForMapList)}`;
+    const url = `${process.env.REACT_APP_SERVER_URI}/point/photos${decodeURI(
+      queryForMapList
+    )}`;
     dispatch(urlAction.setUrl({ url }));
 
-    return axios.get(url);
+    return axios.get(url, { withCredentials: true });
   };
 
   const { data, isLoading, isFetching, isError, error } = useQuery(

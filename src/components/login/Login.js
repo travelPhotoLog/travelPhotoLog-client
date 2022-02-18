@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import GoogleButton from "react-google-button";
+import Cookies from "universal-cookie";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import styled from "styled-components";
+import axios from "axios";
 
-import axios from "../../api/axiosInstance";
 import { signUpActions } from "../../features/signupSlice";
 import { authentication } from "../../utils/firebase";
 import { userActions } from "../../features/userSlice";
@@ -15,12 +16,12 @@ import ResponseMessage from "../common/ResponseMessage";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [errorMessage, setErrorMessage] = useState("");
   const [user, setUser] = useState({
     email: "",
     photoURL: "",
   });
-  const [errorMessage, setErrorMessage] = useState("");
+  const cookies = new Cookies();
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
@@ -31,34 +32,47 @@ const Login = () => {
     setUser({ email, photoURL });
   };
 
-  useEffect(() => {
-    const getLoginUser = async () => {
-      try {
-        const { data } = await axios.get("/auth/auto-login");
+  // useEffect(() => {
+  //   const getLoginUser = async () => {
+  //     try {
+  //       const { data } = await axios.get("/auth/auto-login");
 
-        if (data.user) {
-          navigate("/");
-          return;
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  //       if (data.user) {
+  //         navigate("/");
+  //         return;
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-    getLoginUser();
-  }, []);
+  //   getLoginUser();
+  // }, []);
 
   useEffect(async () => {
     if (!user.email) {
-      console.log(111111393939);
       return;
     }
 
     const { data } = await axios.post("/auth/login", { email: user.email });
-    console.log(121212121212, user);
 
     if (data.user) {
-      console.log(333333);
+      if (data.accessToken) {
+        cookies.set("accessToken", data.accessToken, {
+          path: "/",
+          // httpOnly: true,
+          maxAge: 14 * 24 * 60 * 60,
+        });
+      }
+
+      if (data.refreshToken) {
+        cookies.set("refreshToken", data.refreshToken, {
+          path: "/",
+          // httpOnly: true,
+          maxAge: 14 * 24 * 60 * 60,
+        });
+      }
+
       dispatch(userActions.updateUser(data.user));
       navigate(-1);
 
@@ -66,7 +80,6 @@ const Login = () => {
     }
 
     if (data.result === RESPONSE_MESSAGE.USER_NOT_EXIST) {
-      console.log(4444444);
       dispatch(
         signUpActions.saveSignUpInfo({
           email: user.email,
@@ -79,13 +92,11 @@ const Login = () => {
     }
 
     if (data.result === RESPONSE_MESSAGE.RELOGIN_REQUIRED) {
-      console.log(555555);
       navigate("/auth/login");
       return;
     }
 
     if (data.error) {
-      console.log(666666);
       if (data.error.code === 400) {
         setErrorMessage(ERROR_MESSAGE.BAD_REQUEST);
         return;

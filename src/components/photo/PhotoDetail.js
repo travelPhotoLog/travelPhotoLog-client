@@ -6,8 +6,8 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import styled, { ThemeProvider } from "styled-components";
 import PropTypes from "prop-types";
 import dayjs from "dayjs";
-import axios from "axios";
 
+import axios from "../../api/axiosInstance";
 import { ERROR_MESSAGE, LOADING_MESSAGE } from "../../constants";
 import { photoActions } from "../../features/photoSlice";
 import theme from "../../styles/theme";
@@ -59,10 +59,7 @@ const PhotoDetail = () => {
   const date = dayjs(createdAt).format("YYYY년 MM월 DD일 HH:mm:ss");
 
   const deletePhoto = (id, mapId) => {
-    return axios.delete(
-      `${process.env.REACT_APP_SERVER_URI}/photo/${id}?map=${mapId}`,
-      { withCredentials: true }
-    );
+    return axios.delete(`/photo/${id}?map=${mapId}`);
   };
 
   const onSuccess = () => {

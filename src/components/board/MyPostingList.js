@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
-import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
+import axios from "../../api/axiosInstance";
 import { ERROR_MESSAGE } from "../../constants";
 import theme from "../../styles/theme";
 import ResponseMessage from "../common/ResponseMessage";
@@ -21,10 +21,7 @@ const MyPostingList = () => {
     const getMyPostings = async pageNum => {
       try {
         const response = (
-          await axios.get(
-            `${process.env.REACT_APP_SERVER_URI}/user/${user.id}/postings?page=${pageNum}`,
-            { withCredentials: true }
-          )
+          await axios.get(`/user/${user.id}/postings?page=${pageNum}`)
         )?.data;
 
         if (response.postings) {

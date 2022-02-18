@@ -2,16 +2,14 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { FcPlus } from "react-icons/fc";
-import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
+import axios from "../../api/axiosInstance";
 import theme from "../../styles/theme";
 import Member from "./Member";
 
 const getMembers = id => {
-  return axios.get(`${process.env.REACT_APP_SERVER_URI}/map/${id}/members`, {
-    withCredentials: true,
-  });
+  return axios.get(`/map/${id}/members`);
 };
 
 const MemberList = () => {

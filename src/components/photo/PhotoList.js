@@ -3,9 +3,9 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { FcPlus } from "react-icons/fc";
 import styled, { ThemeProvider } from "styled-components";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 
+import axios from "../../api/axiosInstance";
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE, LOADING_MESSAGE } from "../../constants";
 import ResponseMessage from "../common/ResponseMessage";
@@ -35,12 +35,10 @@ const PhotoList = () => {
 
   const getPhotos = (query, mapId) => {
     const queryForMapList = `${query}&map=${mapId}`;
-    const url = `${process.env.REACT_APP_SERVER_URI}/point/photos${decodeURI(
-      queryForMapList
-    )}`;
+    const url = `/point/photos${decodeURI(queryForMapList)}`;
     dispatch(urlAction.setUrl({ url }));
 
-    return axios.get(url, { withCredentials: true });
+    return axios.get(url);
   };
 
   const { data, isLoading, isFetching, isError, error } = useQuery(

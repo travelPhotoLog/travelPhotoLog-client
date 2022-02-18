@@ -2,9 +2,9 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 
+import axios from "../../api/axiosInstance";
 import { postingPhotoActions } from "../../features/postingPhotoSlice";
 import { ERROR_MESSAGE, LOADING_MESSAGE } from "../../constants";
 import ResponseMessage from "../common/ResponseMessage";
@@ -18,9 +18,7 @@ const PostingPhotoList = () => {
   const navigate = useNavigate();
 
   const getPhotos = id => {
-    return axios.get(`${process.env.REACT_APP_SERVER_URI}/map/${id}/photos`, {
-      withCredentials: true,
-    });
+    return axios.get(`/map/${id}/photos`);
   };
 
   const { data, isLoading, isFetching } = useQuery(

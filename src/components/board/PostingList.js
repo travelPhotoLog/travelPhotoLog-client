@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
-import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
+import axios from "../../api/axiosInstance";
 import { ERROR_MESSAGE } from "../../constants";
 import theme from "../../styles/theme";
 import ResponseMessage from "../common/ResponseMessage";
@@ -21,18 +21,13 @@ const PostingList = () => {
     const getPostings = async (region, tag, pageNum) => {
       let response;
 
-      const filteredPostingEndPoint = `${process.env.REACT_APP_SERVER_URI}/posting/search?region=${region}&hashtag=${tag}&page=${pageNum}`;
-      const allPostingEndPoint = `${process.env.REACT_APP_SERVER_URI}/posting?page=${pageNum}`;
+      const filteredPostingEndPoint = `/posting/search?region=${region}&hashtag=${tag}&page=${pageNum}`;
+      const allPostingEndPoint = `/posting?page=${pageNum}`;
       try {
         response =
           region || tag
-            ? (
-                await axios.get(filteredPostingEndPoint, {
-                  withCredentials: true,
-                })
-              ).data
-            : (await axios.get(allPostingEndPoint), { withCredentials: true })
-                .data;
+            ? (await axios.get(filteredPostingEndPoint)).data
+            : (await axios.get(allPostingEndPoint)).data;
 
         if (response.postings) {
           const { postings, totalPages } = response;

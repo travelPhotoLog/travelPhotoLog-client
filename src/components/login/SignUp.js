@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
-import axios from "axios";
 
+import axios from "../../api/axiosInstance";
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
 import {
@@ -38,10 +38,7 @@ const SignUp = () => {
   useEffect(() => {
     const getLoginUser = async () => {
       try {
-        const { data } = await axios.get(
-          `${process.env.REACT_APP_SERVER_URI}/auth/auto-login`,
-          { withCredentials: true }
-        );
+        const { data } = await axios.get("/auth/auto-login");
 
         if (data.user) {
           navigate("/");
@@ -81,20 +78,16 @@ const SignUp = () => {
 
     const { nickname, contact, birthday, occupation } = inputValue;
 
-    const { data } = await axios.post(
-      `${process.env.REACT_APP_SERVER_URI}/auth/sign-up`,
-      {
-        user: {
-          email: signUpInfo.email,
-          profileUrl: signUpInfo.profileUrl,
-          nickname,
-          contact,
-          birthday,
-          occupation,
-        },
+    const { data } = await axios.post("/auth/sign-up", {
+      user: {
+        email: signUpInfo.email,
+        profileUrl: signUpInfo.profileUrl,
+        nickname,
+        contact,
+        birthday,
+        occupation,
       },
-      { withCredentials: true }
-    );
+    });
 
     if (data.result === "ok") {
       setMessage("");

@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import styled, { ThemeProvider } from "styled-components";
-import axios from "axios";
 
+import axios from "../api/axiosInstance";
 import { userActions } from "../features/userSlice";
 import theme from "../styles/theme";
 import Button from "./common/Button";
@@ -19,9 +19,7 @@ const Header = () => {
   const cookies = new Cookies();
 
   const checkUserLogin = () => {
-    return axios.post(`${process.env.REACT_APP_SERVER_URI}/auth/auto-login`, {
-      withCredentials: true,
-    });
+    return axios.post("/auth/auto-login");
   };
 
   const onSuccess = data => {
@@ -62,10 +60,7 @@ const Header = () => {
 
   const handleLogoutClick = async () => {
     try {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_SERVER_URI}/auth/logout`,
-        { withCredentials: true }
-      );
+      const { data } = await axios.post("/auth/logout");
 
       if (data.result === "ok") {
         dispatch(userActions.deleteUser());

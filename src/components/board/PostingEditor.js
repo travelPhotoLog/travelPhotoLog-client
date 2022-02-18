@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
+import axios from "../../api/axiosInstance";
 import { postingPhotoActions } from "../../features/postingPhotoSlice";
 import theme from "../../styles/theme";
 import { StyledButton } from "../common/CommonStyle";
@@ -124,20 +124,16 @@ const PostingEditor = () => {
     const splitedHashtags = hashtags.split(",").map(hash => hash.trim());
 
     if (isEditing) {
-      const { data } = await axios.put(
-        `${process.env.REACT_APP_SERVER_URI}/posting/${postingId}`,
-        {
-          posting: {
-            title,
-            content,
-            hashtags: splitedHashtags,
-            regions,
-            logOption,
-            imageUrl: latestPhotoUrl,
-          },
+      const { data } = await axios.put(`/posting/${postingId}`, {
+        posting: {
+          title,
+          content,
+          hashtags: splitedHashtags,
+          regions,
+          logOption,
+          imageUrl: latestPhotoUrl,
         },
-        { withCredentials: true }
-      );
+      });
 
       if (data.error) {
         return <ResponseMessage message={data.error.message} />;
@@ -151,22 +147,18 @@ const PostingEditor = () => {
       return;
     }
 
-    const { data } = await axios.post(
-      `${process.env.REACT_APP_SERVER_URI}/posting/new`,
-      {
-        posting: {
-          title,
-          createdBy: user.nickname,
-          content,
-          hashtags: splitedHashtags,
-          regions,
-          logOption,
-          imageUrl,
-        },
-        user: user.id,
+    const { data } = await axios.post("/posting/new", {
+      posting: {
+        title,
+        createdBy: user.nickname,
+        content,
+        hashtags: splitedHashtags,
+        regions,
+        logOption,
+        imageUrl,
       },
-      { withCredentials: true }
-    );
+      user: user.id,
+    });
 
     if (data.error) {
       setResultMsg(

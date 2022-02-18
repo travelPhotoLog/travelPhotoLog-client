@@ -92,6 +92,7 @@ const MapDetail = () => {
     {
       onSuccess,
       select: response => response.data,
+      cacheTime: 1000000,
     }
   );
 

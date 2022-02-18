@@ -2,9 +2,9 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import styled from "styled-components";
+import axios from "axios";
 import { useDispatch } from "react-redux";
 
-import axios from "../../api/axiosInstance";
 import { postingPhotoActions } from "../../features/postingPhotoSlice";
 import { ERROR_MESSAGE, LOADING_MESSAGE } from "../../constants";
 import ResponseMessage from "../common/ResponseMessage";

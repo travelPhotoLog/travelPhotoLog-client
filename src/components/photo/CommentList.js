@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
-import axios from "../../api/axiosInstance";
 import { ERROR_MESSAGE } from "../../constants";
 import theme from "../../styles/theme";
 import Message from "../common/Message";

@@ -6,7 +6,8 @@
   "extends": [
     "airbnb",
     "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:cypress/recommended"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -43,6 +44,14 @@
     "consistent-return": "off",
     "no-underscore-dangle": "off",
     "no-plusplus": "off",
+    "no-unused-expressions": "off",
+    "cypress/no-unnecessary-waiting": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
     "import/order": [
       "error",
       {

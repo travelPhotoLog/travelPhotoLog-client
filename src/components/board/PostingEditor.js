@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
-import axios from "../../api/axiosInstance";
 import { postingPhotoActions } from "../../features/postingPhotoSlice";
 import theme from "../../styles/theme";
 import { StyledButton } from "../common/CommonStyle";
@@ -273,7 +273,7 @@ const TitleInput = styled.input`
   border: none;
   border-bottom: 1px solid gray;
   font-size: 20px;
-  &:hover : {
+  &:hover {
     backgroundcolor: #f8fff8;
   }
   &:focus {
@@ -285,7 +285,7 @@ const HashTagInput = styled.input`
   border: none;
   border-bottom: 1px dotted gray;
   font-size: 15px;
-  &:hover : {
+  &:hover {
     backgroundcolor: #f8fff8;
   }
   &:focus {

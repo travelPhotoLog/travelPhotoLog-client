@@ -162,7 +162,7 @@ const Container = styled.div`
   ${({ theme }) => theme.container.flexEnd};
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   background-color: transparent;
 `;
 

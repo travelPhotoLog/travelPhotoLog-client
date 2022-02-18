@@ -122,6 +122,8 @@ const Container = styled.div`
   border: 1px double #ebedf2;
   background: white;
   border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
 `;
 
 const ImageContainer = styled.div`

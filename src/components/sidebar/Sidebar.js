@@ -56,7 +56,7 @@ const Container = styled.div`
   position: fixed;
   z-index: 999;
   width: 300px;
-  height: 54.4rem;
+  height: 90vh;
   transition: 0.8s ease;
   &.hide {
     left: -300px;

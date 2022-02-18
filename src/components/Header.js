@@ -94,7 +94,7 @@ export default Header;
 const HeaderContainer = styled.div`
   ${({ theme }) => theme.container.flexSpaceBetween};
   width: 100%;
-  height: 5rem;
+  height: 10vh;
   background-color: #ebedf2;
 `;
 

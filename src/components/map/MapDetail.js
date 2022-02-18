@@ -4,8 +4,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import GoogleMapReact from "google-map-react";
 import MarkerClusterer from "@google/markerclustererplus";
 import styled, { ThemeProvider } from "styled-components";
-import axios from "axios";
 
+import axios from "../../api/axiosInstance";
 import { socket } from "../../socket";
 import theme from "../../styles/theme";
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
@@ -52,9 +52,7 @@ const MapDetail = () => {
   };
 
   const getPoints = id => {
-    return axios.get(`${process.env.REACT_APP_SERVER_URI}/map/${id}/points`, {
-      withCredentials: true,
-    });
+    return axios.get(`/map/${id}/points`);
   };
 
   const onSuccess = data => {

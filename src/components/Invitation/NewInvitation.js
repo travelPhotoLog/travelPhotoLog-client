@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
+import axios from "../../api/axiosInstance";
 import {
   ERROR_MESSAGE,
   RESPONSE_MESSAGE,
@@ -41,13 +41,9 @@ const NewInvitation = () => {
   };
 
   const sendEmail = (id, email) => {
-    return axios.put(
-      `${process.env.REACT_APP_SERVER_URI}/map/${id}/invitation`,
-      {
-        email,
-      },
-      { withCredentials: true }
-    );
+    return axios.put(`/map/${id}/invitation`, {
+      email,
+    });
   };
 
   const { data, isLoading, isError, error, isFetching, refetch } = useQuery(

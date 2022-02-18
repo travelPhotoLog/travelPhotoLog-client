@@ -1,16 +1,13 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 
+import axios from "../../api/axiosInstance";
 import ResponseMessage from "../common/ResponseMessage";
 import { ERROR_MESSAGE } from "../../constants";
 
 const getInvitationResult = (id, token) => {
-  return axios.put(
-    `${process.env.REACT_APP_SERVER_URI}/map/${id}/invitation/${token}`,
-    { withCredentials: true }
-  );
+  return axios.put(`/map/${id}/invitation/${token}`);
 };
 
 const InvitationResult = () => {

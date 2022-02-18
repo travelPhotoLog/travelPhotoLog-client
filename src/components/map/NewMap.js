@@ -3,8 +3,8 @@ import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
-import axios from "axios";
 
+import axios from "../../api/axiosInstance";
 import theme from "../../styles/theme";
 import Modal from "../common/Modal";
 
@@ -15,14 +15,10 @@ const NewMap = () => {
   const { id } = useSelector(state => state.user.user);
 
   const createNewMap = () => {
-    return axios.post(
-      `${process.env.REACT_APP_SERVER_URI}/map/new`,
-      {
-        map: { title: mapTitle },
-        user: id,
-      },
-      { withCredentials: true }
-    );
+    return axios.post("/map/new", {
+      map: { title: mapTitle },
+      user: id,
+    });
   };
 
   const onSuccess = () => {

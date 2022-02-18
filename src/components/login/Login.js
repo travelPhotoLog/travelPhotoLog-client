@@ -5,8 +5,8 @@ import GoogleButton from "react-google-button";
 import Cookies from "universal-cookie";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import styled from "styled-components";
-import axios from "axios";
 
+import axios from "../../api/axiosInstance";
 import { signUpActions } from "../../features/signupSlice";
 import { authentication } from "../../utils/firebase";
 import { userActions } from "../../features/userSlice";
@@ -37,11 +37,7 @@ const Login = () => {
       return;
     }
 
-    const { data } = await axios.post(
-      `${process.env.REACT_APP_SERVER_URI}/auth/login`,
-      { email: user.email },
-      { withCredentials: true }
-    );
+    const { data } = await axios.post("/auth/login", { email: user.email });
 
     if (data.user) {
       if (data.accessToken) {

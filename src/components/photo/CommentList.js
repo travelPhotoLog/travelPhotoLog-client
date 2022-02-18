@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
+import axios from "../../api/axiosInstance";
 import { ERROR_MESSAGE } from "../../constants";
 import theme from "../../styles/theme";
 import Message from "../common/Message";
@@ -20,7 +20,7 @@ const CommentList = () => {
 
   useEffect(async () => {
     try {
-      const { photos } = (await axios.get(url, { withCredentials: true })).data;
+      const { photos } = (await axios.get(url)).data;
 
       setPhotos(photos);
       setCommentList(photos[index].comments);
@@ -51,14 +51,10 @@ const CommentList = () => {
 
     try {
       const { comments } = (
-        await axios.post(
-          `${process.env.REACT_APP_SERVER_URI}/comment/new`,
-          {
-            comment,
-            photo: photos[index].id,
-          },
-          { withCredentials: true }
-        )
+        await axios.post("/comment/new", {
+          comment,
+          photo: photos[index].id,
+        })
       ).data;
 
       setCommentList(comments);

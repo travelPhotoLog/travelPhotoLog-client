@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { useQuery, useQueryClient } from "react-query";
 import Proptypes from "prop-types";
 import dayjs from "dayjs";
-import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 
+import axios from "../../api/axiosInstance";
 import { ERROR_MESSAGE, RESPONSE_MESSAGE } from "../../constants";
 import theme from "../../styles/theme";
 
@@ -25,10 +25,7 @@ const Comment = ({ comment, onSet }) => {
   const deleteComment = (commentId, photoId) => {
     setIsDelete(false);
 
-    return axios.delete(
-      `${process.env.REACT_APP_SERVER_URI}/comment/${commentId}?photo=${photoId}`,
-      { withCredentials: true }
-    );
+    return axios.delete(`/comment/${commentId}?photo=${photoId}`);
   };
 
   const { data, isLoading, isFetching, isError } = useQuery(

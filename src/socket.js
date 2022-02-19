@@ -11,7 +11,7 @@ socket.on("connect", () => {
 });
 
 socket.on("disconnect", () => {
-  console.log("socket is disconnected");
+  console.log("socket is connected");
 });
 
 export { socket, SocketContext };

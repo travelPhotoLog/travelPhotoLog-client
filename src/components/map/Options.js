@@ -48,7 +48,7 @@ const Option = styled.button`
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
   color: #5a6151;
   background-color: #f5f1e1;
-  font-size: ${({ theme }) => theme.fontSizes.titleSize};
+  font-size: 2rem;
   font-weight: bold;
   cursor: pointer;
   &:hover {

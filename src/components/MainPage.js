@@ -26,7 +26,7 @@ const BackgroundContainer = styled.div`
   height: 70vh;
   padding: ${({ theme }) => theme.spacing.xxxl};
   padding-top: 70px;
-  background-image: url("https://travelphotolog.s3.ap-northeast-2.amazonaws.com/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A1.jpeg");
+  background-image: url("https://travelphotolog.s3.ap-northeast-2.amazonaws.com/%EC%BF%A0%EB%B0%94.jpeg");
   background-position: center;
   background-size: contain;
   opacity: 0.3;

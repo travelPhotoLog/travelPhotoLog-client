@@ -22,7 +22,7 @@ const LOADING_MESSAGE = Object.freeze({
 });
 
 const DEFAULT_POSTING_IMG =
-  "https://t1.daumcdn.net/cfile/tistory/99D77C485C6A8D042C";
+  "https://travelphotolog.s3.ap-northeast-2.amazonaws.com/travel.png";
 
 export {
   ERROR_MESSAGE,
